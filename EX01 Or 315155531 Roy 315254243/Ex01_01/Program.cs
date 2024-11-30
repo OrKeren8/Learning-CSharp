@@ -11,6 +11,7 @@ namespace Ex01_01
         static void Main()
         {
             UserInterface.BinarySeries();
+            Console.ReadLine();
         }
     }
 }

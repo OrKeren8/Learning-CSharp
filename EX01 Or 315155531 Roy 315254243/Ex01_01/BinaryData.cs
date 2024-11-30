@@ -1,4 +1,8 @@
-﻿namespace Ex01_01
+﻿
+
+using System;
+
+namespace Ex01_01
 {
     internal class BinaryData
     {
@@ -25,6 +29,18 @@
         private static bool checkBinaryDigit(char i_binaryDigit)
         {
             return (i_binaryDigit == '0' || i_binaryDigit == '1');
+        }
+
+        public static int convertBinaryNumberToInt(string i_binaryNumber)
+        {
+            int convertedNumber = 0;
+            int binaryNumLen = i_binaryNumber.Length;
+
+            for (int i=0; i<binaryNumLen; i++)
+            {
+                convertedNumber += (int)((i_binaryNumber[binaryNumLen - i - 1] - '0') * Math.Pow(2, i));
+            }
+            return convertedNumber;
         }
     }
 }
