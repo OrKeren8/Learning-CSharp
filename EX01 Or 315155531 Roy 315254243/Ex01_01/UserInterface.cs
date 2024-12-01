@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Linq;
-using System.Security.AccessControl;
 
 namespace Ex01_01
 {
@@ -23,7 +20,9 @@ namespace Ex01_01
                 decimalNumbersArr[i] = BinaryData.convertBinaryNumberToInt(binaryNumbersArr[i]);
             }
 
-            Array.Sort(decimalNumbersArr);  //maybe we would need to create our own
+            Array.Sort(decimalNumbersArr);
+            Array.Sort(binaryNumbersArr);
+
             printNumbers(decimalNumbersArr);
             printStatistics(decimalNumbersArr, binaryNumbersArr);
         }
@@ -48,11 +47,12 @@ namespace Ex01_01
             {
                 Console.Write(number + " ");
             }
+            Console.WriteLine();
         }
 
         private static void printStatistics(int[] i_numbers, string[] i_binaryNumbers)
         {
-            Console.WriteLine($"The avarage of the numbres is: {Statistics.NumbersArrAverage(i_numbers)}");
+            Console.WriteLine($"The avarage of the numbres is: {Statistics.NumbersArrAverage(i_numbers):F2}");
             (int numIndex, int longestStrike) = Statistics.LongestBitStrike(i_binaryNumbers);
             Console.WriteLine($"The longest strike of bits is: {longestStrike} ({i_binaryNumbers[numIndex]})");
             int[] swapsAmount = Statistics.MaxDigitSwaps(i_binaryNumbers);
@@ -65,7 +65,6 @@ namespace Ex01_01
             int numIndexWithMaxZeroes = Statistics.findNumWithMostZeroes(i_binaryNumbers);
             Console.WriteLine($"The number with most zeroes and the least amount of ones is:");
             Console.WriteLine($"{i_numbers[numIndexWithMaxZeroes]} (binary: {i_binaryNumbers[numIndexWithMaxZeroes]})");
-
         }
     }
 }   
