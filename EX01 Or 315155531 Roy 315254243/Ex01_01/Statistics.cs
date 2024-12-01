@@ -20,16 +20,16 @@ namespace Ex01_01
             return sum / i_numbersArrr.Length;
         }
 
-        public static (int binaryNumIndex, int maxStrikeLen) LongestBitStrike(string[] i_boolNumbers)
+        public static (int binaryNumIndex, int maxStrikeLen) LongestBitStrike(string[] i_binaryNumbers)
         {
             int maxStrikeLen = 0, currStrikeLen, binaryNumIndxWithMaxLen = -1;
             
-            for (int i=0; i< i_boolNumbers.Length; i++)
+            for (int i=0; i< i_binaryNumbers.Length; i++)
             {
                 currStrikeLen = 1;
-                for (int j=1; j< i_boolNumbers[i].Length; j++)
+                for (int j=1; j< i_binaryNumbers[i].Length; j++)
                 {
-                    if (i_boolNumbers[i][j] == i_boolNumbers[i][j-1])
+                    if (i_binaryNumbers[i][j] == i_binaryNumbers[i][j-1])
                     {
                         currStrikeLen++;
                         if (maxStrikeLen < currStrikeLen)
@@ -48,16 +48,16 @@ namespace Ex01_01
             return (binaryNumIndxWithMaxLen, maxStrikeLen);
         }
 
-        public static int[] MaxDigitSwaps(string[] i_boolNumbers)
+        public static int[] MaxDigitSwaps(string[] i_binaryNumbers)
         {
-            int[] bitSwapsAmount = new int[i_boolNumbers.Length]; //initialized to zeroes with new
+            int[] bitSwapsAmount = new int[i_binaryNumbers.Length]; //initialized to zeroes with new
 
 
-            for (int i = 0; i < i_boolNumbers.Length; i++)
+            for (int i = 0; i < i_binaryNumbers.Length; i++)
             {
-                for (int j = 1; j < i_boolNumbers[i].Length; j++)
+                for (int j = 1; j < i_binaryNumbers[i].Length; j++)
                 {
-                    if (i_boolNumbers[i][j] != i_boolNumbers[i][j - 1])
+                    if (i_binaryNumbers[i][j] != i_binaryNumbers[i][j - 1])
                     {
                         bitSwapsAmount[i]++;
                     }
@@ -67,5 +67,28 @@ namespace Ex01_01
             return bitSwapsAmount;
         }
 
+        public static int findNumWithMostZeroes(string[] i_binaryNumbers)
+        {
+            int maxZeroAmount = 0, currZeroAmount, bestZeroNumIndex = -1;
+
+            for (int i=0; i<i_binaryNumbers.Length; i++)
+            {
+                currZeroAmount = 0;
+                for(int j=0; j < i_binaryNumbers[i].Length; j++)
+                {
+                    if (i_binaryNumbers[i][j] == '0')
+                    {
+                        currZeroAmount++;
+                    }
+                }
+                if (currZeroAmount > maxZeroAmount)
+                {
+                    maxZeroAmount = currZeroAmount;
+                    bestZeroNumIndex = i;  
+                }
+            }
+
+            return bestZeroNumIndex;
+        }
     }
 }

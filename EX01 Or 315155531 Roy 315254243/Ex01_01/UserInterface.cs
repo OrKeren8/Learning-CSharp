@@ -50,18 +50,21 @@ namespace Ex01_01
             }
         }
 
-        private static void printStatistics(int[] i_numbers, string[] i_boolNumbers)
+        private static void printStatistics(int[] i_numbers, string[] i_binaryNumbers)
         {
             Console.WriteLine($"The avarage of the numbres is: {Statistics.NumbersArrAverage(i_numbers)}");
-            (int numIndex, int longestStrike) = Statistics.LongestBitStrike(i_boolNumbers);
-            Console.WriteLine($"The longest strike of bits is: {longestStrike} ({i_boolNumbers[numIndex]})");
-            int[] swapsAmount = Statistics.MaxDigitSwaps(i_boolNumbers);
+            (int numIndex, int longestStrike) = Statistics.LongestBitStrike(i_binaryNumbers);
+            Console.WriteLine($"The longest strike of bits is: {longestStrike} ({i_binaryNumbers[numIndex]})");
+            int[] swapsAmount = Statistics.MaxDigitSwaps(i_binaryNumbers);
             Console.Write("Num of swaps: ");
-            for (int i = 0; i< i_boolNumbers.Length; i++)
+            for (int i = 0; i< i_binaryNumbers.Length; i++)
             {
-                Console.Write($"{swapsAmount[i]}({i_boolNumbers[i]}) ");
+                Console.Write($"{swapsAmount[i]}({i_binaryNumbers[i]}) ");
             }
             Console.WriteLine();
+            int numIndexWithMaxZeroes = Statistics.findNumWithMostZeroes(i_binaryNumbers);
+            Console.WriteLine($"The number with most zeroes and the least amount of ones is:");
+            Console.WriteLine($"{i_numbers[numIndexWithMaxZeroes]} (binary: {i_binaryNumbers[numIndexWithMaxZeroes]})");
 
         }
     }
