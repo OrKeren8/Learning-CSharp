@@ -10,7 +10,7 @@ namespace Ex01_01
     {
         public static double NumbersArrAverage(int[] i_numbersArrr)
         {
-            int sum = 0;
+            double sum = 0;
             
             for (int i = 0; i < i_numbersArrr.Length; i++)
             {

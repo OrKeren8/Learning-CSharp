@@ -1,13 +1,13 @@
 ﻿using System;
 
 
-namespace Ex01_01
+namespace Ex01_02
 {
     class Program
     {
         static void Main()
         {
-            UserInterface.BinarySeries();
+            Tree.PrintTree(1, 30, 'A');
             Console.ReadLine();
         }
     }
