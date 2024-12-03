@@ -4,7 +4,7 @@ using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace Ex01_02
+namespace Ex01_02_and_03
 {
     internal class Tree
     {

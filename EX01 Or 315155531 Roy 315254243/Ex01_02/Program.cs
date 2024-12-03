@@ -1,7 +1,7 @@
 ﻿using System;
 
 
-namespace Ex01_02
+namespace Ex01_02_and_03
 {
     class Program
     {
