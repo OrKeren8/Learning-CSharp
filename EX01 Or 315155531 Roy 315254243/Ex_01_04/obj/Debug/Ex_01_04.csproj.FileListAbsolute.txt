@@ -1,0 +1,7 @@
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex_01_04\obj\Debug\Ex_01_04.csproj.AssemblyReference.cache
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex_01_04\obj\Debug\Ex_01_04.csproj.CoreCompileInputs.cache
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex_01_04\bin\Debug\Ex_01_04.exe.config
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex_01_04\bin\Debug\Ex_01_04.exe
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex_01_04\bin\Debug\Ex_01_04.pdb
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex_01_04\obj\Debug\Ex_01_04.exe
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex_01_04\obj\Debug\Ex_01_04.pdb
