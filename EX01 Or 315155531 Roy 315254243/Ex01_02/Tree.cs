@@ -11,7 +11,6 @@ namespace Ex01_02_and_03
 
         public static void PrintTree(int i_lineIndex, int i_maxLines, char i_startingLetter)
         {
-            
             int numOfLetters, numberOfSpaces;
             char currLetter = i_startingLetter;
 
