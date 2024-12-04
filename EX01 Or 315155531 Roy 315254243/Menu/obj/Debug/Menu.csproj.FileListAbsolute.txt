@@ -1,0 +1,7 @@
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Menu.exe.config
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Menu.exe
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Menu.pdb
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\obj\Debug\Menu.csproj.AssemblyReference.cache
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\obj\Debug\Menu.csproj.CoreCompileInputs.cache
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\obj\Debug\Menu.exe
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\obj\Debug\Menu.pdb

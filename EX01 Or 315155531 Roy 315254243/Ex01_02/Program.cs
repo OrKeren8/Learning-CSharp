@@ -11,6 +11,7 @@ namespace Ex01_02_and_03
             
             Tree.PrintTree(1, UserInterface.getTreeSize(), 'A');
             Console.ReadLine();
+            
         }
     }
 }
