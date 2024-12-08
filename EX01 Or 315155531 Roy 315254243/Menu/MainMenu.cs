@@ -1,7 +1,6 @@
 ﻿
 using System;
 using Utils;
-using Ex01_01;
 
 namespace Menu
 {
@@ -45,7 +44,7 @@ namespace Menu
                         loop = false;
                         break;
                     case eOptionsEx.BinaryInput:
-                        BinaryInputExercise.Run();
+                        Ex01_01.Program.Run();
                         break;
                 }
                 Console.WriteLine();
