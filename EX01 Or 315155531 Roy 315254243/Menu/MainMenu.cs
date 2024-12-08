@@ -52,7 +52,12 @@ namespace Menu
                     case eOptionsEx.DynamicTree:
                         Ex01_02_and_03.Program.Run();
                         break;
-
+                    case eOptionsEx.StringStatistics:
+                        Ex_01_04.Program.Run();
+                        break;
+                    case eOptionsEx.NumbersStatistics:
+                        Ex_01_04.Program.Run();
+                        break;
                 }
                 Console.WriteLine();
             }

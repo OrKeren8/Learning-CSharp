@@ -15,3 +15,6 @@ C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Ex01_02.dll
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Ex01_02.pdb
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Ex01_02.dll.config
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Ex_01_04.dll
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Ex_01_04.pdb
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Ex_01_04.dll.config

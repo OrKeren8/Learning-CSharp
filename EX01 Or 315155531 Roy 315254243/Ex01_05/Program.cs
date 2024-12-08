@@ -5,12 +5,9 @@ namespace Ex01_05
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Run(string[] args)
         {
-            while (true)
-            {
-                UserInterface.PrintStatistics();
-            }
+            UserInterface.PrintStatistics();
         }
     }
 }

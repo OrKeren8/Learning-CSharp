@@ -4,13 +4,9 @@ namespace Ex_01_04
 {
     public class Program
     {
-        static void Main()
+        public static void Run()
         {
             UserInterface.StringStatisticsChecker();
-            
-            Console.ReadLine();
-
-
         }
     }
 }

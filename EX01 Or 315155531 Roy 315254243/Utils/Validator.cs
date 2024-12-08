@@ -38,10 +38,42 @@ namespace Utils
             return false;
         }
 
+
+
         public static bool IsBinaryDataValidator(string i_string, params object[] i_Inputs) 
         {
             int binaryNumLen = (int)i_Inputs[0];
             return BinaryData.ValidateBinaryNumber(i_string ,binaryNumLen);
         }
+
+        public static bool StringValidator(string i_String, params object[] i_Inputs)
+        {
+            int stringSize = (int)i_Inputs[0];
+            bool isValidString = true;
+
+            if (i_String.Length != stringSize) 
+            {
+                isValidString = false;
+            }
+
+            return isValidString;
+        }
+
+        public static bool IsStringOfDigitsValidator(string i_String, params object[] i_Inputs)
+        {
+            bool isValdstring = false;
+            int numLen = (int)i_Inputs[0];
+
+            for (int i = 0; i < i_String.Length && isValdstring; i++)
+            {
+                if (!IsDigitNumberValidator(i_String[i]))
+                {
+                    isValdstring = false;
+                }
+            }
+            return (isValdstring && i_String.Length == numLen);
+        }
     }
 }
+
+

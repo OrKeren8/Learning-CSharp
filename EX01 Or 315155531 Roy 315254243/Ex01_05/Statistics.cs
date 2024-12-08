@@ -4,41 +4,45 @@ namespace Ex01_05
 {
     internal class Statistics
     {
-        public static int checkBiggerThenUnitDigit(string i_stringOfNum)
+        public static int checkBiggerThenUnitDigit(string i_StringOfNum)
         {
-            int len = i_stringOfNum.Length;
+            int len = i_StringOfNum.Length;
             int amountOfBigerThanUnit = 0;
-            for (int i = 0; i < i_stringOfNum.Length-1; i++)
+            
+            for (int i = 0; i < i_StringOfNum.Length-1; i++)
             {
-                if (i_stringOfNum[i] > i_stringOfNum[len-1])
+                if (i_StringOfNum[i] > i_StringOfNum[len-1])
                 {
                     amountOfBigerThanUnit++;
                 }
             }
+
             return amountOfBigerThanUnit;
         }
 
-        public static int checkDvidedBy4(string i_stringOfNum, int i_choosenMod)
+        public static int CheckDvidedByMod(string i_StringOfNum, int i_ChoosenMod)
         {
-            int len = i_stringOfNum.Length;
+            int len = i_StringOfNum.Length;
             int amountOfDiveders = 0;
-            for (int i = 0; i < i_stringOfNum.Length; i++)
+            
+            for (int i = 0; i < i_StringOfNum.Length; i++)
             {
-                if (i_stringOfNum[i]%i_choosenMod == 0)
+                if (i_StringOfNum[i]%i_ChoosenMod == 0)
                 {
                     amountOfDiveders++;
                 }
             }
+
             return amountOfDiveders;
         }
 
-        private static int getMinDigit(string i_stringOfNum)
+        private static int getMinDigit(string i_StringOfNum)
         {
             int minDigit = 10, currDigit;
 
-            for (int i = 0; i<i_stringOfNum.Length; i++)
+            for (int i = 0; i<i_StringOfNum.Length; i++)
             {
-                currDigit = i_stringOfNum[i] - '0';
+                currDigit = i_StringOfNum[i] - '0';
                 if ((currDigit != 0) && (currDigit < minDigit))
                 {
                     minDigit = currDigit;
@@ -53,13 +57,13 @@ namespace Ex01_05
             return minDigit;
         }
 
-        private static int getMaxDigit(string i_stringOfNum)
+        private static int getMaxDigit(string i_StringOfNum)
         {
             int maxDigit = -1, currDigit;
 
-            for (int i = 0; i < i_stringOfNum.Length; i++)
+            for (int i = 0; i < i_StringOfNum.Length; i++)
             {
-                currDigit = i_stringOfNum[i] - '0';
+                currDigit = i_StringOfNum[i] - '0';
                 if ((currDigit != 0) && (currDigit > maxDigit))
                 {
                     maxDigit = currDigit;
@@ -69,32 +73,34 @@ namespace Ex01_05
             return maxDigit;
         }
 
-        private static float getRatio(int i_divisor, int i_dividend)
+        private static float getRatio(int i_Divisor, int i_Dividend)
         {
             
-            if (i_dividend == 0)
+            if (i_Dividend == 0)
             {
                 throw new Exception("cannot devide by 0");
             }
-            return (float)i_divisor / i_dividend;
+         
+            return (float)i_Divisor / i_Dividend;
         }
 
-        public static float GetRatioMaxMin(string i_stringOfNum)
+        public static float GetRatioMaxMin(string i_StringOfNum)
         {
-            int min = getMinDigit(i_stringOfNum);
-            int max = getMaxDigit(i_stringOfNum);
+            int min = getMinDigit(i_StringOfNum);
+            int max = getMaxDigit(i_StringOfNum);
             float ratio = getRatio(max, min);
+            
             return ratio;
         }
 
-        public static int numOfPairs(string i_stringOfNum)
+        public static int NumOfPairs(string i_StringOfNum)
         {
             int numOfPairs = 0;
             int[] pairsSpecifierArr  = new int[10];  // num of digits
 
-            for (int i = 0; i < i_stringOfNum.Length; i++)
+            for (int i = 0; i < i_StringOfNum.Length; i++)
             {
-                pairsSpecifierArr[(i_stringOfNum[i] - '0')]++;
+                pairsSpecifierArr[(i_StringOfNum[i] - '0')]++;
             }
 
             for (int i = 0; i < 10; i++)

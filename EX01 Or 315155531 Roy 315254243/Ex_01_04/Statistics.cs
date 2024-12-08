@@ -5,18 +5,18 @@ namespace Ex_01_04
 {
     internal class Statistics
     {
-        public static bool CheckIfPalindrom(string i_string)
+        public static bool CheckIfPalindrom(string i_String)
         {
 
-            if (i_string.Length < 2)
+            if (i_String.Length < 2)
             {
                 return true;
             }
             else
             {
-                if (i_string[0] == i_string[i_string.Length - 1])
+                if (i_String[0] == i_String[i_String.Length - 1])
                 {
-                    return CheckIfPalindrom(i_string.Substring(1, i_string.Length - 2));
+                    return CheckIfPalindrom(i_String.Substring(1, i_String.Length - 2));
                 }
                 else
                 {
@@ -25,19 +25,19 @@ namespace Ex_01_04
             }
         }
 
-        public static eStringTypes CheckTypeOfString(string i_userInputString)
+        public static eStringTypes CheckTypeOfString(string i_UserInputString)
         {
             bool isAllLetters = true;
             bool isNumber = true;
             
             
-            for (int i = 0; i < i_userInputString.Length; i++)
+            for (int i = 0; i < i_UserInputString.Length; i++)
             {
-                if (!(IsLowerDigit(i_userInputString[i]) || IsUpperDigit(i_userInputString[i])))
+                if (!(Utils.Validator.IsLowerDigitValidator(i_UserInputString[i]) || Utils.Validator.IsUpperDigitValidator(i_UserInputString[i])))
                 {
                     isAllLetters = false;
                 }
-                if (!IsDigitNumber(i_userInputString[i]))
+                if (!(Utils.Validator.IsDigitNumberValidator(i_UserInputString[i])))
                 {
                     isNumber = false;
                 }
@@ -57,20 +57,6 @@ namespace Ex_01_04
 
         }
 
-        public static bool IsLowerDigit(char i_digit)
-        {
-            return (i_digit >= 'a' && i_digit <= 'z');
-        }
-
-        public static bool IsDigitNumber(char i_digit)
-        {
-            return (i_digit >= '0' && i_digit <= '9');
-        }
-
-        public static bool IsUpperDigit(char i_digit)
-        {
-            return (i_digit >= 'A' && i_digit <= 'Z');
-        }
         public enum eStringTypes
         {
             EnglishLetters = 1,
