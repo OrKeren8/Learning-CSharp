@@ -1,17 +1,19 @@
-﻿using Ex01_02;
-using System;
-
+﻿using System;
 
 namespace Ex01_02_and_03
 {
-    class Program
+    public class Program
     {
-        static void Main()
+        public static void Run(int i_TreeSize = -1)
         {
-            
-            Tree.PrintTree(1, UserInterface.getTreeSize(), 'A');
-            Console.ReadLine();
-            
+            if (i_TreeSize > 0) 
+            { 
+                Tree.PrintTree(1, i_TreeSize, 'A');
+            }
+            else
+            {
+                Tree.PrintTree(1, Tree.GetTreeSize(), 'A');
+            }
         }
     }
 }

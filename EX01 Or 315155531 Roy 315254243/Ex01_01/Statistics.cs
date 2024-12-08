@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Ex01_01
+﻿namespace Ex01_01
 {
     internal class Statistics
     {
@@ -51,7 +45,6 @@ namespace Ex01_01
         public static int[] MaxDigitSwaps(string[] i_binaryNumbers)
         {
             int[] bitSwapsAmount = new int[i_binaryNumbers.Length]; //initialized to zeroes with new
-
 
             for (int i = 0; i < i_binaryNumbers.Length; i++)
             {

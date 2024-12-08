@@ -8,6 +8,10 @@ namespace Ex01_02_and_03
 {
     internal class Tree
     {
+        protected const int k_MinTreeSize = 3;
+        protected const int k_MaxTreeSize = 15;
+
+        protected const int k_AmountEnglishLetters = 26;
 
         public static void PrintTree(int i_lineIndex, int i_maxLines, char i_startingLetter)
         {
@@ -44,7 +48,13 @@ namespace Ex01_02_and_03
         }
         private static char getNextLetter(char letter)
         {
-            return (char)(((letter - 'A' + 1) % 26) + 'A');
+            return (char)(((letter - 'A' + 1) % k_AmountEnglishLetters) + 'A');
+        }
+
+        public static int GetTreeSize()
+        {
+            Console.WriteLine($"Enter tree size from {k_MinTreeSize} to {k_MaxTreeSize}");
+            return int.Parse(Utils.UserInterface.GetValidUserInput(Utils.Validator.IsStringInRangeNumbersValidator, new object[] { 3, 15 }));
         }
     }
 }

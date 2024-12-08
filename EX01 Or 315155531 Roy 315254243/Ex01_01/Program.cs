@@ -1,6 +1,6 @@
 ﻿namespace Ex01_01
 {
-    public class BinaryInputExercise
+    public class Program
     {
         public static void Run()
         {

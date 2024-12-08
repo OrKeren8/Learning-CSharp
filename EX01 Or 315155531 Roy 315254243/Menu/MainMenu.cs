@@ -46,6 +46,13 @@ namespace Menu
                     case eOptionsEx.BinaryInput:
                         Ex01_01.Program.Run();
                         break;
+                    case eOptionsEx.StaticTree:
+                        Ex01_02_and_03.Program.Run(7);
+                        break;
+                    case eOptionsEx.DynamicTree:
+                        Ex01_02_and_03.Program.Run();
+                        break;
+
                 }
                 Console.WriteLine();
             }
