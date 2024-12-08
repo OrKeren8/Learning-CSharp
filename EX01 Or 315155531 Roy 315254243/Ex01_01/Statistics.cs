@@ -69,7 +69,7 @@ namespace Ex01_01
 
         public static int findNumWithMostZeroes(string[] i_binaryNumbers)
         {
-            int maxZeroAmount = 0, currZeroAmount, bestZeroNumIndex = -1;
+            int maxZeroAmount = 0, currZeroAmount, bestZeroNumIndex = 0;
 
             for (int i=0; i<i_binaryNumbers.Length; i++)
             {

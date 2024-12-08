@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ex01_02;
+using System;
 
 
 namespace Ex01_02_and_03
@@ -7,8 +8,10 @@ namespace Ex01_02_and_03
     {
         static void Main()
         {
-            Tree.PrintTree(1, 30, 'A');
+            
+            Tree.PrintTree(1, UserInterface.getTreeSize(), 'A');
             Console.ReadLine();
+            
         }
     }
 }
