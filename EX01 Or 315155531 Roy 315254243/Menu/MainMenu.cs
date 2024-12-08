@@ -37,7 +37,7 @@ namespace Menu
                 
                 minChoiceValue = (int)options.GetValue(0);
                 maxChoiceValue = (int)options.GetValue(options.Length - 1);
-                userInput = (eOptionsEx)UserInterface.GetDigitInput(minChoiceValue, maxChoiceValue);
+                userInput = (eOptionsEx)int.Parse(UserInterface.GetValidUserInput(Validator.IsStringInRangeNumbersValidator, new object[] { minChoiceValue, maxChoiceValue }));
             
                 switch (userInput)
                 {
