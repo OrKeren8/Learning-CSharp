@@ -15,7 +15,6 @@ namespace Ex01_01
             System.Console.WriteLine($"Please enter {k_amountOfBinaryNumbers} binary numbers with {k_BinaryNumberLength} digits each");
             for (int i = 0; i < k_amountOfBinaryNumbers; i++)
             {
-                //binaryNumbersArr[i] = getUserBinaryNumInput(k_BinaryNumberLength);
                 binaryNumbersArr[i] = Utils.UserInterface.GetValidUserInput(Utils.Validator.IsBinaryDataValidator, new object[] { k_BinaryNumberLength });
                 decimalNumbersArr[i] = BinaryData.convertBinaryNumberToInt(binaryNumbersArr[i]);
             }
@@ -25,19 +24,6 @@ namespace Ex01_01
 
             printNumbers(decimalNumbersArr);
             printStatistics(decimalNumbersArr, binaryNumbersArr);
-        }
-
-        private static string getUserBinaryNumInput(int i_BinaryNumberLength)
-        {
-            string line;
-            line = System.Console.ReadLine();
-            while (!BinaryData.ValidateBinaryNumber(line, i_BinaryNumberLength))
-            {
-                System.Console.WriteLine("The input you entered is invalid. Please try again.");
-                line = System.Console.ReadLine();
-            }
-
-            return line;
         }
 
         private static void printNumbers(int[] i_numbers)
