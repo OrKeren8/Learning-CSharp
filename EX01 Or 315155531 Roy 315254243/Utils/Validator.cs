@@ -21,9 +21,8 @@ namespace Utils
 
         public delegate bool ValidatorFunc(string i_string);
 
-        public static bool ValidateString(ValidatorFunc i_validatorFunc, string i_string)
+        /*public static bool ValidateString(ValidatorFunc i_validatorFunc, string i_string)
         {
-            /*
             while (!validateNumber(userInput, k_validNumLen))
             {
                 Console.WriteLine("Enter a number with 9 digits");
@@ -31,8 +30,8 @@ namespace Utils
             }
             return userInput;
             return i_validatorFunc(i_string);
-            */
         }
+        */
 
         public static bool IsStringInRangeNumbers(string i_string, int start, int end)
         {

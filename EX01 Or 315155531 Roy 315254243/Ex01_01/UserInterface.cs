@@ -12,7 +12,6 @@ namespace Ex01_01
             string[] binaryNumbersArr = new string[k_amountOfBinaryNumbers];
             int[] decimalNumbersArr = new int[k_amountOfBinaryNumbers];
 
-
             System.Console.WriteLine($"Please enter {k_amountOfBinaryNumbers} binary numbers with {k_BinaryNumberLength} digits each");
             for (int i = 0; i < k_amountOfBinaryNumbers; i++)
             {

@@ -2,7 +2,7 @@
 
 namespace Ex_01_04
 {
-    internal class Program
+    public class Program
     {
         static void Main()
         {

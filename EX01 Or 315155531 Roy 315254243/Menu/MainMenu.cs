@@ -1,10 +1,11 @@
 ﻿
 using System;
-using System.Runtime.Remoting.Lifetime;
+using Utils;
+using Ex01_01;
 
 namespace Menu
 {
-    internal class MainMenu
+    public class MainMenu
     {
         enum eOptionsEx
         {
@@ -18,26 +19,37 @@ namespace Menu
 
         public static void MenuInterface()
         {
-            Console.WriteLine("Please choose which program you wish to run:");
-            Console.WriteLine("===========================================");
+            eOptionsEx userInput;
+            bool loop = true;
+            int minChoiceValue, maxChoiceValue;
+            var options = Enum.GetValues(typeof(eOptionsEx));
 
-            foreach (eOptionsEx option in Enum.GetValues(typeof(eOptionsEx)))
+            while (loop)
             {
-                Console.WriteLine($"{(int)option} :{option}");
+                Console.WriteLine("Please choose which program you wish to run:");
+                Console.WriteLine("===========================================");
+                Console.WriteLine();
+                foreach (eOptionsEx option in options)
+                {
+                    Console.WriteLine($"{(int)option} :{option}");
+                }
+                Console.WriteLine();
+                
+                minChoiceValue = (int)options.GetValue(0);
+                maxChoiceValue = (int)options.GetValue(options.Length - 1);
+                userInput = (eOptionsEx)UserInterface.GetDigitInput(minChoiceValue, maxChoiceValue);
+            
+                switch (userInput)
+                {
+                    case eOptionsEx.Abort:
+                        loop = false;
+                        break;
+                    case eOptionsEx.BinaryInput:
+                        BinaryInputExercise.Run();
+                        break;
+                }
+                Console.WriteLine();
             }
-
-            int userExSelection = Console.ReadLine();
-
         }
-
-
-
-
-        
-
-        /*
-1. Binary Input
-2. Sand Machine
-0. Abort*/
     }
 }
