@@ -1,4 +1,5 @@
 ﻿using System;
+using Ex01_01;
 
 namespace Utils
 {
@@ -35,6 +36,12 @@ namespace Utils
             }
             catch { }
             return false;
+        }
+
+        public static bool IsBinaryDataValidator(string i_string, params object[] i_Inputs) 
+        {
+            int binaryNumLen = (int)i_Inputs[0];
+            return BinaryData.ValidateBinaryNumber(i_string ,binaryNumLen);
         }
     }
 }

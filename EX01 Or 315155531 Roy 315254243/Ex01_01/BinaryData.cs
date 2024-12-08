@@ -2,9 +2,8 @@
 
 namespace Ex01_01
 {
-    internal class BinaryData
+    public class BinaryData
     {
-
         public static bool ValidateBinaryNumber(string i_binaryNumber, int i_BinaryNumberLength)
         {
             bool isValidBinaryNumber = true;
