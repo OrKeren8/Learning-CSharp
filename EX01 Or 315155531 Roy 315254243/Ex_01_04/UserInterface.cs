@@ -6,7 +6,7 @@ namespace Ex_01_04
     internal class UserInterface
     {
         protected const int k_ValidStringLen = 10;
-        protected const int k_mod = 4;
+        protected const int k_Mod = 4;
 
         public static void StringStatisticsChecker()
         {
@@ -22,7 +22,7 @@ namespace Ex_01_04
                     printIfDecreaseOrder(userInputString);
                     break;
                 case Statistics.eStringTypes.Number:
-                    printIsMod(userInputString, k_mod);
+                    printIsMod(userInputString, k_Mod);
                     break;
                 case Statistics.eStringTypes.Mixed:
                     break;

@@ -63,9 +63,9 @@ namespace Ex_01_04
             Number = 2,
             Mixed = 3
         }
-        public static bool IsDecreaseAlphbetOrder(string i_string)
+        public static bool IsDecreaseAlphbetOrder(string i_String)
         {
-            string lowerCaseString = i_string.ToLower();
+            string lowerCaseString = i_String.ToLower();
             bool isDecreaseOrder = true;
             for(int i=0;i<lowerCaseString.Length-1 && isDecreaseOrder == true; i++)
             {

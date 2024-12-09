@@ -4,30 +4,30 @@ namespace Utils
 {
     public class Validator
     {
-        public delegate bool ValidatorFunc(string i_string, params object[] i_Inputs);
+        public delegate bool ValidatorFunc(string i_String, params object[] i_Inputs);
 
-        public static bool IsLowerDigitValidator(char i_digit)
+        public static bool IsLowerDigitValidator(char i_Digit)
         {
-            return (i_digit >= 'a' && i_digit <= 'z');
+            return (i_Digit >= 'a' && i_Digit <= 'z');
         }
 
-        public static bool IsDigitNumberValidator(char i_digit)
+        public static bool IsDigitNumberValidator(char i_Digit)
         {
-            return (i_digit >= '0' && i_digit <= '9');
+            return (i_Digit >= '0' && i_Digit <= '9');
         }
 
-        public static bool IsUpperDigitValidator(char i_digit)
+        public static bool IsUpperDigitValidator(char i_Digit)
         {
-            return (i_digit >= 'A' && i_digit <= 'Z');
+            return (i_Digit >= 'A' && i_Digit <= 'Z');
         }
         
-        public static bool IsStringInRangeNumbersValidator(string i_string, params object[] i_Inputs)
+        public static bool IsStringInRangeNumbersValidator(string i_String, params object[] i_Inputs)
         {
             int start = (int)i_Inputs[0];
             int end = (int)i_Inputs[1];
             try
             {
-                int num = int.Parse(i_string);
+                int num = int.Parse(i_String);
                 if ((num >= start) && (num <= end))
                 {
                     return true;
@@ -37,13 +37,13 @@ namespace Utils
             return false;
         }
 
-        public static bool IsBinaryDataValidator(string i_string, params object[] i_Inputs) 
+        public static bool IsBinaryDataValidator(string i_String, params object[] i_Inputs) 
         {
             int binaryNumLen = (int)i_Inputs[0];
             bool isValidBinaryNumber = true;
             bool isBinaryDigit = true;
 
-            if (i_string.Length != binaryNumLen)
+            if (i_String.Length != binaryNumLen)
             {
                 isValidBinaryNumber = false;
             }
@@ -51,15 +51,15 @@ namespace Utils
             {
                 for (int i = 0; (i < binaryNumLen) && isBinaryDigit; i++)
                 {
-                    isBinaryDigit = isBinaryDigitValidator(i_string[i]);
+                    isBinaryDigit = isBinaryDigitValidator(i_String[i]);
                 }
             }
             return (isValidBinaryNumber && isBinaryDigit);
         }
 
-        private static bool isBinaryDigitValidator(char i_binaryDigit)
+        private static bool isBinaryDigitValidator(char i_BinaryDigit)
         {
-            return (i_binaryDigit == '0' || i_binaryDigit == '1');
+            return (i_BinaryDigit == '0' || i_BinaryDigit == '1');
         }
 
         public static bool StringValidator(string i_String, params object[] i_Inputs)

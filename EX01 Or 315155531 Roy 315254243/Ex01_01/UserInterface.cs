@@ -7,13 +7,13 @@ namespace Ex01_01
         
         public static void BinarySeries()
         {
-            const int k_amountOfBinaryNumbers = 3;
+            const int k_AmountOfBinaryNumbers = 3;
             const int k_BinaryNumberLength = 8;
-            string[] binaryNumbersArr = new string[k_amountOfBinaryNumbers];
-            int[] decimalNumbersArr = new int[k_amountOfBinaryNumbers];
+            string[] binaryNumbersArr = new string[k_AmountOfBinaryNumbers];
+            int[] decimalNumbersArr = new int[k_AmountOfBinaryNumbers];
 
-            System.Console.WriteLine($"Please enter {k_amountOfBinaryNumbers} binary numbers with {k_BinaryNumberLength} digits each");
-            for (int i = 0; i < k_amountOfBinaryNumbers; i++)
+            System.Console.WriteLine($"Please enter {k_AmountOfBinaryNumbers} binary numbers with {k_BinaryNumberLength} digits each");
+            for (int i = 0; i < k_AmountOfBinaryNumbers; i++)
             {
                 binaryNumbersArr[i] = Utils.UserInterface.GetValidUserInput(Utils.Validator.IsBinaryDataValidator, new object[] { k_BinaryNumberLength });
                 decimalNumbersArr[i] = BinaryData.convertBinaryNumberToInt(binaryNumbersArr[i]);
@@ -26,31 +26,31 @@ namespace Ex01_01
             printStatistics(decimalNumbersArr, binaryNumbersArr);
         }
 
-        private static void printNumbers(int[] i_numbers)
+        private static void printNumbers(int[] i_Numbers)
         {
             Console.Write("The numbers are: ");
-            foreach (int number in i_numbers)
+            foreach (int number in i_Numbers)
             {
                 Console.Write(number + " ");
             }
             Console.WriteLine();
         }
 
-        private static void printStatistics(int[] i_numbers, string[] i_binaryNumbers)
+        private static void printStatistics(int[] i_Numbers, string[] i_BinaryNumbers)
         {
-            Console.WriteLine($"The avarage of the numbres is: {Statistics.NumbersArrAverage(i_numbers):F2}");
-            (int numIndex, int longestStrike) = Statistics.LongestBitStrike(i_binaryNumbers);
-            Console.WriteLine($"The longest strike of bits is: {longestStrike} ({i_binaryNumbers[numIndex]})");
-            int[] swapsAmount = Statistics.MaxDigitSwaps(i_binaryNumbers);
+            Console.WriteLine($"The avarage of the numbres is: {Statistics.NumbersArrAverage(i_Numbers):F2}");
+            (int numIndex, int longestStrike) = Statistics.LongestBitStrike(i_BinaryNumbers);
+            Console.WriteLine($"The longest strike of bits is: {longestStrike} ({i_BinaryNumbers[numIndex]})");
+            int[] swapsAmount = Statistics.MaxDigitSwaps(i_BinaryNumbers);
             Console.Write("Num of swaps: ");
-            for (int i = 0; i< i_binaryNumbers.Length; i++)
+            for (int i = 0; i< i_BinaryNumbers.Length; i++)
             {
-                Console.Write($"{swapsAmount[i]}({i_binaryNumbers[i]}) ");
+                Console.Write($"{swapsAmount[i]}({i_BinaryNumbers[i]}) ");
             }
             Console.WriteLine();
-            int numIndexWithMaxZeroes = Statistics.findNumWithMostZeroes(i_binaryNumbers);
+            int numIndexWithMaxZeroes = Statistics.findNumWithMostZeroes(i_BinaryNumbers);
             Console.WriteLine($"The number with most zeroes and the least amount of ones is:");
-            Console.WriteLine($"{i_numbers[numIndexWithMaxZeroes]} (binary: {i_binaryNumbers[numIndexWithMaxZeroes]})");
+            Console.WriteLine($"{i_Numbers[numIndexWithMaxZeroes]} (binary: {i_BinaryNumbers[numIndexWithMaxZeroes]})");
         }
     }
 }   

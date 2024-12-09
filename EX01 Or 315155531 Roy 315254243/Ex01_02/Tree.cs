@@ -11,32 +11,32 @@ namespace Ex01_02_and_03
 
         protected const int k_AmountEnglishLetters = 26;
 
-        public static void PrintTree(int i_lineIndex, int i_maxLines, char i_startingLetter)
+        public static void PrintTree(int i_LineIndex, int i_MaxLines, char i_StartingLetter)
         {
             int numOfLetters, numberOfSpaces;
-            char currLetter = i_startingLetter;
+            char currLetter = i_StartingLetter;
             StringBuilder outputStr = new StringBuilder();
 
-            if (i_lineIndex > (i_maxLines - 2))
+            if (i_LineIndex > (i_MaxLines - 2))
             {
-                if (i_lineIndex > i_maxLines)
+                if (i_LineIndex > i_MaxLines)
                 {
                     return;
                 }
-                numOfLetters = 2 * (i_lineIndex - 2) + 1;
+                numOfLetters = 2 * (i_LineIndex - 2) + 1;
                 numberOfSpaces = (numOfLetters / 2) * 2 + 1;
-                outputStr.Append($"{i_lineIndex}\t{new string(' ', numberOfSpaces)}|{currLetter}|");
+                outputStr.Append($"{i_LineIndex}\t{new string(' ', numberOfSpaces)}|{currLetter}|");
                 Console.WriteLine(outputStr);
-                outputStr.Remove(0, 2).Insert(0,i_lineIndex+1);
+                outputStr.Remove(0, 2).Insert(0,i_LineIndex+1);
                 Console.WriteLine(outputStr);
             }
             else
             {
-                numberOfSpaces = (i_maxLines - 2 - i_lineIndex + 1) * 2;
-                outputStr.Clear().Append($"{i_lineIndex}\t{new string(' ', numberOfSpaces)}");
+                numberOfSpaces = (i_MaxLines - 2 - i_LineIndex + 1) * 2;
+                outputStr.Clear().Append($"{i_LineIndex}\t{new string(' ', numberOfSpaces)}");
                 Console.Write(outputStr);
 
-                numOfLetters = 2 * (i_lineIndex - 1) + 1;
+                numOfLetters = 2 * (i_LineIndex - 1) + 1;
                 for (int i = 0; i < numOfLetters; i++)
                 {
                     Console.Write($"{currLetter} ");
@@ -44,7 +44,7 @@ namespace Ex01_02_and_03
                 }
                 Console.WriteLine();
 
-                PrintTree(i_lineIndex + 1, i_maxLines, currLetter);
+                PrintTree(i_LineIndex + 1, i_MaxLines, currLetter);
             }
 
         }
