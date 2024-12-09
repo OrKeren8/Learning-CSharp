@@ -20,3 +20,4 @@ C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\obj\Debug\Menu.csproj.Up2Date
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\obj\Debug\Menu.exe
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\obj\Debug\Menu.pdb
+C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Menu\bin\Debug\Ex01_05.dll

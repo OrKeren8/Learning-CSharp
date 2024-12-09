@@ -1,8 +1,6 @@
 ﻿
 using System;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
+using System.Text;
 
 namespace Ex01_02_and_03
 {
@@ -17,6 +15,7 @@ namespace Ex01_02_and_03
         {
             int numOfLetters, numberOfSpaces;
             char currLetter = i_startingLetter;
+            StringBuilder outputStr = new StringBuilder();
 
             if (i_lineIndex > (i_maxLines - 2))
             {
@@ -26,13 +25,16 @@ namespace Ex01_02_and_03
                 }
                 numOfLetters = 2 * (i_lineIndex - 2) + 1;
                 numberOfSpaces = (numOfLetters / 2) * 2 + 1;
-                Console.WriteLine($"{i_lineIndex}\t" + new string(' ', numberOfSpaces) + $"|{currLetter}|");
-                Console.WriteLine($"{i_lineIndex+1}\t" + new string(' ', numberOfSpaces) + $"|{currLetter}|");
+                outputStr.Append($"{i_lineIndex}\t{new string(' ', numberOfSpaces)}|{currLetter}|");
+                Console.WriteLine(outputStr);
+                outputStr.Remove(0, 2).Insert(0,i_lineIndex+1);
+                Console.WriteLine(outputStr);
             }
             else
             {
                 numberOfSpaces = (i_maxLines - 2 - i_lineIndex + 1) * 2;
-                Console.Write(i_lineIndex + "\t" + new string(' ', numberOfSpaces));
+                outputStr.Clear().Append($"{i_lineIndex}\t{new string(' ', numberOfSpaces)}");
+                Console.Write(outputStr);
 
                 numOfLetters = 2 * (i_lineIndex - 1) + 1;
                 for (int i = 0; i < numOfLetters; i++)
