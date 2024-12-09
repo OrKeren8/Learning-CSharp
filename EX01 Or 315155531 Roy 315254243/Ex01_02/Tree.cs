@@ -27,7 +27,7 @@ namespace Ex01_02_and_03
                 numberOfSpaces = (numOfLetters / 2) * 2 + 1;
                 outputStr.Append($"{i_LineIndex}\t{new string(' ', numberOfSpaces)}|{currLetter}|");
                 Console.WriteLine(outputStr);
-                outputStr.Remove(0, 2).Insert(0,i_LineIndex+1);
+                outputStr.Clear().Append($"{i_LineIndex+1}\t{new string(' ', numberOfSpaces)}|{currLetter}|");
                 Console.WriteLine(outputStr);
             }
             else
