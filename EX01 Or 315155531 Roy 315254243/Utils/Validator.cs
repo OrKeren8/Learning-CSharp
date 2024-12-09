@@ -1,5 +1,4 @@
 ﻿using System;
-using Ex01_01;
 
 namespace Utils
 {
@@ -38,12 +37,29 @@ namespace Utils
             return false;
         }
 
-
-
         public static bool IsBinaryDataValidator(string i_string, params object[] i_Inputs) 
         {
             int binaryNumLen = (int)i_Inputs[0];
-            return BinaryData.ValidateBinaryNumber(i_string ,binaryNumLen);
+            bool isValidBinaryNumber = true;
+            bool isBinaryDigit = true;
+
+            if (i_string.Length != binaryNumLen)
+            {
+                isValidBinaryNumber = false;
+            }
+            if (isValidBinaryNumber)
+            {
+                for (int i = 0; (i < binaryNumLen) && isBinaryDigit; i++)
+                {
+                    isBinaryDigit = isBinaryDigitValidator(i_string[i]);
+                }
+            }
+            return (isValidBinaryNumber && isBinaryDigit);
+        }
+
+        private static bool isBinaryDigitValidator(char i_binaryDigit)
+        {
+            return (i_binaryDigit == '0' || i_binaryDigit == '1');
         }
 
         public static bool StringValidator(string i_String, params object[] i_Inputs)
@@ -61,10 +77,10 @@ namespace Utils
 
         public static bool IsStringOfDigitsValidator(string i_String, params object[] i_Inputs)
         {
-            bool isValdstring = false;
+            bool isValdstring = true;
             int numLen = (int)i_Inputs[0];
 
-            for (int i = 0; i < i_String.Length && isValdstring; i++)
+            for (int i = 0; (i < i_String.Length) && isValdstring; i++)
             {
                 if (!IsDigitNumberValidator(i_String[i]))
                 {

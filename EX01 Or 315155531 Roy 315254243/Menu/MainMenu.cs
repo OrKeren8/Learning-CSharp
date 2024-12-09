@@ -56,7 +56,7 @@ namespace Menu
                         Ex_01_04.Program.Run();
                         break;
                     case eOptionsEx.NumbersStatistics:
-                        Ex_01_04.Program.Run();
+                        Ex01_05.Program.Run();
                         break;
                 }
                 Console.WriteLine();

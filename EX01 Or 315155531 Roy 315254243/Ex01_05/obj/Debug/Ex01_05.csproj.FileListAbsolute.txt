@@ -4,11 +4,8 @@ C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\bin\Debug\Ex01_05.dll
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\bin\Debug\Ex01_05.pdb
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\bin\Debug\Utils.dll
-C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\bin\Debug\Ex01_01.dll
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\bin\Debug\Utils.pdb
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\bin\Debug\Utils.dll.config
-C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\bin\Debug\Ex01_01.pdb
-C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\bin\Debug\Ex01_01.dll.config
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\obj\Debug\Ex01_05.csproj.Up2Date
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\obj\Debug\Ex01_05.dll
 C:\Users\Or\Desktop\orkeren\academic\CSharp\EX01 Or 315155531 Roy 315254243\Ex01_05\obj\Debug\Ex01_05.pdb

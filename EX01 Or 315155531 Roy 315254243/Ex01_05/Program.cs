@@ -1,11 +1,9 @@
 ﻿
-using Utils;
-
 namespace Ex01_05
 {
-    internal class Program
+    public class Program
     {
-        static void Run(string[] args)
+        public static void Run()
         {
             UserInterface.PrintStatistics();
         }
