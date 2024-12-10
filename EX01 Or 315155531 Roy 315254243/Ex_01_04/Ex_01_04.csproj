@@ -44,9 +44,10 @@
     <Compile Include="UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Utils">
-      <HintPath>..\Utils\bin\Debug\Utils.dll</HintPath>
-    </Reference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{58bc9fed-e9b0-46f5-abed-42a3520c0478}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

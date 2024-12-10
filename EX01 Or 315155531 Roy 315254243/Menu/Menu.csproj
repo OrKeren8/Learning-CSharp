@@ -55,23 +55,6 @@
     <Compile Include="Program.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="Ex01_01">
-      <HintPath>..\Ex01_01\bin\Debug\Ex01_01.dll</HintPath>
-    </Reference>
-    <Reference Include="Ex01_02">
-      <HintPath>..\Ex01_02\bin\Debug\Ex01_02.dll</HintPath>
-    </Reference>
-    <Reference Include="Ex01_05">
-      <HintPath>..\Ex01_05\bin\Debug\Ex01_05.dll</HintPath>
-    </Reference>
-    <Reference Include="Ex_01_04">
-      <HintPath>..\Ex_01_04\bin\Debug\Ex_01_04.dll</HintPath>
-    </Reference>
-    <Reference Include="Utils">
-      <HintPath>..\Utils\bin\Debug\Utils.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -82,6 +65,28 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Ex01_01\Ex01_01.csproj">
+      <Project>{d7e0b80d-d791-489f-9642-0ebfc965d9bf}</Project>
+      <Name>Ex01_01</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ex01_02\Ex01_02_and_03.csproj">
+      <Project>{761ad5fb-d0c0-48cb-a10d-32315ec82c34}</Project>
+      <Name>Ex01_02_and_03</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ex01_05\Ex01_05.csproj">
+      <Project>{5777f609-78e3-4bfe-b41d-a647a28e60c4}</Project>
+      <Name>Ex01_05</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Ex_01_04\Ex_01_04.csproj">
+      <Project>{8184f21b-9425-4c18-be3e-056e1664e2ed}</Project>
+      <Name>Ex_01_04</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{58bc9fed-e9b0-46f5-abed-42a3520c0478}</Project>
+      <Name>Utils</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
