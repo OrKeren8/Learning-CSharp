@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ED205CEF-A84C-4437-B8DA-2B4953AEB858}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>Ex02_Or_315155531_Roy_315254243</RootNamespace>
-    <AssemblyName>Ex02 Or 315155531 Roy 315254243</AssemblyName>
+    <ProjectGuid>{A3784FCC-DFC2-48E9-A56B-AF245BF9E7E6}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>UI</RootNamespace>
+    <AssemblyName>UI</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -32,16 +32,25 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="StringCast.cs" />
+    <Compile Include="Menu.cs" />
+    <Compile Include="UI.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UI\UI.csproj">
-      <Project>{a3784fcc-dfc2-48e9-a56b-af245bf9e7e6}</Project>
-      <Name>UI</Name>
+    <ProjectReference Include="..\Player\BackEnd.csproj">
+      <Project>{47b2ecfc-7311-4b0f-a2a3-4b194e484b91}</Project>
+      <Name>BackEnd</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Utils\Utils.csproj">
+      <Project>{ad9e5090-b437-462e-a522-1baf342da543}</Project>
+      <Name>Utils</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

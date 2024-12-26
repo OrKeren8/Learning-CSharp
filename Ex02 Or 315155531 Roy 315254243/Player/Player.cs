@@ -1,30 +1,23 @@
 ﻿
 using System;
 
-namespace Player
+namespace BackEnd
 {
-    public class Player
+    public struct Player
     {
         private string m_Name;
-        private int m_ID;
+        private readonly bool m_IsPc;
 
         public string Name
         {
             get { return m_Name; }
-            private set { m_Name = value; }
-        }
-
-        public int ID
-        {
-            get { return m_ID; }
-            private set { m_ID = value; }
         }
 
         //constructor
-        public Player(string i_Name, int i_ID)
+        public Player(string i_Name, bool i_IsPc)
         {
-            Name = i_Name;
-            ID = i_ID;
+            m_Name = i_Name;
+            m_IsPc = i_IsPc;
         }
 
         public void Play()
