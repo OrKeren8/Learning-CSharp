@@ -21,12 +21,27 @@ namespace UI
         public static bool IsValidName(string i_Name)
         {
             bool isValid = true;
+            
             if (i_Name.Contains(" ") || i_Name.Length > 20)
             {
                 isValid = false;
             }
+
             return isValid;
         }
+
+        public static bool IsValidBoardSize(string i_BoardSize)
+        {
+            bool isValid = true;
+
+            if(i_BoardSize != "6" &&  i_BoardSize != "8" && i_BoardSize != "10") 
+            {
+                isValid = false;
+            }
+
+            return isValid;
+        }
+            
 
     }
 }

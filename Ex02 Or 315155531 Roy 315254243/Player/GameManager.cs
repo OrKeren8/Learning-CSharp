@@ -5,7 +5,16 @@ namespace BackEnd
     public class GameManager
     {
 
-        public void Restart()
+        Player player1;
+        Player player2;
+
+        public GameManager(Player i_Player1, Player i_Player2) 
+        {
+            player1 = i_Player1;
+            player2 = i_Player2;
+        }
+
+        public void Start()
         {
             Console.WriteLine("GameManager: restarting game");
         }
