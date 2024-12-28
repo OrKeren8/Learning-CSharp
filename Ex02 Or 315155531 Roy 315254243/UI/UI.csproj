@@ -39,7 +39,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="StringCast.cs" />
+    <Compile Include="StringValidator.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="UI.cs" />
   </ItemGroup>

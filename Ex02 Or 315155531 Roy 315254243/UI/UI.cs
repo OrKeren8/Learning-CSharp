@@ -50,11 +50,13 @@ namespace UI
 
         private Player getPlayerFromUser()
         {
-            string playerName;
+            string playerName = " ";
 
-            Console.WriteLine("Please enter player's name");
-            playerName = Console.ReadLine();
-
+            while (!StringValidator.IsValidName(playerName))
+            {
+                Console.WriteLine("Please enter player's name");
+                playerName = Console.ReadLine();
+            }
             return new Player(playerName, i_IsPc:false);
         }
         
@@ -66,7 +68,7 @@ namespace UI
             
             Console.WriteLine("Enter Choice");
             userChoice = Console.ReadLine();
-            while(!StringCast.ToInRange(Enums.GetMinValue<Menu.eMenuSelect>(),
+            while(!StringValidator.ToIntRange(Enums.GetMinValue<Menu.eMenuSelect>(),
                                         Enums.GetMaxValue<Menu.eMenuSelect>(),
                                         userChoice,
                                         out userIntChoice))

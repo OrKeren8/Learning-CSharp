@@ -12,7 +12,7 @@ namespace UI
             Quit = 3
         }
 
-        private string m_MenuStr =  "1: Add Player\n" +
+        private string m_MenuStr =  "1: Enter Your Name\n" +
                                     "2: Start Game\n" +
                                     "3: Quit";
 
