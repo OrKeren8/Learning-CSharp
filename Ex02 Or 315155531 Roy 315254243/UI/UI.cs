@@ -9,12 +9,10 @@ namespace UI
         private Menu m_Menu;
         private GameManager m_GameManager;
 
-        
-
         public UI ()
         {
             m_GameManager = new GameManager();
-            m_Menu = new Menu(m_GameManager);
+            m_Menu = new Menu();
         }
 
         public void GameMainLoop()
@@ -26,15 +24,11 @@ namespace UI
                 Menu.eMenuSelect userSelection = getUserSelection();
                 switch (userSelection)
                 {
-                    case Menu.eMenuSelect.AddPlayer:
-                        Player player = getPlayerFromUser();
-                        m_Menu.AddPlayer(player);
-                        break;
                     case Menu.eMenuSelect.StartGame:
-                        m_Menu.StartGame();
+                        startGame();
                         break;
                     case Menu.eMenuSelect.Quit:
-                        m_Menu.Quit();
+                        quit();
                         break;
 
                 }
@@ -42,7 +36,7 @@ namespace UI
             }
 
         }
-        
+
         private void printMenu()
         {
             Console.WriteLine(m_Menu.MenuStr);
@@ -54,7 +48,7 @@ namespace UI
 
             while (!StringValidator.IsValidName(playerName))
             {
-                Console.WriteLine("Please enter player's name");
+                Console.WriteLine("Please enter name");
                 playerName = Console.ReadLine();
             }
             return new Player(playerName, i_IsPc:false);
@@ -79,6 +73,19 @@ namespace UI
 
             userSelection = (Menu.eMenuSelect)userIntChoice;
             return userSelection;
+        }
+        private void startGame()
+        {
+            getPlayerFromUser();
+            //chose board size
+            //second player pc or name
+            m_GameManager.Restart();
+        }
+
+        private void quit()
+        {
+            m_GameManager.QuitGame();
+            Environment.Exit(0);
         }
     }
 }
