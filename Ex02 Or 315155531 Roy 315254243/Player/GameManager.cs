@@ -1,22 +1,26 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BackEnd
 {
     public class GameManager
     {
 
-        Player player1;
-        Player player2;
+        private Player m_Player1;
+        private Player m_Player2;
 
-        public GameManager(Player i_Player1, Player i_Player2) 
+        private Board m_Board;
+
+        public GameManager(Player i_Player1, Player i_Player2, uint i_BoardSize) 
         {
-            player1 = i_Player1;
-            player2 = i_Player2;
+            m_Player1 = i_Player1;
+            m_Player2 = i_Player2;
+            m_Board = new Board(i_BoardSize);
         }
 
-        public void Start()
+        public Board getBoard
         {
-            Console.WriteLine("GameManager: restarting game");
+            get { return m_Board; }
         }
 
         public void QuitGame()
@@ -33,5 +37,6 @@ namespace BackEnd
         {
             Console.WriteLine("GameManager: new player was added");
         }
+
     }
 }
