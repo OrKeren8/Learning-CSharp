@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 
 namespace UI
 {
@@ -35,6 +36,56 @@ namespace UI
             bool isValid = true;
 
             if(i_BoardSize != "6" &&  i_BoardSize != "8" && i_BoardSize != "10") 
+            {
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        public static bool CheckValidMove(String i_Move)
+        {
+            bool isValid = true;
+
+            if (i_Move[2] != '<' || i_Move.Length != 5 || !validateMoveLetters(i_Move))
+            {
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+           
+        
+        private static bool validateMoveLetters(String i_Move)
+        {
+            bool IsValidLetters = true;
+
+            if ((!checkUpperChar(i_Move[0])|| !checkUpperChar(i_Move[3])) || (!checkLowerChar(i_Move[1]) || !checkLowerChar(i_Move[4])))
+            {
+                IsValidLetters = false;
+            }
+            return IsValidLetters;
+             
+        }
+
+        private static bool checkLowerChar(char i_LowerChar)
+        {
+            bool isValid = false;
+
+            if (i_LowerChar < 'a' || i_LowerChar > 'z')
+            {
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private static bool checkUpperChar(char i_UpperChar)
+        {
+            bool isValid = false;
+
+            if (i_UpperChar < 'A' || i_UpperChar > 'Z')
             {
                 isValid = false;
             }

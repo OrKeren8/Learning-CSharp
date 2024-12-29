@@ -17,9 +17,15 @@ namespace BackEnd
             m_IsKing = false;
         }
 
-        public Position getPosition()
+        public Position position
         {
-            return m_Position;
+            get {return m_Position;}
+            set { m_Position = value;}
+        }
+        public bool IsKing
+        {
+            get { return m_IsKing; }
+            
         }
 
         public char Symbol
@@ -28,11 +34,6 @@ namespace BackEnd
         }
 
         public void PromoteToKing()
-        {
-
-        }
-
-        public void ValidateMove()
         {
 
         }

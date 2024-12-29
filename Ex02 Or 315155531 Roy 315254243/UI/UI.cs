@@ -11,7 +11,7 @@ namespace UI
         private Menu m_Menu = new Menu();
         private GameManager m_GameManager;
 
-        public void GameMainLoop()
+        public void MenuLoop()
         {
             bool isContinueGame = true;
             while (isContinueGame == true)
@@ -33,6 +33,9 @@ namespace UI
             }
 
         }
+
+
+
 
         private void printMenu()
         {
@@ -85,7 +88,50 @@ namespace UI
             Player player2 = getPlayerFromUser();
             Ex02.ConsoleUtils.Screen.Clear();
             m_GameManager = new GameManager(player1, player2, boardSize);
-            printBoard(m_GameManager.getBoard);
+            gameMaimLoop();
+        }
+
+        private void gameMaimLoop()
+        {
+            bool isFinishGame = false;
+            String currentPlayerMove;
+
+            while (!isFinishGame)//the main loop of the game
+            {
+                printBoard(m_GameManager.getBoard);
+                currentPlayerMove = getPlayerMove();
+                movePieceByUserChoice(currentPlayerMove);
+            }
+        }
+
+        private string getPlayerMove()
+        {
+            String currentPlayerMove;
+            bool isValidMove = false;
+
+            Console.WriteLine($"{m_GameManager.Player1.Name}'s turn:");
+            currentPlayerMove = Console.ReadLine();
+            while (!isValidMove)
+            {
+                if (!StringValidator.CheckValidMove(currentPlayerMove))
+                {
+                    Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
+                }
+                else if (!m_GameManager.CheckValidMove(currentPlayerMove))
+                {
+                    Console.WriteLine("You are not allowed to go to this place, please try again");
+                }
+                else
+                {
+                    isValidMove = true;
+                }
+                if(!isValidMove)
+                {
+                    currentPlayerMove = Console.ReadLine();
+                }
+            }
+            
+            return currentPlayerMove;
         }
 
         private void quit()

@@ -18,6 +18,16 @@ namespace BackEnd
             m_Board = new Board(i_BoardSize);
         }
 
+        public Player Player1
+        {
+            get { return m_Player1; }
+        }
+
+        public Player Player2
+        {
+            get { return m_Player2; }
+        }
+
         public Board getBoard
         {
             get { return m_Board; }
@@ -36,6 +46,13 @@ namespace BackEnd
         public void AddPlayer(Player i_Player)
         {
             Console.WriteLine("GameManager: new player was added");
+        }
+
+        public bool MovePiece(string i_Move)
+        {
+            //bool isValid = true;
+            //if()
+
         }
 
     }
