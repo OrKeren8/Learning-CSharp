@@ -3,18 +3,45 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace BackEnd
 {
+    public enum ePieceDirection
+    {
+        Down,
+        Up,
+        KingAnywhere
+    }
+
+    public enum ePieceSymbol
+    {
+        White,
+        Black
+    }
+
     public struct Piece
     {
         
         private Position m_Position;
         private bool m_IsKing;
-        private char m_Symbol;
+        private ePieceSymbol m_Symbol;
+        private ePieceDirection m_PoneDirection;
 
-        public Piece(char i_Symbol, Position i_Position)
+        public Piece(ePieceSymbol i_Symbol, Position i_Position)
         {
             m_Symbol = i_Symbol;
             m_Position = i_Position;
             m_IsKing = false;
+            if(m_Symbol == ePieceSymbol.White)
+            {
+                m_PoneDirection = ePieceDirection.Down;
+            }
+            else
+            {
+                m_PoneDirection= ePieceDirection.Up;
+            }
+        }
+
+        public ePieceDirection Direction
+        {
+            get { return m_PoneDirection; }
         }
 
         public Position position
@@ -28,14 +55,15 @@ namespace BackEnd
             
         }
 
-        public char Symbol
+        public ePieceSymbol Symbol
         {
             get { return m_Symbol; }
         }
 
         public void PromoteToKing()
         {
-
+            m_IsKing = true;
+            m_PoneDirection = ePieceDirection.KingAnywhere;
         }
     }
 }
