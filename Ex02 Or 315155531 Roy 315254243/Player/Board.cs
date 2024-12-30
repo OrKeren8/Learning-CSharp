@@ -20,7 +20,7 @@ namespace BackEnd
         }
         public string GetRowSymbols(int i_Row)
         {
-            StringBuilder rowOfSymbols = new StringBuilder(new string(' ', (int)Size));
+            StringBuilder rowOfSymbols = new StringBuilder(new string(' ', Size));
 
             for (int i = 0; i < Size; i++)
             {
@@ -259,14 +259,14 @@ namespace BackEnd
                     {
                         if (j % 2 != 0)
                         {
-                            insertPiece(new Piece(ePieceSymbol.White, new Position(i, j)));
+                            insertPiece(new Piece(ePieceSymbol.O, new Position(i, j)));
                         }
                     }
                     else
                     {
                         if (j % 2 == 0)
                         {
-                            insertPiece(new Piece(ePieceSymbol.White, new Position(i, j)));
+                            insertPiece(new Piece(ePieceSymbol.O, new Position(i, j)));
                         }
                     }
                 }
@@ -279,14 +279,14 @@ namespace BackEnd
                     {
                         if (j % 2 == 0)
                         {
-                            insertPiece(new Piece(ePieceSymbol.Black, new Position(i, j)));
+                            insertPiece(new Piece(ePieceSymbol.X, new Position(i, j)));
                         }
                     }
                     else
                     {
                         if (j % 2 != 0)
                         {
-                            insertPiece(new Piece(ePieceSymbol.Black, new Position(i, j)));
+                            insertPiece(new Piece(ePieceSymbol.X, new Position(i, j)));
                         }
                     }
                 }

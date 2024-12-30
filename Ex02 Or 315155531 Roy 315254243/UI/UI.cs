@@ -80,10 +80,10 @@ namespace UI
 
         private void startGame()
         {
-            Player player1 = getPlayerFromUser(ePieceSymbol.White);
+            Player player1 = getPlayerFromUser(ePieceSymbol.O);
             int boardSize = getBoardSize();
             Console.WriteLine("Please enter opponent name, or enter PC in order to play against the PC");
-            Player player2 = getPlayerFromUser(ePieceSymbol.Black);
+            Player player2 = getPlayerFromUser(ePieceSymbol.X);
             Ex02.ConsoleUtils.Screen.Clear();
             m_GameManager = new GameManager(player1, player2, boardSize);
             gameMaimLoop();

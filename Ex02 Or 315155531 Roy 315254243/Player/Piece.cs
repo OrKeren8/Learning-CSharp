@@ -12,8 +12,8 @@ namespace BackEnd
 
     public enum ePieceSymbol
     {
-        White,
-        Black
+        O,
+        X
     }
 
     public struct Piece
@@ -29,7 +29,7 @@ namespace BackEnd
             m_Symbol = i_Symbol;
             m_Position = i_Position;
             m_IsKing = false;
-            if(m_Symbol == ePieceSymbol.White)
+            if(m_Symbol == ePieceSymbol.O)
             {
                 m_PoneDirection = ePieceDirection.Down;
             }
