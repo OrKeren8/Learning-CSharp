@@ -34,15 +34,12 @@ namespace UI
 
         }
 
-
-
-
         private void printMenu()
         {
             Console.WriteLine(m_Menu.MenuStr);
         }
 
-        private Player getPlayerFromUser()
+        private Player getPlayerFromUser(ePieceSymbol i_PieceSymbol)
         {
             string playerName = " ";
             bool isPc = false;
@@ -57,7 +54,7 @@ namespace UI
                 isPc = true;
             }
 
-            return new Player(playerName, isPc);
+            return new Player(playerName, isPc, i_PieceSymbol);
         }
         
         private Menu.eMenuSelect getUserSelection()
@@ -80,12 +77,13 @@ namespace UI
             userSelection = (Menu.eMenuSelect)userIntChoice;
             return userSelection;
         }
+
         private void startGame()
         {
-            Player player1 = getPlayerFromUser();
+            Player player1 = getPlayerFromUser(ePieceSymbol.White);
             int boardSize = getBoardSize();
             Console.WriteLine("Please enter opponent name, or enter PC in order to play against the PC");
-            Player player2 = getPlayerFromUser();
+            Player player2 = getPlayerFromUser(ePieceSymbol.Black);
             Ex02.ConsoleUtils.Screen.Clear();
             m_GameManager = new GameManager(player1, player2, boardSize);
             gameMaimLoop();
@@ -94,18 +92,30 @@ namespace UI
         private void gameMaimLoop()
         {
             bool isFinishGame = false;
+            bool firstPlayerTurn = true;
             String currentPlayerMove;
 
             while (!isFinishGame)//the main loop of the game
             {
                 printBoard(m_GameManager.getBoard);
-                currentPlayerMove = getPlayerMove();
-                movePieceByUserChoice(currentPlayerMove);
+                if (firstPlayerTurn)
+                {
+                    currentPlayerMove = movePieceByUserChoice(m_GameManager.Player1);
+                    firstPlayerTurn = false;
+                }
+                else
+                {
+                    currentPlayerMove = movePieceByUserChoice(m_GameManager.Player2);
+                    firstPlayerTurn = true;
+                }
+                
             }
         }
 
-        private string getPlayerMove()
+        private string movePieceByUserChoice(Player i_Player)
         {
+            ///this function get a move from the player and send that command 
+            ///if valid to the gameManager to move the desired piece
             String currentPlayerMove;
             bool isValidMove = false;
 
@@ -117,7 +127,7 @@ namespace UI
                 {
                     Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
                 }
-                else if (!m_GameManager.CheckValidMove(currentPlayerMove))
+                else if (!m_GameManager.MovePiece(currentPlayerMove, i_Player))
                 {
                     Console.WriteLine("You are not allowed to go to this place, please try again");
                 }

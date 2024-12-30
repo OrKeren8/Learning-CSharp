@@ -157,70 +157,6 @@ namespace BackEnd
             return isValid;
         }
 
-        private bool checkMoveDirection(Position i_StartPos, Position i_DestinationPos)
-        {   
-            ///this function checks if pone move is legal, 
-            ///legal move should be in distance of 1 and in the move firection of the piece
-            //need to add option if he move it so he can eat it
-            bool isValid = true;
-
-            Piece piece = (Piece)m_Board[i_StartPos.Row, i_StartPos.Col];
-
-            if (piece.IsKing)
-            {
-                isValid &= checkCloseEnoughMovingToKing(i_StartPos, i_DestinationPos);
-            }
-            else
-            {
-                if(piece.Symbol == 'O')
-                {
-                    if(!(((i_StartPos.Row == i_DestinationPos.Row + 1) && (i_StartPos.Col == i_DestinationPos.Col + 1))||((i_StartPos.Row == i_DestinationPos.Row + 1) && (i_StartPos.Col == i_DestinationPos.Col - 1))))
-                    {
-                        isValid = false;
-                    }
-                }
-                else
-                {
-                    if (!(((i_StartPos.Row == i_DestinationPos.Row - 1) && (i_StartPos.Col == i_DestinationPos.Col + 1)) ||((i_StartPos.Row == i_DestinationPos.Row + 1) && (i_StartPos.Col == i_DestinationPos.Col - 1))))
-                    {
-                        isValid = false;
-                    }
-                }
-
-            }
-            return isValid;
-           
-        }
-
-        private bool checkCloseEnoughMovingToKing(Position i_StartPos, Position i_DestinationPos)
-        { 
-            bool isValid = true;
-            int counterOfCheckTests = 0;
-
-            if(!((i_StartPos.Row == i_DestinationPos.Row + 1) && (i_StartPos.Col == i_DestinationPos.Col + 1)))
-            {
-                counterOfCheckTests++;
-            }
-            else if(!((i_StartPos.Row == i_DestinationPos.Row + 1) && (i_StartPos.Col == i_DestinationPos.Col - 1)))
-            {
-                counterOfCheckTests++;
-            }
-            else if (!((i_StartPos.Row == i_DestinationPos.Row - 1) && (i_StartPos.Col == i_DestinationPos.Col + 1)))
-            {
-                counterOfCheckTests++;
-            }
-            else if (!((i_StartPos.Row == i_DestinationPos.Row - 1) && (i_StartPos.Col == i_DestinationPos.Col - 1)))
-            {
-                counterOfCheckTests++;
-            }
-            if (counterOfCheckTests == 4)
-            {
-                isValid = false;
-            }
-
-            return isValid;
-        }
-
         private bool checkIfPositionFree(Position i_Pos)
         {
             ///return false if the position is taken or not exist,
@@ -323,14 +259,14 @@ namespace BackEnd
                     {
                         if (j % 2 != 0)
                         {
-                            insertPiece(new Piece('O', new Position(i, j)));
+                            insertPiece(new Piece(ePieceSymbol.White, new Position(i, j)));
                         }
                     }
                     else
                     {
                         if (j % 2 == 0)
                         {
-                            insertPiece(new Piece('O', new Position(i, j)));
+                            insertPiece(new Piece(ePieceSymbol.White, new Position(i, j)));
                         }
                     }
                 }
@@ -343,14 +279,14 @@ namespace BackEnd
                     {
                         if (j % 2 == 0)
                         {
-                            insertPiece(new Piece('X', new Position(i, j)));
+                            insertPiece(new Piece(ePieceSymbol.Black, new Position(i, j)));
                         }
                     }
                     else
                     {
                         if (j % 2 != 0)
                         {
-                            insertPiece(new Piece('X', new Position(i, j)));
+                            insertPiece(new Piece(ePieceSymbol.Black, new Position(i, j)));
                         }
                     }
                 }

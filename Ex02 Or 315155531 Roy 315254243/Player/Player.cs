@@ -22,6 +22,11 @@ namespace BackEnd
             m_PieceSymbol = i_PieceSymbol;
         }
 
+        public ePieceSymbol PieceSymbol
+        {
+            get { return m_PieceSymbol; }
+        }
+
         public void Play()
         {
 
