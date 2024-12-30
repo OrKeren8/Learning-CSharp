@@ -128,13 +128,15 @@ namespace BackEnd
             return eatenPiece.Value.Symbol;
         }
 
-        public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol)
+        public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol, out bool i_DoubleBoubleMove)
         {
             /*this function checks if a pone can move inside the board
              * if it cant, false will return from the function and nothing will happen
              */
             bool isValidMove = true;
             eMoveType moveType;
+            List<Move> nextEatMoves = new List<Move>(), nextRegularMoves = new List<Move>();
+            i_DoubleBoubleMove = false;
 
             isValidMove = checkMove(i_Move, i_PieceSymbol, out moveType);
 
@@ -149,6 +151,8 @@ namespace BackEnd
                     isValidMove = insertPiece(piece);
                     if (isValidMove && (moveType == eMoveType.Eat))
                     {
+                        getSinglePoneMovements((Piece)getPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
+                        i_DoubleBoubleMove = (nextEatMoves.Count > 0);
                         eatPieceInsideMove(i_Move);
                     }
                 }

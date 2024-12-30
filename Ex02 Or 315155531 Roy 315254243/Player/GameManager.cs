@@ -48,10 +48,10 @@ namespace BackEnd
             Console.WriteLine("GameManager: new player was added");
         }
 
-        public bool MovePiece(string i_StringMove, Player player)
+        public bool MovePiece(string i_StringMove, Player player, out bool i_DoubleBoubleMove)
         {
             Move move = (Move)i_StringMove;
-            return m_Board.MovePiece(move, player.PieceSymbol);
+            return m_Board.MovePiece(move, player.PieceSymbol, out i_DoubleBoubleMove);
         }
     }
 }

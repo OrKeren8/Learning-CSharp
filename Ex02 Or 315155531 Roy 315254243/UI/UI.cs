@@ -94,32 +94,33 @@ namespace UI
             bool isFinishGame = false;
             bool firstPlayerTurn = true;
             String currentPlayerMove;
+            bool doubleBoubleMove;
 
             while (!isFinishGame)//the main loop of the game
             {
                 printBoard(m_GameManager.getBoard);
                 if (firstPlayerTurn)
                 {
-                    currentPlayerMove = movePieceByUserChoice(m_GameManager.Player1);
-                    firstPlayerTurn = false;
-                }
-                else
+                    currentPlayerMove = movePieceByUserChoice(m_GameManager.Player1, out doubleBoubleMove);
+                    firstPlayerTurn = (false || doubleBoubleMove);
+                }else
                 {
-                    currentPlayerMove = movePieceByUserChoice(m_GameManager.Player2);
-                    firstPlayerTurn = true;
+                    currentPlayerMove = movePieceByUserChoice(m_GameManager.Player2, out doubleBoubleMove);
+                    firstPlayerTurn = !doubleBoubleMove;//if true-second player turn, false-first
                 }
-                
+                Ex02.ConsoleUtils.Screen.Clear();
             }
         }
 
-        private string movePieceByUserChoice(Player i_Player)
+        private string movePieceByUserChoice(Player i_Player, out bool i_DoubleBoubleMove)
         {
             ///this function get a move from the player and send that command 
             ///if valid to the gameManager to move the desired piece
             String currentPlayerMove;
             bool isValidMove = false;
+            i_DoubleBoubleMove = false;
 
-            Console.WriteLine($"{m_GameManager.Player1.Name}'s turn:");
+            Console.WriteLine($"{i_Player.Name}'s turn:");
             currentPlayerMove = Console.ReadLine();
             while (!isValidMove)
             {
@@ -127,7 +128,7 @@ namespace UI
                 {
                     Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
                 }
-                else if (!m_GameManager.MovePiece(currentPlayerMove, i_Player))
+                else if (!m_GameManager.MovePiece(currentPlayerMove, i_Player, out i_DoubleBoubleMove))
                 {
                     Console.WriteLine("You are not allowed to go to this place, please try again");
                 }
