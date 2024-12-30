@@ -34,8 +34,8 @@ namespace BackEnd
                 throw new FormatException("Input string must be in the format 'Aa'");
             }
             //Aa>Bb
-            Position startPos = new Position(parts[0][0] - 'A', parts[0][1] - 'a');
-            Position destPos = new Position(parts[1][0] - 'A', parts[1][1] - 'a');
+            Position startPos = new Position(parts[0][1] - 'a', parts[0][0] - 'A');
+            Position destPos = new Position(parts[1][1] - 'a', parts[1][0] - 'A');
 
             return new Move(startPos, destPos);
         }

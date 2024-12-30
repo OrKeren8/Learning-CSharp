@@ -132,7 +132,7 @@ namespace BackEnd
             return isValidMove;
         }
 
-        private bool checkMove(Move move, ePieceSymbol i_PieceSymbol)
+        private bool checkMove(Move i_Move, ePieceSymbol i_PieceSymbol)
         {
             ///this function checks the movment a player wants to play
             ///if there is an option to "eat" an openent piece, this kind of move must be played
@@ -143,11 +143,11 @@ namespace BackEnd
 
             getAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
 
-            if ((avaliableEatingMoves.Count > 0) && !avaliableEatingMoves.Contains(move))
+            if ((avaliableEatingMoves.Count > 0) && !avaliableEatingMoves.Contains(i_Move))
             {
                 isValid = false;
             }
-            else if (!avaliableRegularMoves.Contains(move))
+            else if (!avaliableRegularMoves.Contains(i_Move))
             {
                 isValid = false;
             }
@@ -163,8 +163,7 @@ namespace BackEnd
             ///true if the position exist and free from other pieces
             bool isFree;
 
-            isFree = checkIfPositionInBoard(i_Pos);
-            isFree &= (m_Board[i_Pos.Row, i_Pos.Col] == null);
+            isFree = checkIfPositionInBoard(i_Pos) && (m_Board[i_Pos.Row, i_Pos.Col] == null);
 
             return isFree;
         }
