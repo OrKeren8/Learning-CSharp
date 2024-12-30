@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 
@@ -32,7 +33,7 @@ namespace BackEnd
             return rowOfSymbols.ToString();
         }
 
-        private List<Move> getPonesEatMovements(char i_Symbol)
+        private List<Move> getAllPonesEatMovements(ePieceSymbol i_Symbol)
         {
             ///this function will check all the moves a specific pone can do
             ///and return them as a list
@@ -41,7 +42,7 @@ namespace BackEnd
 
             foreach (Piece piece in piecesList) 
             {
-                avaliableEatingMoves.Add(getSinglePoneEatMovements(piece));
+                avaliableEatingMoves.Concat(getSinglePoneEatMovements(piece));
             }
 
             return avaliableEatingMoves;
@@ -55,39 +56,98 @@ namespace BackEnd
             switch (i_Piece.Direction) 
             {
                 case ePieceDirection.KingAnywhere:
-                    moves.Add(getUpperEatingMoves(i_Piece));
-                    moves.Add(getDownEatingMoves(i_Piece));
+                    moves.Concat(getUpperEatingMoves(i_Piece));
+                    moves.Concat(getDownEatingMoves(i_Piece));
                     break;
                 case ePieceDirection.Up:
-                    moves.Add(getUpperEatingMoves(i_Piece));
+                    moves.Concat(getUpperEatingMoves(i_Piece));
                     break;
                 case ePieceDirection.Down:
-                    moves.Add(getDownEatingMoves(i_Piece));
+                    moves.Concat(getDownEatingMoves(i_Piece));
                     break;
             }
 
             return moves;
         }
 
-        private List<Move> i_PigetUpperEatingMoves(Piece i_Piece)
+
+
+        private void getUpperEatingMoves(Piece i_Piece, out List<Move> o_EatMoves, out List<Move> o_RegularMoves)
         {
-            ///this function get all the eating moves a piece can do to all the pieces above it
-            List<Move> moves = new List<Move>();
+            ///this function get all valid moves a piece can do
+            List<Move> eatMoves = new List<Move>();
+            List<Move> regularMoves = new List<Move>();
+
             Position upperLeftPos = new Position(i_Piece.position.Row - 1, i_Piece.position.Col - 1); //we will have bug here because the inoputs are uint and we can have -1 here
             Position afterUpperLeftPos = new Position(upperLeftPos.Row - 1, upperLeftPos.Col - 1);
             Position upperRighPos = new Position(i_Piece.position.Row - 1, i_Piece.position.Col + 1);
-            Position afterUpperRightPos = new Position(upperRighPos.Row - 1, upperRighPos.Col - 1);
+            Position afterUpperRightPos = new Position(upperRighPos.Row - 1, upperRighPos.Col + 1);
 
-
-            if (checkIfPositionInBoard(upperLeftPos) &&
-                !checkIfPositionFree(upperLeftPos) &&
+            //check if there is a valid move to the up left
+            if (!checkIfPositionFree(upperLeftPos) &&
+                (getPeiceFromBoard(upperLeftPos) != null) &&
+                (getPeiceFromBoard(upperLeftPos).Value.Symbol != i_Piece.Symbol) &&
                 checkIfPositionFree(afterUpperLeftPos))
             {
+                eatMoves.Add(new Move(i_Piece.position, afterUpperLeftPos));
+            }
+            else if (checkIfPositionFree(upperLeftPos))
+            {
+                regularMoves.Add(new Move(i_Piece.position, upperLeftPos));
+            }
 
+            //check if there is a valid move to the up right
+            if (!checkIfPositionFree(upperRighPos) &&
+                (getPeiceFromBoard(upperRighPos) != null) &&
+                (getPeiceFromBoard(upperRighPos).Value.Symbol != i_Piece.Symbol) &&
+                checkIfPositionFree(afterUpperRightPos))
+            {
+                eatMoves.Add(new Move(i_Piece.position, afterUpperRightPos));
+            }
+            else if (checkIfPositionFree(upperRighPos))
+            {
+                regularMoves.Add(new Move(i_Piece.position, upperRighPos));
             }
         }
 
-        private List<Piece> getAllPieces(char i_Symbol)
+        private void getDownEatingMoves(Piece i_Piece, out List<Move> o_EatMoves, out List<Move> o_RegularMoves)
+        {
+            ///this function get all valid moves a piece can do
+            List<Move> eatMoves = new List<Move>();
+            List<Move> regularMoves = new List<Move>();
+            Position downLeftPos = new Position(i_Piece.position.Row + 1, i_Piece.position.Col - 1); 
+            Position afterDownLeftPos = new Position(downLeftPos.Row + 1, downLeftPos.Col - 1);
+            Position downRighPos = new Position(i_Piece.position.Row + 1, i_Piece.position.Col + 1);
+            Position afterDownRightPos = new Position(downRighPos.Row + 1, downRighPos.Col + 1);
+
+            //check if there is a valid move to the down left
+            if (!checkIfPositionFree(downLeftPos) &&
+                (getPeiceFromBoard(downLeftPos) != null) &&
+                (getPeiceFromBoard(downLeftPos).Value.Symbol != i_Piece.Symbol) &&
+                checkIfPositionFree(afterDownLeftPos))
+            {
+                eatMoves.Add(new Move(i_Piece.position, afterDownLeftPos));
+            }
+            else if(checkIfPositionFree(downLeftPos))
+            {
+                regularMoves.Add(new Move(i_Piece.position, downLeftPos));
+            }
+
+            //check if there is a valid move to the down right
+            if (!checkIfPositionFree(downRighPos) &&
+                (getPeiceFromBoard(downRighPos) != null) &&
+                (getPeiceFromBoard(downRighPos).Value.Symbol != i_Piece.Symbol) &&
+                checkIfPositionFree(afterDownRightPos))
+            {
+                eatMoves.Add(new Move(i_Piece.position, afterDownRightPos));
+            }
+            else if(checkIfPositionFree(downRighPos))
+            {
+                regularMoves.Add(new Move(i_Piece.position, downRighPos));
+            }
+        }
+
+        private List<Piece> getAllPieces(ePieceSymbol i_Symbol)
         {
             List<Piece> allPieces = new List<Piece>();
 
@@ -126,19 +186,27 @@ namespace BackEnd
             return isValidMove;
         }
 
-        private bool checkMove(Position i_StartPos, Position i_DestinationPos)
+        private bool checkMove(Move move, ePieceSymbol i_PieceSymbol)
         {
+            ///this function checks the movment a player wants to play
+            ///if there is an option to "eat" an openent piece, this kind of move must be played
+            ///otherwise a regular move will be valid and regular move check will occur
             bool isValid = true;
 
-            isValid &= checkIfPositionInBoard(i_StartPos);
-            isValid &= checkIfPositionInBoard(i_DestinationPos);
-            if (isValid)
+            List<Move> eatingMovents = getAllPonesEatMovements(i_PieceSymbol);
+
+            if (!eatingMovents.Contains(move))//if there is no eating move check the regular one
             {
-                isValid &= checkIfPositionFree(i_DestinationPos);
-                isValid &= !checkIfPositionFree(i_StartPos);
+                isValid &= checkIfPositionInBoard(move.StartPos);
+                isValid &= checkIfPositionInBoard(move.DestinationPos);
                 if (isValid)
                 {
-                    isValid &= checkMoveDirection(i_StartPos, i_DestinationPos);
+                    isValid &= checkIfPositionFree(move.DestinationPos);
+                    isValid &= !checkIfPositionFree(move.StartPos);
+                    if (isValid)
+                    {
+                        isValid &= checkMoveDirection(i_StartPos, i_DestinationPos);
+                    }
                 }
             }
 
@@ -211,13 +279,12 @@ namespace BackEnd
 
         private bool checkIfPositionFree(Position i_Pos)
         {
+            ///return false if the position is taken or not exist,
+            ///true if the position exist and free from other pieces
             bool isFree;
 
-            if (!checkIfPositionInBoard(i_Pos))
-            {
-                throw new Exception("Postion is not exist");
-            }
-            isFree = (m_Board[i_Pos.Row, i_Pos.Col] == null);
+            isFree = checkIfPositionInBoard(i_Pos);
+            isFree &= (m_Board[i_Pos.Row, i_Pos.Col] == null);
 
             return isFree;
         }
@@ -267,6 +334,19 @@ namespace BackEnd
             }
 
             return isPieceExist;
+        }
+
+        private Piece? getPeiceFromBoard(Position i_Pos)
+        {
+            ///this function returns a copy of a piece or null from the board for read only matters
+            Piece? piece = null;
+
+            if (checkIfPositionInBoard(i_Pos))
+            {
+                piece = m_Board[i_Pos.Row, i_Pos.Col];
+            }
+            
+            return piece;
         }
 
         /*
