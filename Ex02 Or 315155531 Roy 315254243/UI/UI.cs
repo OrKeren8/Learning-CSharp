@@ -83,7 +83,7 @@ namespace UI
         private void startGame()
         {
             Player player1 = getPlayerFromUser();
-            uint boardSize = getBoardSize();
+            int boardSize = getBoardSize();
             Console.WriteLine("Please enter opponent name, or enter PC in order to play against the PC");
             Player player2 = getPlayerFromUser();
             Ex02.ConsoleUtils.Screen.Clear();
@@ -143,7 +143,7 @@ namespace UI
             Environment.Exit(0);
         }
 
-        private uint getBoardSize()
+        private int getBoardSize()
         {
             string boardSize = "0";
 
@@ -153,20 +153,20 @@ namespace UI
                 boardSize = Console.ReadLine();
             }
 
-            return uint.Parse(boardSize);
+            return int.Parse(boardSize);
         }
 
         private void printBoard(Board i_Board)
         {
             printLetterRow(i_Board.Size);
-            for (uint i = 0; i < i_Board.Size; i++)
+            for (int i = 0; i < i_Board.Size; i++)
             {
                 printSepperator(i_Board.Size);
                 printBoardRow(i_Board.Size, i_Board.GetRowSymbols(i), i);
             }
         }
 
-        private void printLetterRow(uint i_Size)
+        private void printLetterRow(int i_Size)
         {
             char ch = 'A';
             Console.Write(" ");
@@ -177,7 +177,7 @@ namespace UI
             Console.WriteLine();
         }
         
-        private void printSepperator(uint i_Size)
+        private void printSepperator(int i_Size)
         {
             char ch = '=';
 
@@ -192,7 +192,7 @@ namespace UI
             Console.Write(ch.ToString()+ "\n");
         }
 
-        private void printBoardRow(uint i_Size, String i_Raw, uint rowIndex)
+        private void printBoardRow(int i_Size, String i_Raw, int rowIndex)
         {
             char seperator = '|', rowLeter = (char)('a' + rowIndex);
 

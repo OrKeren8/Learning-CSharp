@@ -11,7 +11,7 @@ namespace BackEnd
 
         private Board m_Board;
 
-        public GameManager(Player i_Player1, Player i_Player2, uint i_BoardSize) 
+        public GameManager(Player i_Player1, Player i_Player2, int i_BoardSize) 
         {
             m_Player1 = i_Player1;
             m_Player2 = i_Player2;

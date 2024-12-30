@@ -9,16 +9,16 @@ namespace BackEnd
     public class Board
     {
         private Piece?[,] m_Board;
-        public uint Size { get; private set; }
+        public int Size { get; private set; }
 
 
-        public Board(uint i_Size)
+        public Board(int i_Size)
         {
             Size = i_Size;
             m_Board = new Piece?[i_Size, i_Size];
             initBoard(i_Size);
         }
-        public string GetRowSymbols(uint i_Row)
+        public string GetRowSymbols(int i_Row)
         {
             StringBuilder rowOfSymbols = new StringBuilder(new string(' ', (int)Size));
 
@@ -33,41 +33,41 @@ namespace BackEnd
             return rowOfSymbols.ToString();
         }
 
-        private List<Move> getAllPonesEatMovements(ePieceSymbol i_Symbol)
+        private void getAllPonesMovements(ePieceSymbol i_Symbol, List<Move> o_EatMoves, List<Move> o_RegularMoves)
         {
-            ///this function will check all the moves a specific pone can do
+            ///this function will check all the moves all pieces can do
             ///and return them as a list
             List<Piece> piecesList = getAllPieces(i_Symbol); 
-            List<Move> avaliableEatingMoves = new List<Move>();
 
             foreach (Piece piece in piecesList) 
             {
-                avaliableEatingMoves.Concat(getSinglePoneEatMovements(piece));
+                getSinglePoneMovements(piece, o_EatMoves, o_RegularMoves);
             }
-
-            return avaliableEatingMoves;
         }
 
-        private List<Move> getSinglePoneEatMovements(Piece i_Piece)
+        private void getSinglePoneMovements( Piece i_Piece,
+                                                List<Move> o_EatMoves,
+                                                List<Move> o_RegularMoves)
         {
             ///this function returns all the eating moves a specific piece can do
-            List<Move> moves = new List<Move>();
             
             switch (i_Piece.Direction) 
             {
                 case ePieceDirection.KingAnywhere:
-                    moves.Concat(getUpperEatingMoves(i_Piece));
-                    moves.Concat(getDownEatingMoves(i_Piece));
+                    appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(-1, -1));
+                    appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(-1, 1));
+                    appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(1, -1));
+                    appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(1, 1));
                     break;
                 case ePieceDirection.Up:
-                    moves.Concat(getUpperEatingMoves(i_Piece));
+                    appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(-1, -1));
+                    appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(-1, 1));
                     break;
                 case ePieceDirection.Down:
-                    moves.Concat(getDownEatingMoves(i_Piece));
+                    appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(1, -1));
+                    appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(1, 1));
                     break;
             }
-
-            return moves;
         }
 
         private void appendNextPieceMove(Piece i_Piece,
@@ -137,8 +137,10 @@ namespace BackEnd
             ///if there is an option to "eat" an openent piece, this kind of move must be played
             ///otherwise a regular move will be valid and regular move check will occur
             bool isValid = true;
+            List<Move> avaliableEatingMoves = new List<Move>();
+            List<Move> avaliableRegularMoves = new List<Move>();
 
-            List<Move> eatingMovents = getAllPonesEatMovements(i_PieceSymbol);
+            getAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
 
             if (!eatingMovents.Contains(move))//if there is no eating move check the regular one
             {
@@ -312,13 +314,13 @@ namespace BackEnd
             }
         }*/
 
-        private void initBoard(uint i_Size)
+        private void initBoard(int i_Size)
         {
             m_Board = new Piece?[i_Size, i_Size];
 
-            for (uint i = 0; i < (i_Size / 2) - 1; i++)
+            for (int i = 0; i < (i_Size / 2) - 1; i++)
             {
-                for (uint j = 0; j < i_Size; j++)
+                for (int j = 0; j < i_Size; j++)
                 {
                     if (i % 2 == 0)
                     {
@@ -336,9 +338,9 @@ namespace BackEnd
                     }
                 }
             }
-            for (uint i = i_Size-1; i > (i_Size / 2); i--)
+            for (int i = i_Size-1; i > (i_Size / 2); i--)
             {
-                for (uint j = 0; j < i_Size; j++)
+                for (int j = 0; j < i_Size; j++)
                 {
                     if (i % 2 == 0)
                     {
