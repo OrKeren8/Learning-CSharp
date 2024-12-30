@@ -6,6 +6,13 @@ using System.Text;
 
 namespace BackEnd
 {
+
+    public enum eMoveType
+    {
+        Regular,
+        Eat,
+        NotValidMove
+    }
     public class Board
     {
         private Piece?[,] m_Board;
@@ -109,14 +116,27 @@ namespace BackEnd
             return allPieces;
         }
 
+        private ePieceSymbol eatPieceInsideMove(Move i_Move)
+        {
+            ///Extract a game piece which is between two places (move)
+            int eatenPieceRow = (i_Move.StartPos.Row + i_Move.DestinationPos.Row)/2;
+            int eatenPieceCol = (i_Move.StartPos.Col + i_Move.DestinationPos.Col)/2;
+
+            Piece? eatenPiece;
+            extractPeiceFromBoard(new Position(eatenPieceRow, eatenPieceCol), out eatenPiece);
+
+            return eatenPiece.Value.Symbol;
+        }
+
         public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol)
         {
             /*this function checks if a pone can move inside the board
              * if it cant, false will return from the function and nothing will happen
              */
             bool isValidMove = true;
+            eMoveType moveType;
 
-            isValidMove = checkMove(i_Move, i_PieceSymbol);
+            isValidMove = checkMove(i_Move, i_PieceSymbol, out moveType);
 
             if (isValidMove) 
             {
@@ -127,13 +147,17 @@ namespace BackEnd
                     Piece piece = (Piece)nullablePiece;
                     piece.position = i_Move.DestinationPos;
                     isValidMove = insertPiece(piece);
+                    if (isValidMove && (moveType == eMoveType.Eat))
+                    {
+                        eatPieceInsideMove(i_Move);
+                    }
                 }
             }
 
             return isValidMove;
         }
 
-        private bool checkMove(Move i_Move, ePieceSymbol i_PieceSymbol)
+        private bool checkMove(Move i_Move, ePieceSymbol i_PieceSymbol, out eMoveType o_MoveType)
         {
             ///this function checks the movment a player wants to play
             ///if there is an option to "eat" an openent piece, this kind of move must be played
@@ -141,10 +165,10 @@ namespace BackEnd
             bool isValid = true;
             List<Move> avaliableEatingMoves = new List<Move>();
             List<Move> avaliableRegularMoves = new List<Move>();
-
+            
             getAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
-
-            if ((avaliableEatingMoves.Count > 0) && !avaliableEatingMoves.Contains(i_Move))
+            o_MoveType = (avaliableEatingMoves.Count > 0) ? eMoveType.Eat: eMoveType.Regular;
+            if ((o_MoveType == eMoveType.Eat) && !avaliableEatingMoves.Contains(i_Move))
             {
                 isValid = false;
             }
