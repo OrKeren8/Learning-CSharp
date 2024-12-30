@@ -108,22 +108,23 @@ namespace BackEnd
             return allPieces;
         }
 
-        public bool MovePiece(Position i_StartPos, Position i_DestinationPos)
+        public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol)
         {
             /*this function checks if a pone can move inside the board
              * if it cant, false will return from the function and nothing will happen
              */
             bool isValidMove = true;
 
-            isValidMove = checkMove(i_StartPos, i_DestinationPos);
+            isValidMove = checkMove(i_Move, i_PieceSymbol);
+
             if (isValidMove) 
             {
                 Piece? nullablePiece;
-                isValidMove = extractPeiceFromBoard(i_StartPos, out nullablePiece);
+                isValidMove &= extractPeiceFromBoard(i_Move.StartPos, out nullablePiece);
                 if (isValidMove)
                 {
                     Piece piece = (Piece)nullablePiece;
-                    piece.position = i_DestinationPos;
+                    piece.position = i_Move.DestinationPos;
                     isValidMove = insertPiece(piece);
                 }
             }
@@ -150,6 +151,8 @@ namespace BackEnd
             {
                 isValid = false;
             }
+            //TODO: if eat a pone need to play another time
+            //TODO: if did not valid move we dont want to calc all the moves again
 
             return isValid;
         }
