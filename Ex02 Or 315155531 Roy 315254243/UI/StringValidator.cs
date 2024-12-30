@@ -47,7 +47,7 @@ namespace UI
         {
             bool isValid = true;
 
-            if (i_Move[2] != '>' || i_Move.Length != 5 || !validateMoveLetters(i_Move))
+            if (i_Move.Length != 5 || i_Move[2] != '>' || !validateMoveLetters(i_Move))
             {
                 isValid = false;
             }

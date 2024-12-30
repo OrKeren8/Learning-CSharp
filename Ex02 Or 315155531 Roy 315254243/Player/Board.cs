@@ -16,7 +16,8 @@ namespace BackEnd
         {
             Size = i_Size;
             m_Board = new Piece?[i_Size, i_Size];
-            initBoard(i_Size);
+            //initBoard();
+            InitializeBoard();
         }
         public string GetRowSymbols(int i_Row)
         {
@@ -147,7 +148,7 @@ namespace BackEnd
             {
                 isValid = false;
             }
-            else if (!avaliableRegularMoves.Contains(i_Move))
+            else if ((avaliableEatingMoves.Count == 0) && !avaliableRegularMoves.Contains(i_Move))
             {
                 isValid = false;
             }
@@ -228,24 +229,25 @@ namespace BackEnd
             return piece;
         }
 
-        /*
+        
         private void InitializeBoard()
         {
-            int size = grid.GetLength(0);
-            for (int row = 0; row < size; row++)
+            for (int row = 0; row < Size; row++)
             {
-                for (int col = 0; col < size; col++)
+                for (int col = 0; col < Size; col++)
                 {
-                    if (row < (size / 2) - 1 && (row + col) % 2 != 0)
-                        grid[row, col] = 'O'; // Player 2
-                    else if (row >= (size / 2) + 1 && (row + col) % 2 != 0)
-                        grid[row, col] = 'X'; // Player 1
-                    else
-                        grid[row, col] = ' ';
+                    if (row < (Size / 2) - 1 && (row + col) % 2 != 0)
+                    {
+                        insertPiece(new Piece(ePieceSymbol.O, new Position(row, col)));
+                    }
+                    else if (row >= (Size / 2) + 1 && (row + col) % 2 != 0)
+                    {
+                        insertPiece(new Piece(ePieceSymbol.X, new Position(row, col)));
+                    }
                 }
             }
-        }*/
-
+        }
+/*
         private void initBoard(int i_Size)
         {
             m_Board = new Piece?[i_Size, i_Size];
@@ -291,5 +293,6 @@ namespace BackEnd
                 }
             }
         }
+*/
     }
 }
