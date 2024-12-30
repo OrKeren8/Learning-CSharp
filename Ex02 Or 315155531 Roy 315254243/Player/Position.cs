@@ -1,4 +1,6 @@
 ﻿
+using System;
+
 namespace BackEnd
 {
     public struct Position
@@ -22,6 +24,20 @@ namespace BackEnd
         {
             StartPos = i_StartPos;
             DestinationPos = i_DestionationPos;
+        }
+
+        public static explicit operator Move(string input)
+        {
+            string[] parts = input.Split('>');
+            if (parts.Length != 2)
+            {
+                throw new FormatException("Input string must be in the format 'Aa'");
+            }
+            //Aa>Bb
+            Position startPos = new Position(parts[0][0] - 'A', parts[0][1] - 'a');
+            Position destPos = new Position(parts[1][0] - 'A', parts[1][1] - 'a');
+
+            return new Move(startPos, destPos);
         }
     }
 }
