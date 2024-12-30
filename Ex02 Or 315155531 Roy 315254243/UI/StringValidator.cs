@@ -47,7 +47,7 @@ namespace UI
         {
             bool isValid = true;
 
-            if (i_Move[2] != '<' || i_Move.Length != 5 || !validateMoveLetters(i_Move))
+            if (i_Move[2] != '>' || i_Move.Length != 5 || !validateMoveLetters(i_Move))
             {
                 isValid = false;
             }
@@ -55,8 +55,6 @@ namespace UI
             return isValid;
         }
 
-           
-        
         private static bool validateMoveLetters(String i_Move)
         {
             bool IsValidLetters = true;
@@ -71,7 +69,7 @@ namespace UI
 
         private static bool checkLowerChar(char i_LowerChar)
         {
-            bool isValid = false;
+            bool isValid = true;
 
             if (i_LowerChar < 'a' || i_LowerChar > 'z')
             {
@@ -83,7 +81,7 @@ namespace UI
 
         private static bool checkUpperChar(char i_UpperChar)
         {
-            bool isValid = false;
+            bool isValid = true;
 
             if (i_UpperChar < 'A' || i_UpperChar > 'Z')
             {
