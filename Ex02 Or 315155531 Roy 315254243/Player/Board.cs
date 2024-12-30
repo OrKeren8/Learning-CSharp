@@ -142,19 +142,13 @@ namespace BackEnd
 
             getAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
 
-            if (!eatingMovents.Contains(move))//if there is no eating move check the regular one
+            if ((avaliableEatingMoves.Count > 0) && !avaliableEatingMoves.Contains(move))
             {
-                isValid &= checkIfPositionInBoard(move.StartPos);
-                isValid &= checkIfPositionInBoard(move.DestinationPos);
-                if (isValid)
-                {
-                    isValid &= checkIfPositionFree(move.DestinationPos);
-                    isValid &= !checkIfPositionFree(move.StartPos);
-                    if (isValid)
-                    {
-                        isValid &= checkMoveDirection(i_StartPos, i_DestinationPos);
-                    }
-                }
+                isValid = false;
+            }
+            else if (!avaliableRegularMoves.Contains(move))
+            {
+                isValid = false;
             }
 
             return isValid;
