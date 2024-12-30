@@ -70,7 +70,28 @@ namespace BackEnd
             return moves;
         }
 
+        private void appendNextPieceMove(Piece i_Piece,
+                                        List<Move> o_EatMoves,
+                                        List<Move> o_RegularMoves,
+                                        Position i_MoveDelta)
+        {
+            
+            Position newPos = new Position(i_Piece.position.Row + i_MoveDelta.Row, i_Piece.position.Col + i_MoveDelta.Col);
+            Position afterNewPosInSameDirection = new Position(newPos.Row + i_MoveDelta.Row, newPos.Col + i_MoveDelta.Col);
 
+            //check if there is a valid move to the desired direction
+            if (!checkIfPositionFree(newPos) &&
+                (getPeiceFromBoard(newPos) != null) &&
+                (getPeiceFromBoard(newPos).Value.Symbol != i_Piece.Symbol) &&
+                checkIfPositionFree(afterNewPosInSameDirection))
+            {
+                o_EatMoves.Add(new Move(i_Piece.position, afterNewPosInSameDirection));
+            }
+            else if (checkIfPositionFree(newPos))
+            {
+                o_RegularMoves.Add(new Move(i_Piece.position, newPos));
+            }
+        }
 
         private void getUpperEatingMoves(Piece i_Piece, out List<Move> o_EatMoves, out List<Move> o_RegularMoves)
         {
