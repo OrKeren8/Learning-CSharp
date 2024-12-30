@@ -92,82 +92,7 @@ namespace BackEnd
                 o_RegularMoves.Add(new Move(i_Piece.position, newPos));
             }
         }
-
-        private void getUpperEatingMoves(Piece i_Piece, out List<Move> o_EatMoves, out List<Move> o_RegularMoves)
-        {
-            ///this function get all valid moves a piece can do
-            List<Move> eatMoves = new List<Move>();
-            List<Move> regularMoves = new List<Move>();
-
-            Position upperLeftPos = new Position(i_Piece.position.Row - 1, i_Piece.position.Col - 1); //we will have bug here because the inoputs are uint and we can have -1 here
-            Position afterUpperLeftPos = new Position(upperLeftPos.Row - 1, upperLeftPos.Col - 1);
-            Position upperRighPos = new Position(i_Piece.position.Row - 1, i_Piece.position.Col + 1);
-            Position afterUpperRightPos = new Position(upperRighPos.Row - 1, upperRighPos.Col + 1);
-
-            //check if there is a valid move to the up left
-            if (!checkIfPositionFree(upperLeftPos) &&
-                (getPeiceFromBoard(upperLeftPos) != null) &&
-                (getPeiceFromBoard(upperLeftPos).Value.Symbol != i_Piece.Symbol) &&
-                checkIfPositionFree(afterUpperLeftPos))
-            {
-                eatMoves.Add(new Move(i_Piece.position, afterUpperLeftPos));
-            }
-            else if (checkIfPositionFree(upperLeftPos))
-            {
-                regularMoves.Add(new Move(i_Piece.position, upperLeftPos));
-            }
-
-            //check if there is a valid move to the up right
-            if (!checkIfPositionFree(upperRighPos) &&
-                (getPeiceFromBoard(upperRighPos) != null) &&
-                (getPeiceFromBoard(upperRighPos).Value.Symbol != i_Piece.Symbol) &&
-                checkIfPositionFree(afterUpperRightPos))
-            {
-                eatMoves.Add(new Move(i_Piece.position, afterUpperRightPos));
-            }
-            else if (checkIfPositionFree(upperRighPos))
-            {
-                regularMoves.Add(new Move(i_Piece.position, upperRighPos));
-            }
-        }
-
-        private void getDownEatingMoves(Piece i_Piece, out List<Move> o_EatMoves, out List<Move> o_RegularMoves)
-        {
-            ///this function get all valid moves a piece can do
-            List<Move> eatMoves = new List<Move>();
-            List<Move> regularMoves = new List<Move>();
-            Position downLeftPos = new Position(i_Piece.position.Row + 1, i_Piece.position.Col - 1); 
-            Position afterDownLeftPos = new Position(downLeftPos.Row + 1, downLeftPos.Col - 1);
-            Position downRighPos = new Position(i_Piece.position.Row + 1, i_Piece.position.Col + 1);
-            Position afterDownRightPos = new Position(downRighPos.Row + 1, downRighPos.Col + 1);
-
-            //check if there is a valid move to the down left
-            if (!checkIfPositionFree(downLeftPos) &&
-                (getPeiceFromBoard(downLeftPos) != null) &&
-                (getPeiceFromBoard(downLeftPos).Value.Symbol != i_Piece.Symbol) &&
-                checkIfPositionFree(afterDownLeftPos))
-            {
-                eatMoves.Add(new Move(i_Piece.position, afterDownLeftPos));
-            }
-            else if(checkIfPositionFree(downLeftPos))
-            {
-                regularMoves.Add(new Move(i_Piece.position, downLeftPos));
-            }
-
-            //check if there is a valid move to the down right
-            if (!checkIfPositionFree(downRighPos) &&
-                (getPeiceFromBoard(downRighPos) != null) &&
-                (getPeiceFromBoard(downRighPos).Value.Symbol != i_Piece.Symbol) &&
-                checkIfPositionFree(afterDownRightPos))
-            {
-                eatMoves.Add(new Move(i_Piece.position, afterDownRightPos));
-            }
-            else if(checkIfPositionFree(downRighPos))
-            {
-                regularMoves.Add(new Move(i_Piece.position, downRighPos));
-            }
-        }
-
+      
         private List<Piece> getAllPieces(ePieceSymbol i_Symbol)
         {
             List<Piece> allPieces = new List<Piece>();
@@ -182,7 +107,6 @@ namespace BackEnd
 
             return allPieces;
         }
-
 
         public bool MovePiece(Position i_StartPos, Position i_DestinationPos)
         {
