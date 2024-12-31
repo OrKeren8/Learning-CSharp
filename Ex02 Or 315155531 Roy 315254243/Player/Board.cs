@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
 using System.Text;
 
 namespace BackEnd
@@ -128,7 +126,7 @@ namespace BackEnd
             return eatenPiece.Value.Symbol;
         }
 
-        public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol, out bool i_DoubleBoubleMove)
+        public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol, out bool o_AnotherMove)
         {
             /*this function checks if a pone can move inside the board
              * if it cant, false will return from the function and nothing will happen
@@ -136,7 +134,7 @@ namespace BackEnd
             bool isValidMove = true;
             eMoveType moveType;
             List<Move> nextEatMoves = new List<Move>(), nextRegularMoves = new List<Move>();
-            i_DoubleBoubleMove = false;
+            o_AnotherMove = false;
 
             isValidMove = checkMove(i_Move, i_PieceSymbol, out moveType);
 
@@ -152,7 +150,7 @@ namespace BackEnd
                     if (isValidMove && (moveType == eMoveType.Eat))
                     {
                         getSinglePoneMovements((Piece)getPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
-                        i_DoubleBoubleMove = (nextEatMoves.Count > 0);
+                        o_AnotherMove = (nextEatMoves.Count > 0);
                         eatPieceInsideMove(i_Move);
                     }
                 }

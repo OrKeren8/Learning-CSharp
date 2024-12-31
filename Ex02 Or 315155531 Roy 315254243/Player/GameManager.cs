@@ -6,31 +6,18 @@ namespace BackEnd
     public class GameManager
     {
 
-        private Player m_Player1;
-        private Player m_Player2;
+        public Player Player1 { get; private set; }
+        public Player Player2 { get; private set; }
+        public Player CurrPlayerTurn { get; private set;}
 
-        private Board m_Board;
+        public Board GameBoard { get; private set; }
 
         public GameManager(Player i_Player1, Player i_Player2, int i_BoardSize) 
         {
-            m_Player1 = i_Player1;
-            m_Player2 = i_Player2;
-            m_Board = new Board(i_BoardSize);
-        }
-
-        public Player Player1
-        {
-            get { return m_Player1; }
-        }
-
-        public Player Player2
-        {
-            get { return m_Player2; }
-        }
-
-        public Board getBoard
-        {
-            get { return m_Board; }
+            Player1 = i_Player1;
+            Player2 = i_Player2;
+            GameBoard = new Board(i_BoardSize);
+            CurrPlayerTurn = Player1;
         }
 
         public void QuitGame()
@@ -48,10 +35,21 @@ namespace BackEnd
             Console.WriteLine("GameManager: new player was added");
         }
 
-        public bool MovePiece(string i_StringMove, Player player, out bool i_DoubleBoubleMove)
+        public bool MovePiece(Move i_Move)
         {
-            Move move = (Move)i_StringMove;
-            return m_Board.MovePiece(move, player.PieceSymbol, out i_DoubleBoubleMove);
+            bool anotherMove, isValidMove;
+
+            isValidMove = GameBoard.MovePiece(i_Move, CurrPlayerTurn.PieceSymbol, out anotherMove);
+            if(anotherMove)
+            {
+                CurrPlayerTurn = (CurrPlayerTurn.PieceSymbol == Player1.PieceSymbol) ? Player1 : Player2;
+            }
+            else
+            {
+                CurrPlayerTurn = (CurrPlayerTurn.PieceSymbol == Player1.PieceSymbol) ? Player2 : Player1;
+            }
+
+            return isValidMove;
         }
     }
 }
