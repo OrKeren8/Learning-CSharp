@@ -126,7 +126,7 @@ namespace BackEnd
             return eatenPiece.Value.Symbol;
         }
 
-        public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol, out bool o_AnotherMove)
+        public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol, out bool o_AnotherMove, Position? i_FromPos)
         {
             /*this function checks if a pone can move inside the board
              * if it cant, false will return from the function and nothing will happen
@@ -136,7 +136,7 @@ namespace BackEnd
             List<Move> nextEatMoves = new List<Move>(), nextRegularMoves = new List<Move>();
             o_AnotherMove = false;
 
-            isValidMove = checkMove(i_Move, i_PieceSymbol, out moveType);
+            isValidMove = checkMove(i_Move, i_PieceSymbol, out moveType, i_FromPos);
 
             if (isValidMove) 
             {
@@ -159,28 +159,45 @@ namespace BackEnd
             return isValidMove;
         }
 
-        private bool checkMove(Move i_Move, ePieceSymbol i_PieceSymbol, out eMoveType o_MoveType)
+        private bool checkMove( Move i_Move,
+                                ePieceSymbol i_PieceSymbol,
+                                out eMoveType o_MoveType,
+                                Position? FromPos)
         {
             ///this function checks the movment a player wants to play
             ///if there is an option to "eat" an openent piece, this kind of move must be played
             ///otherwise a regular move will be valid and regular move check will occur
             bool isValid = true;
+            o_MoveType = eMoveType.NotValidMove;
             List<Move> avaliableEatingMoves = new List<Move>();
             List<Move> avaliableRegularMoves = new List<Move>();
-            
-            getAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
-            o_MoveType = (avaliableEatingMoves.Count > 0) ? eMoveType.Eat: eMoveType.Regular;
-            if ((o_MoveType == eMoveType.Eat) && !avaliableEatingMoves.Contains(i_Move))
-            {
-                isValid = false;
-            }
-            else if ((avaliableEatingMoves.Count == 0) && !avaliableRegularMoves.Contains(i_Move))
-            {
-                isValid = false;
-            }
-            //TODO: if eat a pone need to play another time
-            //TODO: if did not valid move we dont want to calc all the moves again
 
+            if (FromPos.HasValue)
+            {
+                Piece? piece = getPeiceFromBoard(FromPos.Value);
+                if (piece.HasValue)
+                {
+                    getSinglePoneMovements((Piece)piece, avaliableEatingMoves, avaliableRegularMoves);
+                }else
+                {
+                    isValid = false;
+                }
+            }else
+            {
+                getAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
+            }
+            if (isValid)
+            {
+                o_MoveType = (avaliableEatingMoves.Count > 0) ? eMoveType.Eat : eMoveType.Regular;
+                if ((o_MoveType == eMoveType.Eat) && !avaliableEatingMoves.Contains(i_Move))
+                {
+                    isValid = false;
+                }else if ((avaliableEatingMoves.Count == 0) && !avaliableRegularMoves.Contains(i_Move))
+                {
+                    isValid = false;
+                }
+            }
+            
             return isValid;
         }
 

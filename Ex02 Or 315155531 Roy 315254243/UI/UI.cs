@@ -80,6 +80,7 @@ namespace UI
 
         private void startGame()
         {
+            
             Player player1 = getPlayerFromUser(ePieceSymbol.O);
             int boardSize = getBoardSize();
             Console.WriteLine("Please enter opponent name, or enter PC in order to play against the PC");
@@ -87,56 +88,99 @@ namespace UI
             Ex02.ConsoleUtils.Screen.Clear();
             m_GameManager = new GameManager(player1, player2, boardSize);
             gameMaimLoop();
+            //asking if he want another round with the same board and the same users
+            while (checkIfOtherRound())
+            {
+                gameMaimLoop();
+            }
+        }
+        private bool checkIfOtherRound()
+        {
+            bool toContinue = true;
+            string userChoiceIfContinue = getUserChoiceIfContinueForMoreRounds();
+
+            if (userChoiceIfContinue == "no")
+            {
+                toContinue = false;
+            }
+            return toContinue;
         }
 
-        private void gameMaimLoop()
+        private string getUserChoiceIfContinueForMoreRounds()
         {
-            bool isFinishGame = false;
-            bool firstPlayerTurn = true;
-            String currentPlayerMove;
-            bool doubleBoubleMove;
+            string ifContinue;
+            bool isValid = false;
+            Console.WriteLine("Would you like more rounds? please answer in yes or no");
+            ifContinue = Console.ReadLine();
 
-            while (!isFinishGame)//the main loop of the game
+            while (!isValidWantToContinue(ifContinue))
             {
-                printBoard(m_GameManager.getBoard);
-                if (firstPlayerTurn)
-                {
-                    currentPlayerMove = movePieceByUserChoice(m_GameManager.Player1, out doubleBoubleMove);
-                    firstPlayerTurn = (false || doubleBoubleMove);
-                }else
-                {
-                    currentPlayerMove = movePieceByUserChoice(m_GameManager.Player2, out doubleBoubleMove);
-                    firstPlayerTurn = !doubleBoubleMove;//if true-second player turn, false-first
-                }
-                Ex02.ConsoleUtils.Screen.Clear();
+                Console.WriteLine("Wrong selection please try again:");
+                ifContinue = Console.ReadLine();
+            }
+            return ifContinue;
+        }
+        private bool isValidWantToContinue(string ifContinue)
+        {
+            if(ifContinue != "yes" || ifContinue != "no")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        private string movePieceByUserChoice(Player i_Player, out bool i_DoubleBoubleMove)
+        private void gameMaimLoop()
+        { 
+            bool isFinishGame = false;
+            String currentPlayerMove;
+
+            printBoard(m_GameManager.GameBoard);
+            Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PieceSymbol}):");
+            currentPlayerMove = movePieceByUserChoice();// first move by the first user //need to add to movePieceByUserChoice option of returning Q string 
+            isFinishGame = StringValidator.IsQuitRequest(currentPlayerMove);
+            Ex02.ConsoleUtils.Screen.Clear();
+            while (!isFinishGame)//the main loop of the game
+            {
+                printBoard(m_GameManager.GameBoard);
+                Console.WriteLine($"{m_GameManager.LastPlayer.Name}'s move ({m_GameManager.LastPlayer.PieceSymbol}) was: {currentPlayerMove}");
+                Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PieceSymbol}):");
+                if(StringValidator.IsQuitRequest(currentPlayerMove)){
+                    isFinishGame = true;
+                }
+                else
+                {
+                    currentPlayerMove = movePieceByUserChoice();
+                    Ex02.ConsoleUtils.Screen.Clear();
+                }
+            }
+        }
+
+        private string movePieceByUserChoice()
         {
             ///this function get a move from the player and send that command 
             ///if valid to the gameManager to move the desired piece
             String currentPlayerMove;
-            bool isValidMove = false;
-            i_DoubleBoubleMove = false;
-
-            Console.WriteLine($"{i_Player.Name}'s turn:");
+            bool isValidInput = false;
+            
             currentPlayerMove = Console.ReadLine();
-            while (!isValidMove)
+            while (!isValidInput)
             {
                 if (!StringValidator.CheckValidMove(currentPlayerMove))
                 {
                     Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
                 }
-                else if (!m_GameManager.MovePiece(currentPlayerMove, i_Player, out i_DoubleBoubleMove))
+                else if (!m_GameManager.MovePiece((Move)currentPlayerMove))
                 {
                     Console.WriteLine("You are not allowed to go to this place, please try again");
                 }
                 else
                 {
-                    isValidMove = true;
+                    isValidInput = true;
                 }
-                if(!isValidMove)
+                if(!isValidInput)
                 {
                     currentPlayerMove = Console.ReadLine();
                 }

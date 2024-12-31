@@ -90,6 +90,11 @@ namespace UI
 
             return isValid;
         }
+
+        public static bool IsQuitRequest(String i_Request)
+        {
+            return (i_Request == "Q" || i_Request == "q");
+        }
             
 
     }
