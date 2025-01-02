@@ -56,7 +56,6 @@ namespace BackEnd
                                                 List<Move> o_RegularMoves)
         {
             ///this function returns all the eating moves a specific piece can do
-            Console.WriteLine($"Piece Symbol: {i_Piece.Symbol}, Piece Direction: {i_Piece.Direction}");
             switch (i_Piece.Direction) 
             {
 
