@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -56,10 +56,12 @@ namespace BackEnd
                                                 List<Move> o_RegularMoves)
         {
             ///this function returns all the eating moves a specific piece can do
-            
+            Console.WriteLine($"Piece Symbol: {i_Piece.Symbol}, Piece Direction: {i_Piece.Direction}");
             switch (i_Piece.Direction) 
             {
+
                 case ePieceDirection.KingAnywhere:
+
                     appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(-1, -1));
                     appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(-1, 1));
                     appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(1, -1));
@@ -87,8 +89,8 @@ namespace BackEnd
 
             //check if there is a valid move to the desired direction
             if (!checkIfPositionFree(newPos) &&
-                (GetPeiceFromBoard(newPos) != null) &&
-                (GetPeiceFromBoard(newPos).Value.Symbol != i_Piece.Symbol) &&
+                (getPeiceFromBoard(newPos) != null) &&
+                checkIfDontSameGroupMembers(getPeiceFromBoard(newPos).Value.Symbol, i_Piece.Symbol) &&
                 checkIfPositionFree(afterNewPosInSameDirection))
             {
                 o_EatMoves.Add(new Move(i_Piece.position, afterNewPosInSameDirection));
@@ -98,6 +100,37 @@ namespace BackEnd
                 o_RegularMoves.Add(new Move(i_Piece.position, newPos));
             }
         }
+
+
+        /*
+         if (!checkIfPositionFree(newPos) &&
+                (getPeiceFromBoard(newPos) != null) &&
+                (getPeiceFromBoard(newPos).Value.Symbol != i_Piece.Symbol) &&
+                checkIfPositionFree(afterNewPosInSameDirection))
+            {
+                o_EatMoves.Add(new Move(i_Piece.position, afterNewPosInSameDirection));
+            }
+         
+         */
+
+        public bool checkIfDontSameGroupMembers(ePieceSymbol pieceSymbol1, ePieceSymbol pieceSymbol2)
+        {
+            bool isNotSameGroup = true;
+            if (pieceSymbol1 == pieceSymbol2)
+            {
+                isNotSameGroup = false;
+            }
+            else if (((pieceSymbol1 == ePieceSymbol.O) && (pieceSymbol1 == ePieceSymbol.U)) || ((pieceSymbol1 == ePieceSymbol.U) && (pieceSymbol1 == ePieceSymbol.O)))
+            {
+                isNotSameGroup = false;
+            }
+            else if(((pieceSymbol1 == ePieceSymbol.X) && (pieceSymbol1 == ePieceSymbol.K)) || ((pieceSymbol1 == ePieceSymbol.K) && (pieceSymbol1 == ePieceSymbol.X)))
+            {
+                isNotSameGroup = false;
+            }
+            return isNotSameGroup;
+        }
+
       
         private List<Piece> getAllPieces(ePieceSymbol i_Symbol)
         {
@@ -136,6 +169,8 @@ namespace BackEnd
             List<Move> nextEatMoves = new List<Move>(), nextRegularMoves = new List<Move>();
             o_AnotherMove = false;
 
+            bool isBecomeKing;
+
             isValidMove = checkMove(i_Move, i_PieceSymbol, out moveType, i_FromPos);
 
             if (isValidMove) 
@@ -149,14 +184,37 @@ namespace BackEnd
                     isValidMove = insertPiece(piece);
                     if (isValidMove && (moveType == eMoveType.Eat))
                     {
-                        GetSinglePoneMovements((Piece)GetPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
-                        o_AnotherMove = (nextEatMoves.Count > 0);
                         eatPieceInsideMove(i_Move);
+                        getSinglePoneMovements((Piece)getPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
+                        o_AnotherMove = (nextEatMoves.Count > 0);
+                    }
+                    isBecomeKing = checkIfBecomeKingAfterMove(piece);
+                    if (isBecomeKing)
+                    {
+                        isValidMove &= promotePieceToKing(piece);
                     }
                 }
             }
 
             return isValidMove;
+        }
+
+        private bool promotePieceToKing(Piece piece)
+        {
+            bool res = false;
+            Piece? toKingPiece;
+
+            extractPeiceFromBoard(piece.position, out toKingPiece);
+            if (toKingPiece.HasValue)
+            {
+                Piece newPiece = (Piece)toKingPiece;
+                newPiece.PromoteToKing();
+               
+                insertPiece(newPiece);
+                res = true;
+            }
+
+            return res;
         }
 
         private bool checkMove( Move i_Move,
@@ -290,6 +348,20 @@ namespace BackEnd
                 }
             }
         }
+
+        private bool checkIfBecomeKingAfterMove(Piece i_Piece)
+        {
+            bool isKing = false;
+            if(i_Piece.position.Row == 0 || i_Piece.position.Row == Size-1)
+            {
+                isKing = true;
+            }
+           
+            return isKing;
+        }
+
+
+
 /*
         private void initBoard(int i_Size)
         {
