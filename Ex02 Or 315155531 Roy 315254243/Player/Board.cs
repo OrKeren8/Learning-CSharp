@@ -152,9 +152,9 @@ namespace BackEnd
                     isValidMove = insertPiece(piece);
                     if (isValidMove && (moveType == eMoveType.Eat))
                     {
+                        eatPieceInsideMove(i_Move);
                         getSinglePoneMovements((Piece)getPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
                         o_AnotherMove = (nextEatMoves.Count > 0);
-                        eatPieceInsideMove(i_Move);
                     }
                     isBecomeKing = checkIfBecomeKingAfterMove(piece);
                     if (isBecomeKing)
