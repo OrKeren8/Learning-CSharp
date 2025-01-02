@@ -136,6 +136,8 @@ namespace BackEnd
             List<Move> nextEatMoves = new List<Move>(), nextRegularMoves = new List<Move>();
             o_AnotherMove = false;
 
+            bool isBecomeKing;
+
             isValidMove = checkMove(i_Move, i_PieceSymbol, out moveType, i_FromPos);
 
             if (isValidMove) 
@@ -152,6 +154,11 @@ namespace BackEnd
                         getSinglePoneMovements((Piece)getPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
                         o_AnotherMove = (nextEatMoves.Count > 0);
                         eatPieceInsideMove(i_Move);
+                    }
+                    isBecomeKing = checkIfBecomeKingAfterMove(piece);
+                    if (isBecomeKing)
+                    {
+                        piece.PromoteToKing();
                     }
                 }
             }
@@ -298,7 +305,7 @@ namespace BackEnd
             {
                 isKing = true;
             }
-            i_Piece.PromoteToKing();
+           
             return isKing;
         }
 

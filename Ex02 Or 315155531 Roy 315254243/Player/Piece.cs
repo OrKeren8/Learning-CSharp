@@ -16,6 +16,7 @@ namespace BackEnd
         X,
         //U,
         //K
+        //just if king need to check
     }
 
     public struct Piece
