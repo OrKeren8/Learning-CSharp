@@ -2,11 +2,17 @@
 
 namespace BackEnd
 {
+    public enum ePlayerType
+    {
+        White,
+        Black
+    }
+
     public struct Player
     {
         private string m_Name;
         public readonly bool IsPc; //in order to match property naming style
-        private readonly ePieceSymbol m_PieceSymbol;
+        private readonly ePlayerType m_PlayerType;
 
         public string Name
         {
@@ -14,16 +20,16 @@ namespace BackEnd
         }
 
         //constructor
-        public Player(string i_Name, bool i_IsPc, ePieceSymbol i_PieceSymbol)
+        public Player(string i_Name, bool i_IsPc, ePlayerType i_PlayerType)
         {
             m_Name = i_Name;
             IsPc = i_IsPc;
-            m_PieceSymbol = i_PieceSymbol;
+            m_PlayerType = i_PlayerType;
         }
 
-        public ePieceSymbol PieceSymbol
+        public ePlayerType PlayerType
         {
-            get { return m_PieceSymbol; }
+            get { return m_PlayerType; }
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace BackEnd
@@ -38,7 +38,7 @@ namespace BackEnd
         
         private bool isAnotherMoveAfterEat()
         {
-            return (CurrPlayer.PieceSymbol == LastPlayer.PieceSymbol);
+            return (CurrPlayer.PlayerType == LastPlayer.PlayerType);
         }
 
         public bool MovePiece(Move i_Move)
@@ -59,11 +59,11 @@ namespace BackEnd
 
             if (!isAnotherMoveAfterEat())
             {
-                isValidMove = GameBoard.MovePiece(i_Move, CurrPlayer.PieceSymbol, out anotherMove, null);
+                isValidMove = GameBoard.MovePiece(i_Move, CurrPlayer.PlayerType, out anotherMove, null);
             }
             else
             {
-                isValidMove = GameBoard.MovePiece(i_Move, CurrPlayer.PieceSymbol, out anotherMove, LastMove.DestinationPos);
+                isValidMove = GameBoard.MovePiece(i_Move, CurrPlayer.PlayerType, out anotherMove, LastMove.DestinationPos);
             }
             if (isValidMove)
             {
@@ -71,11 +71,11 @@ namespace BackEnd
                 LastPlayer = CurrPlayer;
                 if(anotherMove)
                 {
-                    CurrPlayer = (CurrPlayer.PieceSymbol == Player1.PieceSymbol) ? Player1 : Player2;
+                    CurrPlayer = (CurrPlayer.PlayerType == Player1.PlayerType) ? Player1 : Player2;
                 }
                 else
                 {
-                    CurrPlayer = (CurrPlayer.PieceSymbol == Player1.PieceSymbol) ? Player2 : Player1;
+                    CurrPlayer = (CurrPlayer.PlayerType == Player1.PlayerType) ? Player2 : Player1;
                 }
             }
 
@@ -99,7 +99,7 @@ namespace BackEnd
             }
             else
             {
-                GameBoard.GetAllPonesMovements(CurrPlayer.PieceSymbol, eatingMoves, regularMoves);
+                GameBoard.GetAllPonesMovements(CurrPlayer.PlayerType, eatingMoves, regularMoves);
                 isSucceed = eatingMoves.Count > 0 || regularMoves.Count > 0 ? true : false;
             }
             if (isSucceed)
