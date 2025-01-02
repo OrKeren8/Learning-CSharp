@@ -28,9 +28,7 @@ namespace UI
                         break;
 
                 }
-                   
             }
-
         }
 
         private void printMenu()
@@ -183,7 +181,6 @@ namespace UI
             ///if valid to the gameManager to move the desired piece
             String currentPlayerMove;
             bool isValidInput = false;
-            
             currentPlayerMove = Console.ReadLine(); 
             if (currentPlayerMove == "Q" || currentPlayerMove == "q")
             {
@@ -211,8 +208,6 @@ namespace UI
                     }
                 }
             }
-            
-            
             return currentPlayerMove;
         }
 
@@ -286,6 +281,5 @@ namespace UI
             }
             Console.WriteLine(seperator);
         }
-
     }
 }
