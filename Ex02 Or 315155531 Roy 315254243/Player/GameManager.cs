@@ -5,14 +5,14 @@ namespace BackEnd
 {
     public class GameManager
     {
-        public Player Player1 { get; private set; }
-        public Player Player2 { get; private set; }
+        private Player m_Player1;
+        private Player m_Player2;
         public Player CurrPlayer { get; private set;}
         public Player LastPlayer { get; private set; }
         public Move LastMove { get; private set; }
         public Board GameBoard { get; private set; }
 
-        public GameManager(Player i_Player1, Player i_Player2, int i_BoardSize) 
+        public GameManager(Player i_Player1, Player i_Player2, int i_BoardSize)
         {
             Player1 = i_Player1;
             Player2 = i_Player2;
@@ -20,15 +20,33 @@ namespace BackEnd
             CurrPlayer = Player1;
             LastPlayer = Player2;
         }
+        public Player Player1
+        {
+            get { return m_Player1; }
+            private set { m_Player1 = value; }
+        }
 
+        public Player Player2
+        {
+            get { return m_Player2; }
+            private set { m_Player2 = value; }
+        }
         public void QuitGame()
         {
             Console.WriteLine("GameManager: quitting game");
         }
 
-        public void StartGame()
+        public void EndRound()
         {
-            Console.WriteLine("GameManager: start game");
+            updatePlayersPoints();
+        }
+
+        public void StartNewRound(int i_BoardSize)
+        {
+            GameBoard = new Board(i_BoardSize);
+            CurrPlayer = Player1;
+            LastPlayer = Player2;
+            LastMove = new Move();
         }
 
         public void AddPlayer(Player i_Player)
@@ -115,6 +133,22 @@ namespace BackEnd
             Random random = new Random();
 
             return i_List[random.Next(i_List.Count)];
+        }
+
+        private void updatePlayersPoints()
+        {
+            int player1Points = GameBoard.GetNumOfPointsByPlayer(Player1.PlayerType);
+            int player2Points = GameBoard.GetNumOfPointsByPlayer(Player2.PlayerType);
+
+            int player1AdditionalPoints = player1Points - player2Points;
+            if (player1AdditionalPoints > 0)
+            {
+                m_Player1.Points += player1AdditionalPoints;
+            }
+            else
+            {
+                m_Player2.Points += Math.Abs(player1AdditionalPoints);
+            }
         }
 
     }

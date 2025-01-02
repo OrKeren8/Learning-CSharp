@@ -16,7 +16,6 @@ namespace BackEnd
         private Piece?[,] m_Board;
         public int Size { get; private set; }
 
-
         public Board(int i_Size)
         {
             Size = i_Size;
@@ -333,55 +332,18 @@ namespace BackEnd
            
             return isKing;
         }
-
-
-
-/*
-        private void initBoard(int i_Size)
+        public int GetNumOfPointsByPlayer(ePlayerType i_Player)
         {
-            m_Board = new Piece?[i_Size, i_Size];
+            int points = 0;
+            List<Piece> pieces = getAllPieces(i_Player);
 
-            for (int i = 0; i < (i_Size / 2) - 1; i++)
+            foreach( Piece piece in pieces )
             {
-                for (int j = 0; j < i_Size; j++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        if (j % 2 != 0)
-                        {
-                            insertPiece(new Piece(ePieceSymbol.O, new Position(i, j)));
-                        }
-                    }
-                    else
-                    {
-                        if (j % 2 == 0)
-                        {
-                            insertPiece(new Piece(ePieceSymbol.O, new Position(i, j)));
-                        }
-                    }
-                }
-            }
-            for (int i = i_Size-1; i > (i_Size / 2); i--)
-            {
-                for (int j = 0; j < i_Size; j++)
-                {
-                    if (i % 2 == 0)
-                    {
-                        if (j % 2 == 0)
-                        {
-                            insertPiece(new Piece(ePieceSymbol.X, new Position(i, j)));
-                        }
-                    }
-                    else
-                    {
-                        if (j % 2 != 0)
-                        {
-                            insertPiece(new Piece(ePieceSymbol.X, new Position(i, j)));
-                        }
-                    }
-                }
-            }
+                points += piece.PointsValue;
+;           }
+
+            return points;
         }
-*/
     }
+
 }
