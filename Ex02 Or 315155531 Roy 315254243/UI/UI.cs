@@ -119,13 +119,13 @@ namespace UI
         }
         private bool isValidWantToContinue(string ifContinue)
         {
-            if(ifContinue != "yes" || ifContinue != "no")
+            if(ifContinue != "yes" && ifContinue != "no")
             {
-                return true;
+                return false ;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
@@ -161,6 +161,7 @@ namespace UI
                 winnerPlayer = m_GameManager.whichPlayerWonAfterGameOverOneLose();
                 Console.WriteLine($"The winner is {winnerPlayer.Name}");
             }
+            m_GameManager.EndRound();
         }
 
         private string movePieceByUserChoice()
@@ -197,25 +198,7 @@ namespace UI
                     }
                 }
             }
-            //while (!isValidInput)
-            //{
-            //    if (!m_GameManager.CurrPlayer.IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
-            //    {
-            //        Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
-            //    }
-            //    else if (!m_GameManager.MovePiece((Move)currentPlayerMove))
-            //    {
-            //        Console.WriteLine("You are not allowed to go to this place, please try again");
-            //    }
-            //    else
-            //    {
-            //        isValidInput = true;
-            //    }
-            //    if(!isValidInput)
-            //    {
-            //        currentPlayerMove = Console.ReadLine();
-            //    }
-            //}
+            
             
             return currentPlayerMove;
         }
