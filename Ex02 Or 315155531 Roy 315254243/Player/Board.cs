@@ -333,6 +333,10 @@ namespace BackEnd
            
             return isKing;
         }
-
+        public int GetNumOfPiecesByPlayer(ePlayerType i_Player)
+        {
+            return getAllPieces(i_Player).Count;
+        }
     }
+
 }
