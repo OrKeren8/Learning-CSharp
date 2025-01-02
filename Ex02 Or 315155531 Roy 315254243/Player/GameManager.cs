@@ -165,7 +165,10 @@ namespace BackEnd
                 return CurrPlayer;
             }
         }
+
         
+
+
         // fuction to check if the game need to be over because one of them lose
         public bool checkIfSomeoneLoseAllPieces()
         {

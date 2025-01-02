@@ -14,6 +14,7 @@ namespace UI
             bool isContinueGame = true;
             while (isContinueGame == true)
             {
+                Ex02.ConsoleUtils.Screen.Clear();
                 printMenu();
                 Menu.eMenuSelect userSelection = getUserSelection();
                 Ex02.ConsoleUtils.Screen.Clear();
@@ -89,6 +90,8 @@ namespace UI
             //asking if he want another round with the same board and the same users
             while (checkIfOtherRound())
             {
+                Ex02.ConsoleUtils.Screen.Clear();
+                m_GameManager.StartNewRound(boardSize);
                 gameMaimLoop();
             }
         }
@@ -156,12 +159,22 @@ namespace UI
                     Ex02.ConsoleUtils.Screen.Clear();
                 }
             }
+            m_GameManager.EndRound();
             if (m_GameManager.checkIfSomeoneLoseAllPieces())
             {
-                winnerPlayer = m_GameManager.whichPlayerWonAfterGameOverOneLose();
-                Console.WriteLine($"The winner is {winnerPlayer.Name}");
+                winningMessage();
             }
-            m_GameManager.EndRound();
+        }
+
+        private void winningMessage()
+        {
+            Player winnerPlayer;
+            winnerPlayer = m_GameManager.whichPlayerWonAfterGameOverOneLose();
+            Console.WriteLine($"The winner is {winnerPlayer.Name} ({winnerPlayer.PlayerType})!!");
+            Console.WriteLine($"The current points Status:");
+            Console.WriteLine($"{m_GameManager.CurrPlayer.Name} ({m_GameManager.CurrPlayer.PlayerType}) have {m_GameManager.CurrPlayer.Points}");
+            Console.WriteLine($"{m_GameManager.LastPlayer.Name} ({m_GameManager.LastPlayer.PlayerType}) have {m_GameManager.LastPlayer.Points}");
+
         }
 
         private string movePieceByUserChoice()
