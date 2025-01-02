@@ -319,7 +319,7 @@ namespace BackEnd
         private bool checkIfBecomeKingAfterMove(Piece i_Piece)
         {
             bool isKing = false;
-            if(i_Piece.position.Row == 0 || i_Piece.position.Row == Size)
+            if(i_Piece.position.Row == 0 || i_Piece.position.Row == Size-1)
             {
                 isKing = true;
             }
