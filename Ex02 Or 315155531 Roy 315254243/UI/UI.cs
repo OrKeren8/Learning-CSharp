@@ -132,6 +132,7 @@ namespace UI
         private void gameMaimLoop()
         { 
             bool isFinishGame = false;
+            Player winnerPlayer;
             String currentPlayerMove;
             String additionalPromptForPCMove = "Press Enter To See Move", currAditionalString = "";
 
@@ -140,7 +141,7 @@ namespace UI
             currentPlayerMove = movePieceByUserChoice();// first move by the first user //need to add to movePieceByUserChoice option of returning Q string 
             isFinishGame = StringValidator.IsQuitRequest(currentPlayerMove);
             Ex02.ConsoleUtils.Screen.Clear();
-            while (!isFinishGame)//the main loop of the game
+            while ((!isFinishGame) && (!m_GameManager.checkIfSomeoneLoseAllPieces()))//the main loop of the game
             {
                 currAditionalString = m_GameManager.CurrPlayer.IsPc? additionalPromptForPCMove : "";
                 printBoard(m_GameManager.GameBoard);
@@ -154,6 +155,11 @@ namespace UI
                     currentPlayerMove = movePieceByUserChoice();
                     Ex02.ConsoleUtils.Screen.Clear();
                 }
+            }
+            if (m_GameManager.checkIfSomeoneLoseAllPieces())
+            {
+                winnerPlayer = m_GameManager.whichPlayerWonAfterGameOverOneLose();
+                Console.WriteLine($"The winner is {winnerPlayer.Name}");
             }
         }
 

@@ -151,6 +151,31 @@ namespace BackEnd
             }
         }
 
+
+
+        //function to check which one of the player lose
+        public Player whichPlayerWonAfterGameOverOneLose()
+        {
+            if(GameBoard.getAllPieces(CurrPlayer.PlayerType).Count == 0)
+            {
+                return LastPlayer;
+            }
+            else
+            {
+                return CurrPlayer;
+            }
+        }
+        
+        // fuction to check if the game need to be over because one of them lose
+        public bool checkIfSomeoneLoseAllPieces()
+        {
+            bool isSomeoneLose = false;
+            if((GameBoard.getAllPieces(CurrPlayer.PlayerType).Count == 0) || (GameBoard.getAllPieces(LastPlayer.PlayerType).Count == 0))
+            {
+                isSomeoneLose = true;
+            }
+            return isSomeoneLose;
+        }
     }
 
 }
