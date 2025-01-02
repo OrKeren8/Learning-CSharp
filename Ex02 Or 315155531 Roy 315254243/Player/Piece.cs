@@ -14,8 +14,8 @@ namespace BackEnd
     {
         O,
         X,
-        //U,
-        //K
+        U,
+        K
         //just if king need to check
     }
 
@@ -32,10 +32,17 @@ namespace BackEnd
             m_Symbol = i_Symbol;
             m_Position = i_Position;
             m_IsKing = false;
+            
+            
             if(m_Symbol == ePieceSymbol.O)
             {
                 m_PoneDirection = ePieceDirection.Down;
             }
+            else if(m_Symbol == ePieceSymbol.U || m_Symbol == ePieceSymbol.K) //in case its king
+            {
+                m_PoneDirection = ePieceDirection.KingAnywhere;
+            }
+            
             else
             {
                 m_PoneDirection= ePieceDirection.Up;
@@ -66,6 +73,15 @@ namespace BackEnd
         public void PromoteToKing()
         {
             m_IsKing = true;
+            //m_PoneDirection = ePieceDirection.KingAnywhere;
+            if(m_Symbol == ePieceSymbol.O)
+            {
+                m_Symbol = ePieceSymbol.U;
+            }
+            else if(m_Symbol == ePieceSymbol.X)
+            {
+                m_Symbol = ePieceSymbol.K;
+            }
             m_PoneDirection = ePieceDirection.KingAnywhere;
         }
     }

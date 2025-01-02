@@ -40,7 +40,8 @@ namespace BackEnd
         {
             bool anotherMove, isValidMove;
 
-            if(CurrPlayer.PieceSymbol != LastPlayer.PieceSymbol)
+
+            if(GameBoard.checkIfDontSameGroupMembers(CurrPlayer.PieceSymbol, LastPlayer.PieceSymbol))
             {
                 isValidMove = GameBoard.MovePiece(i_Move, CurrPlayer.PieceSymbol, out anotherMove, null);
             }
@@ -64,5 +65,8 @@ namespace BackEnd
 
             return isValidMove;
         }
+
+        
     }
+
 }
