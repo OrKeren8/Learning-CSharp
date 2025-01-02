@@ -171,25 +171,51 @@ namespace UI
             bool isValidInput = false;
             
             currentPlayerMove = Console.ReadLine(); 
-            while (!isValidInput)
+            if (currentPlayerMove == "Q" || currentPlayerMove == "q")
             {
-                if (!m_GameManager.CurrPlayer.IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
+                isValidInput = true;
+            }
+            else
+            {
+                while (!isValidInput)
                 {
-                    Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
-                }
-                else if (!m_GameManager.MovePiece((Move)currentPlayerMove))
-                {
-                    Console.WriteLine("You are not allowed to go to this place, please try again");
-                }
-                else
-                {
-                    isValidInput = true;
-                }
-                if(!isValidInput)
-                {
-                    currentPlayerMove = Console.ReadLine();
+                    if (!m_GameManager.CurrPlayer.IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
+                    {
+                        Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
+                    }
+                    else if (!m_GameManager.MovePiece((Move)currentPlayerMove))
+                    {
+                        Console.WriteLine("You are not allowed to go to this place, please try again");
+                    }
+                    else
+                    {
+                        isValidInput = true;
+                    }
+                    if (!isValidInput)
+                    {
+                        currentPlayerMove = Console.ReadLine();
+                    }
                 }
             }
+            //while (!isValidInput)
+            //{
+            //    if (!m_GameManager.CurrPlayer.IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
+            //    {
+            //        Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
+            //    }
+            //    else if (!m_GameManager.MovePiece((Move)currentPlayerMove))
+            //    {
+            //        Console.WriteLine("You are not allowed to go to this place, please try again");
+            //    }
+            //    else
+            //    {
+            //        isValidInput = true;
+            //    }
+            //    if(!isValidInput)
+            //    {
+            //        currentPlayerMove = Console.ReadLine();
+            //    }
+            //}
             
             return currentPlayerMove;
         }
