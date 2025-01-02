@@ -41,38 +41,33 @@ namespace BackEnd
             return (CurrPlayer.PieceSymbol == LastPlayer.PieceSymbol);
         }
 
-        public bool MovePiece(Move? i_Move)
+        public bool MovePiece(Move i_Move)
         {
             bool anotherMove, isValidMove;
-            Move move;
 
             if (CurrPlayer.IsPc)
             {
                 if (isAnotherMoveAfterEat())
                 {
-                    getRandomMove(LastMove.DestinationPos, out move);
+                    getRandomMove(LastMove.DestinationPos, out i_Move);
                 }
                 else
                 {
-                    getRandomMove(LastMove.DestinationPos, out move);
+                    getRandomMove(null, out i_Move);
                 }
-            }
-            else
-            {
-                move = i_Move.Value;
             }
 
             if (!isAnotherMoveAfterEat())
             {
-                isValidMove = GameBoard.MovePiece(move, CurrPlayer.PieceSymbol, out anotherMove, null);
+                isValidMove = GameBoard.MovePiece(i_Move, CurrPlayer.PieceSymbol, out anotherMove, null);
             }
             else
             {
-                isValidMove = GameBoard.MovePiece(move, CurrPlayer.PieceSymbol, out anotherMove, LastMove.DestinationPos);
+                isValidMove = GameBoard.MovePiece(i_Move, CurrPlayer.PieceSymbol, out anotherMove, LastMove.DestinationPos);
             }
             if (isValidMove)
             {
-                LastMove = move;
+                LastMove = i_Move;
                 LastPlayer = CurrPlayer;
                 if(anotherMove)
                 {
