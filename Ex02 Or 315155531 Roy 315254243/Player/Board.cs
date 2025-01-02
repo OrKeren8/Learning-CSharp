@@ -60,6 +60,7 @@ namespace BackEnd
             switch (i_Piece.Direction) 
             {
                 case ePieceDirection.KingAnywhere:
+
                     appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(-1, -1));
                     appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(-1, 1));
                     appendNextPieceMove(i_Piece, o_EatMoves, o_RegularMoves, new Position(1, -1));
@@ -158,7 +159,7 @@ namespace BackEnd
                     isBecomeKing = checkIfBecomeKingAfterMove(piece);
                     if (isBecomeKing)
                     {
-                        piece.PromoteToKing();
+                        m_Board[piece.position.Row, piece.position.Col].Value.PromoteToKing();
                     }
                 }
             }
