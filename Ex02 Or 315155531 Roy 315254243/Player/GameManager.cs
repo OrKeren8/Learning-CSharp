@@ -188,7 +188,7 @@ namespace BackEnd
             List<Move> eatingMovesPlayerLast = new List<Move>();
             List<Move> regularMovesPlayerLast = new List<Move>();
             GameBoard.GetAllPonesMovements(CurrPlayer.PlayerType, eatingMovesPlayerCurr, regularMovesPlayerCurr);
-            GameBoard.GetAllPonesMovements(CurrPlayer.PlayerType, eatingMovesPlayerLast, regularMovesPlayerLast);
+            GameBoard.GetAllPonesMovements(LastPlayer.PlayerType, eatingMovesPlayerLast, regularMovesPlayerLast);
             if ((eatingMovesPlayerCurr.Count == 0) && (regularMovesPlayerCurr.Count == 0) && (eatingMovesPlayerLast.Count == 0) && (regularMovesPlayerLast.Count == 0))
             {
                 noOptionToMove = true;
