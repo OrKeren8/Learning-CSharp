@@ -39,7 +39,7 @@ namespace BackEnd
             return rowOfSymbols.ToString();
         }
 
-        private void getAllPonesMovements(ePieceSymbol i_Symbol, List<Move> o_EatMoves, List<Move> o_RegularMoves)
+        public void GetAllPonesMovements(ePieceSymbol i_Symbol, List<Move> o_EatMoves, List<Move> o_RegularMoves)
         {
             ///this function will check all the moves all pieces can do
             ///and return them as a list
@@ -47,11 +47,11 @@ namespace BackEnd
 
             foreach (Piece piece in piecesList) 
             {
-                getSinglePoneMovements(piece, o_EatMoves, o_RegularMoves);
+                GetSinglePoneMovements(piece, o_EatMoves, o_RegularMoves);
             }
         }
 
-        private void getSinglePoneMovements( Piece i_Piece,
+        public void GetSinglePoneMovements( Piece i_Piece,
                                                 List<Move> o_EatMoves,
                                                 List<Move> o_RegularMoves)
         {
@@ -87,8 +87,8 @@ namespace BackEnd
 
             //check if there is a valid move to the desired direction
             if (!checkIfPositionFree(newPos) &&
-                (getPeiceFromBoard(newPos) != null) &&
-                (getPeiceFromBoard(newPos).Value.Symbol != i_Piece.Symbol) &&
+                (GetPeiceFromBoard(newPos) != null) &&
+                (GetPeiceFromBoard(newPos).Value.Symbol != i_Piece.Symbol) &&
                 checkIfPositionFree(afterNewPosInSameDirection))
             {
                 o_EatMoves.Add(new Move(i_Piece.position, afterNewPosInSameDirection));
@@ -149,7 +149,7 @@ namespace BackEnd
                     isValidMove = insertPiece(piece);
                     if (isValidMove && (moveType == eMoveType.Eat))
                     {
-                        getSinglePoneMovements((Piece)getPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
+                        GetSinglePoneMovements((Piece)GetPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
                         o_AnotherMove = (nextEatMoves.Count > 0);
                         eatPieceInsideMove(i_Move);
                     }
@@ -174,17 +174,17 @@ namespace BackEnd
 
             if (FromPos.HasValue)
             {
-                Piece? piece = getPeiceFromBoard(FromPos.Value);
+                Piece? piece = GetPeiceFromBoard(FromPos.Value);
                 if (piece.HasValue)
                 {
-                    getSinglePoneMovements((Piece)piece, avaliableEatingMoves, avaliableRegularMoves);
+                    GetSinglePoneMovements((Piece)piece, avaliableEatingMoves, avaliableRegularMoves);
                 }else
                 {
                     isValid = false;
                 }
             }else
             {
-                getAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
+                GetAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
             }
             if (isValid)
             {
@@ -259,7 +259,7 @@ namespace BackEnd
             return isPieceExist;
         }
 
-        private Piece? getPeiceFromBoard(Position i_Pos)
+        public Piece? GetPeiceFromBoard(Position i_Pos)
         {
             ///this function returns a copy of a piece or null from the board for read only matters
             Piece? piece = null;

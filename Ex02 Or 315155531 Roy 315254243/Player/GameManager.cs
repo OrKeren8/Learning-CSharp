@@ -9,7 +9,7 @@ namespace BackEnd
         public Player Player2 { get; private set; }
         public Player CurrPlayer { get; private set;}
         public Player LastPlayer { get; private set; }
-        private Move LastMove { get; set; }
+        public Move LastMove { get; private set; }
         public Board GameBoard { get; private set; }
 
         public GameManager(Player i_Player1, Player i_Player2, int i_BoardSize) 
@@ -35,12 +35,29 @@ namespace BackEnd
         {
             Console.WriteLine("GameManager: new player was added");
         }
+        
+        private bool isAnotherMoveAfterEat()
+        {
+            return (CurrPlayer.PieceSymbol == LastPlayer.PieceSymbol);
+        }
 
         public bool MovePiece(Move i_Move)
         {
             bool anotherMove, isValidMove;
 
-            if(CurrPlayer.PieceSymbol != LastPlayer.PieceSymbol)
+            if (CurrPlayer.IsPc)
+            {
+                if (isAnotherMoveAfterEat())
+                {
+                    getRandomMove(LastMove.DestinationPos, out i_Move);
+                }
+                else
+                {
+                    getRandomMove(null, out i_Move);
+                }
+            }
+
+            if (!isAnotherMoveAfterEat())
             {
                 isValidMove = GameBoard.MovePiece(i_Move, CurrPlayer.PieceSymbol, out anotherMove, null);
             }
@@ -64,5 +81,42 @@ namespace BackEnd
 
             return isValidMove;
         }
+        private bool getRandomMove(Position? i_FromPos, out Move o_RandomMove)
+        {
+            bool isSucceed = false;
+            o_RandomMove = new Move();
+            List<Move> eatingMoves = new List<Move>();
+            List<Move> regularMoves = new List<Move>();
+
+            if (i_FromPos.HasValue)
+            {
+                Piece? fromPiece = GameBoard.GetPeiceFromBoard(i_FromPos.Value);
+                if (fromPiece.HasValue)
+                {
+                    GameBoard.GetSinglePoneMovements(fromPiece.Value, eatingMoves, regularMoves);
+                    isSucceed = eatingMoves.Count>0 || regularMoves.Count>0 ? true : false;
+                }
+            }
+            else
+            {
+                GameBoard.GetAllPonesMovements(CurrPlayer.PieceSymbol, eatingMoves, regularMoves);
+                isSucceed = eatingMoves.Count > 0 || regularMoves.Count > 0 ? true : false;
+            }
+            if (isSucceed)
+            {
+                o_RandomMove = (eatingMoves.Count>0)? getRandomItemFromList(eatingMoves) : getRandomItemFromList(regularMoves);
+            }
+
+            return isSucceed;
+        }
+
+        private T getRandomItemFromList<T>(List<T> i_List)
+        {
+            Random random = new Random();
+
+            return i_List[random.Next(i_List.Count)];
+        }
+
     }
+
 }

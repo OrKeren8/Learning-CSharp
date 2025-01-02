@@ -26,18 +26,34 @@ namespace BackEnd
             DestinationPos = i_DestionationPos;
         }
 
+        public override string ToString()
+        {
+            return $"{(char)('A' + StartPos.Row)}{(char)('A' + StartPos.Col)}>{(char)('A' + DestinationPos.Row)}{(char)('A' + DestinationPos.Col)}";
+        }
+
         public static explicit operator Move(string input)
         {
-            string[] parts = input.Split('>');
-            if (parts.Length != 2)
-            {
-                throw new FormatException("Input string must be in the format 'Aa'");
-            }
-            //Aa>Bb
-            Position startPos = new Position(parts[0][1] - 'a', parts[0][0] - 'A');
-            Position destPos = new Position(parts[1][1] - 'a', parts[1][0] - 'A');
+            Move move;
 
-            return new Move(startPos, destPos);
+            if(input == "")
+            {
+                move = new Move();
+            }
+            else
+            {
+                string[] parts = input.Split('>');
+                if (parts.Length != 2)
+                {
+                    throw new FormatException("Input string must be in the format 'Aa'");
+                }
+                //Aa>Bb
+                Position startPos = new Position(parts[0][1] - 'a', parts[0][0] - 'A');
+                Position destPos = new Position(parts[1][1] - 'a', parts[1][0] - 'A');
+
+                move = new Move(startPos, destPos);
+            }
+            
+            return move;
         }
     }
 }
