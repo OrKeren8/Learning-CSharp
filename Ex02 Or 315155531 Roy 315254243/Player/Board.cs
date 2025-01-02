@@ -16,7 +16,6 @@ namespace BackEnd
         private Piece?[,] m_Board;
         public int Size { get; private set; }
 
-
         public Board(int i_Size)
         {
             Size = i_Size;
@@ -333,9 +332,17 @@ namespace BackEnd
            
             return isKing;
         }
-        public int GetNumOfPiecesByPlayer(ePlayerType i_Player)
+        public int GetNumOfPointsByPlayer(ePlayerType i_Player)
         {
-            return getAllPieces(i_Player).Count;
+            int points = 0;
+            List<Piece> pieces = getAllPieces(i_Player);
+
+            foreach( Piece piece in pieces )
+            {
+                points += piece.PointsValue;
+;           }
+
+            return points;
         }
     }
 
