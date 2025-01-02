@@ -159,12 +159,29 @@ namespace BackEnd
                     isBecomeKing = checkIfBecomeKingAfterMove(piece);
                     if (isBecomeKing)
                     {
-                        m_Board[piece.position.Row, piece.position.Col].Value.PromoteToKing();
+                        isValidMove &= promotePieceToKing(piece);
                     }
                 }
             }
 
             return isValidMove;
+        }
+
+        private bool promotePieceToKing(Piece piece)
+        {
+            bool res = false;
+            Piece? toKingPiece;
+
+            extractPeiceFromBoard(piece.position, out toKingPiece);
+            if (toKingPiece.HasValue)
+            {
+                Piece newPiece = (Piece)toKingPiece;
+                newPiece.PromoteToKing();
+                insertPiece(newPiece);
+                res = true;
+            }
+
+            return res;
         }
 
         private bool checkMove( Move i_Move,
