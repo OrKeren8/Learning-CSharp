@@ -290,6 +290,20 @@ namespace BackEnd
                 }
             }
         }
+
+        private bool checkIfBecomeKingAfterMove(Piece i_Piece)
+        {
+            bool isKing = false;
+            if(i_Piece.position.Row == 0 || i_Piece.position.Row == Size)
+            {
+                isKing = true;
+            }
+            i_Piece.PromoteToKing();
+            return isKing;
+        }
+
+
+
 /*
         private void initBoard(int i_Size)
         {

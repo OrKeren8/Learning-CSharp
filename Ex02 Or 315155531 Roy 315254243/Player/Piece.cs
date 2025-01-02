@@ -13,7 +13,9 @@ namespace BackEnd
     public enum ePieceSymbol
     {
         O,
-        X
+        X,
+        //U,
+        //K
     }
 
     public struct Piece
