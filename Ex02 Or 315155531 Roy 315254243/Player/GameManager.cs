@@ -48,12 +48,18 @@ namespace BackEnd
 
             if (CurrPlayer.IsPc)
             {
-                ///if another move so get random from a specific position - the last dest pos
-                ///else get random move from all the pieces
                 if (isAnotherMoveAfterEat())
                 {
                     getRandomMove(LastMove.DestinationPos, out move);
                 }
+                else
+                {
+                    getRandomMove(LastMove.DestinationPos, out move);
+                }
+            }
+            else
+            {
+                move = i_Move.Value;
             }
 
             if (!isAnotherMoveAfterEat())
