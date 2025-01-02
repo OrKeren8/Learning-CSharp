@@ -39,11 +39,11 @@ namespace BackEnd
             return rowOfSymbols.ToString();
         }
 
-        public void GetAllPonesMovements(ePieceSymbol i_Symbol, List<Move> o_EatMoves, List<Move> o_RegularMoves)
+        public void GetAllPonesMovements(ePlayerType i_PlayerType, List<Move> o_EatMoves, List<Move> o_RegularMoves)
         {
             ///this function will check all the moves all pieces can do
             ///and return them as a list
-            List<Piece> piecesList = getAllPieces(i_Symbol); 
+            List<Piece> piecesList = getAllPieces(i_PlayerType); 
 
             foreach (Piece piece in piecesList) 
             {
@@ -89,8 +89,8 @@ namespace BackEnd
 
             //check if there is a valid move to the desired direction
             if (!checkIfPositionFree(newPos) &&
-                (getPeiceFromBoard(newPos) != null) &&
-                checkIfDontSameGroupMembers(getPeiceFromBoard(newPos).Value.Symbol, i_Piece.Symbol) &&
+                (GetPeiceFromBoard(newPos) != null) &&
+                checkIfDontSameGroupMembers(GetPeiceFromBoard(newPos).Value.Symbol, i_Piece.Symbol) &&
                 checkIfPositionFree(afterNewPosInSameDirection))
             {
                 o_EatMoves.Add(new Move(i_Piece.position, afterNewPosInSameDirection));
@@ -132,13 +132,13 @@ namespace BackEnd
         }
 
       
-        private List<Piece> getAllPieces(ePieceSymbol i_Symbol)
+        private List<Piece> getAllPieces(ePlayerType i_PlayerType)
         {
             List<Piece> allPieces = new List<Piece>();
 
             foreach (Piece? piece in m_Board)
             {
-                if(piece.HasValue && piece.Value.Symbol == i_Symbol)
+                if(piece.HasValue && piece.Value.Player == i_PlayerType)
                 {
                     allPieces.Add(piece.Value);
                 }
@@ -159,7 +159,7 @@ namespace BackEnd
             return eatenPiece.Value.Symbol;
         }
 
-        public bool MovePiece(Move i_Move, ePieceSymbol i_PieceSymbol, out bool o_AnotherMove, Position? i_FromPos)
+        public bool MovePiece(Move i_Move, ePlayerType i_PlayerType, out bool o_AnotherMove, Position? i_FromPos)
         {
             /*this function checks if a pone can move inside the board
              * if it cant, false will return from the function and nothing will happen
@@ -171,7 +171,7 @@ namespace BackEnd
 
             bool isBecomeKing;
 
-            isValidMove = checkMove(i_Move, i_PieceSymbol, out moveType, i_FromPos);
+            isValidMove = checkMove(i_Move, i_PlayerType, out moveType, i_FromPos);
 
             if (isValidMove) 
             {
@@ -185,7 +185,7 @@ namespace BackEnd
                     if (isValidMove && (moveType == eMoveType.Eat))
                     {
                         eatPieceInsideMove(i_Move);
-                        getSinglePoneMovements((Piece)getPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
+                        GetSinglePoneMovements((Piece)GetPeiceFromBoard(i_Move.DestinationPos), nextEatMoves, nextRegularMoves);
                         o_AnotherMove = (nextEatMoves.Count > 0);
                     }
                     isBecomeKing = checkIfBecomeKingAfterMove(piece);
@@ -218,7 +218,7 @@ namespace BackEnd
         }
 
         private bool checkMove( Move i_Move,
-                                ePieceSymbol i_PieceSymbol,
+                                ePlayerType i_PlayerType,
                                 out eMoveType o_MoveType,
                                 Position? FromPos)
         {
@@ -242,7 +242,7 @@ namespace BackEnd
                 }
             }else
             {
-                GetAllPonesMovements(i_PieceSymbol, avaliableEatingMoves, avaliableRegularMoves);
+                GetAllPonesMovements(i_PlayerType, avaliableEatingMoves, avaliableRegularMoves);
             }
             if (isValid)
             {
@@ -339,11 +339,11 @@ namespace BackEnd
                 {
                     if (row < (Size / 2) - 1 && (row + col) % 2 != 0)
                     {
-                        insertPiece(new Piece(ePieceSymbol.O, new Position(row, col)));
+                        insertPiece(new Piece(ePieceSymbol.O, new Position(row, col), ePlayerType.White));
                     }
                     else if (row >= (Size / 2) + 1 && (row + col) % 2 != 0)
                     {
-                        insertPiece(new Piece(ePieceSymbol.X, new Position(row, col)));
+                        insertPiece(new Piece(ePieceSymbol.X, new Position(row, col), ePlayerType.Black));
                     }
                 }
             }

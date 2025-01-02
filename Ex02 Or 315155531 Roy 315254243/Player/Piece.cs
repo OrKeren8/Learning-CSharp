@@ -26,32 +26,37 @@ namespace BackEnd
         private bool m_IsKing;
         private ePieceSymbol m_Symbol;
         private ePieceDirection m_PoneDirection;
+        private ePlayerType m_Player;
 
-        public Piece(ePieceSymbol i_Symbol, Position i_Position)
+        public Piece(ePieceSymbol i_Symbol, Position i_Position, ePlayerType i_Player)
         {
             m_Symbol = i_Symbol;
             m_Position = i_Position;
             m_IsKing = false;
-            
-            
-            if(m_Symbol == ePieceSymbol.O)
+            m_Player = i_Player;
+
+            switch (m_Symbol)
             {
-                m_PoneDirection = ePieceDirection.Down;
-            }
-            else if(m_Symbol == ePieceSymbol.U || m_Symbol == ePieceSymbol.K) //in case its king
-            {
-                m_PoneDirection = ePieceDirection.KingAnywhere;
-            }
-            
-            else
-            {
-                m_PoneDirection= ePieceDirection.Up;
+                case ePieceSymbol.O:
+                    m_PoneDirection = ePieceDirection.Down;
+                    break;
+                case ePieceSymbol.X:
+                    m_PoneDirection = ePieceDirection.Up;
+                    break;
+                default:
+                    m_PoneDirection = ePieceDirection.KingAnywhere;
+                    break;
             }
         }
 
         public ePieceDirection Direction
         {
             get { return m_PoneDirection; }
+        }
+
+        public ePlayerType Player
+        {
+            get { return m_Player; }
         }
 
         public Position position

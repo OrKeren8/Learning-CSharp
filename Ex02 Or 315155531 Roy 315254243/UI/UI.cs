@@ -37,7 +37,7 @@ namespace UI
             Console.WriteLine(m_Menu.MenuStr);
         }
 
-        private Player getPlayerFromUser(ePieceSymbol i_PieceSymbol)
+        private Player getPlayerFromUser(ePlayerType i_PlayerType)
         {
             string playerName = " ";
             bool isPc = false;
@@ -52,7 +52,7 @@ namespace UI
                 isPc = true;
             }
 
-            return new Player(playerName, isPc, i_PieceSymbol);
+            return new Player(playerName, isPc, i_PlayerType);
         }
         
         private Menu.eMenuSelect getUserSelection()
@@ -79,10 +79,10 @@ namespace UI
         private void startGame()
         {
             
-            Player player1 = getPlayerFromUser(ePieceSymbol.O);
+            Player player1 = getPlayerFromUser(ePlayerType.White);
             int boardSize = getBoardSize();
             Console.WriteLine("Please enter opponent name, or enter PC in order to play against the PC");
-            Player player2 = getPlayerFromUser(ePieceSymbol.X);
+            Player player2 = getPlayerFromUser(ePlayerType.Black);
             Ex02.ConsoleUtils.Screen.Clear();
             m_GameManager = new GameManager(player1, player2, boardSize);
             gameMaimLoop();
@@ -107,7 +107,6 @@ namespace UI
         private string getUserChoiceIfContinueForMoreRounds()
         {
             string ifContinue;
-            bool isValid = false;
             Console.WriteLine("Would you like more rounds? please answer in yes or no");
             ifContinue = Console.ReadLine();
 
@@ -137,7 +136,7 @@ namespace UI
             String additionalPromptForPCMove = "Press Enter To See Move", currAditionalString = "";
 
             printBoard(m_GameManager.GameBoard);
-            Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PieceSymbol}):");
+            Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PlayerType}):");
             currentPlayerMove = movePieceByUserChoice();// first move by the first user //need to add to movePieceByUserChoice option of returning Q string 
             isFinishGame = StringValidator.IsQuitRequest(currentPlayerMove);
             Ex02.ConsoleUtils.Screen.Clear();
@@ -145,8 +144,8 @@ namespace UI
             {
                 currAditionalString = m_GameManager.CurrPlayer.IsPc? additionalPromptForPCMove : "";
                 printBoard(m_GameManager.GameBoard);
-                Console.WriteLine($"{m_GameManager.LastPlayer.Name}'s move ({m_GameManager.LastPlayer.PieceSymbol}) was: {m_GameManager.LastMove.ToString()}");
-                Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PieceSymbol}): {currAditionalString}");
+                Console.WriteLine($"{m_GameManager.LastPlayer.Name}'s move ({m_GameManager.LastPlayer.PlayerType}) was: {m_GameManager.LastMove.ToString()}");
+                Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PlayerType}): {currAditionalString}");
                 if(StringValidator.IsQuitRequest(currentPlayerMove)){
                     isFinishGame = true;
                 }
