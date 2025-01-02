@@ -7,6 +7,7 @@ namespace BackEnd
         private string m_Name;
         public readonly bool IsPc; //in order to match property naming style
         private readonly ePieceSymbol m_PieceSymbol;
+        public int Points { get; private set; }
 
         public string Name
         {
@@ -19,6 +20,7 @@ namespace BackEnd
             m_Name = i_Name;
             IsPc = i_IsPc;
             m_PieceSymbol = i_PieceSymbol;
+            Points = 0;
         }
 
         public ePieceSymbol PieceSymbol
