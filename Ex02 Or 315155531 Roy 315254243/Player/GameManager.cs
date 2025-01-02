@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace BackEnd
 {
     public class GameManager
     {
-        public Player Player1 { get; private set; }
-        public Player Player2 { get; private set; }
-        public Player CurrPlayer { get; private set;}
+        private Player m_Player1;
+        private Player m_Player2;
+        public Player CurrPlayer { get; private set; }
         public Player LastPlayer { get; private set; }
         public Move LastMove { get; private set; }
         public Board GameBoard { get; private set; }
 
-        public GameManager(Player i_Player1, Player i_Player2, int i_BoardSize) 
+        public GameManager(Player i_Player1, Player i_Player2, int i_BoardSize)
         {
             Player1 = i_Player1;
             Player2 = i_Player2;
@@ -21,14 +22,29 @@ namespace BackEnd
             LastPlayer = Player2;
         }
 
-        public void QuitGame()
+        public Player Player1
         {
-            Console.WriteLine("GameManager: quitting game");
+            get { return m_Player1; }
+            private set { m_Player1 = value; }
         }
 
-        public void StartGame()
+        public Player Player2
         {
-            Console.WriteLine("GameManager: start game");
+            get { return m_Player2; }
+            private set { m_Player2 = value; }
+        }
+
+        public void EndGameRound()
+        {
+            updatePlayersPoints();
+        }
+
+        public void StartNewRound(int i_BoardSize)
+        {
+            GameBoard = new Board(i_BoardSize);
+            CurrPlayer = Player1;
+            LastPlayer = Player2;
+            LastMove = new Move();
         }
 
         public void AddPlayer(Player i_Player)
@@ -39,6 +55,24 @@ namespace BackEnd
         private bool isAnotherMoveAfterEat()
         {
             return (CurrPlayer.PieceSymbol == LastPlayer.PieceSymbol);
+        }
+
+        private void updatePlayersPoints()
+        {
+            int player1Points = GameBoard.GetNumOfPiecesBySymbol(Player1.PieceSymbol) +
+                                GameBoard.GetNumOfPiecesBySymbol(Player1.KingPieceSymbol) * 4;
+            int player2Points = GameBoard.GetNumOfPiecesBySymbol(Player2.PieceSymbol) +
+                                GameBoard.GetNumOfPiecesBySymbol(Player2.KingPieceSymbol) * 4;
+
+            int player1AdditionalPoints = player1Points - player2Points;
+            if(player1AdditionalPoints > 0) 
+            {
+                m_Player1.Points += player1AdditionalPoints;
+            }
+            else
+            {
+                m_Player2.Points += Math.Abs(player1AdditionalPoints);
+            }
         }
 
         public bool MovePiece(Move i_Move)

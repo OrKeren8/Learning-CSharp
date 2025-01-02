@@ -107,7 +107,6 @@ namespace UI
         private string getUserChoiceIfContinueForMoreRounds()
         {
             string ifContinue;
-            bool isValid = false;
             Console.WriteLine("Would you like more rounds? please answer in yes or no");
             ifContinue = Console.ReadLine();
 
