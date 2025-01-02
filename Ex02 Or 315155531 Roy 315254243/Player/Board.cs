@@ -89,7 +89,7 @@ namespace BackEnd
             //check if there is a valid move to the desired direction
             if (!checkIfPositionFree(newPos) &&
                 (GetPeiceFromBoard(newPos) != null) &&
-                checkIfDontSameGroupMembers(GetPeiceFromBoard(newPos).Value.Symbol, i_Piece.Symbol) &&
+                !checkIfSameGroupMembers(GetPeiceFromBoard(newPos).Value, i_Piece) &&
                 checkIfPositionFree(afterNewPosInSameDirection))
             {
                 o_EatMoves.Add(new Move(i_Piece.position, afterNewPosInSameDirection));
@@ -100,34 +100,9 @@ namespace BackEnd
             }
         }
 
-
-        /*
-         if (!checkIfPositionFree(newPos) &&
-                (getPeiceFromBoard(newPos) != null) &&
-                (getPeiceFromBoard(newPos).Value.Symbol != i_Piece.Symbol) &&
-                checkIfPositionFree(afterNewPosInSameDirection))
-            {
-                o_EatMoves.Add(new Move(i_Piece.position, afterNewPosInSameDirection));
-            }
-         
-         */
-
-        public bool checkIfDontSameGroupMembers(ePieceSymbol pieceSymbol1, ePieceSymbol pieceSymbol2)
+        public bool checkIfSameGroupMembers(Piece i_Piece1, Piece i_Piece2)
         {
-            bool isNotSameGroup = true;
-            if (pieceSymbol1 == pieceSymbol2)
-            {
-                isNotSameGroup = false;
-            }
-            else if (((pieceSymbol1 == ePieceSymbol.O) && (pieceSymbol1 == ePieceSymbol.U)) || ((pieceSymbol1 == ePieceSymbol.U) && (pieceSymbol1 == ePieceSymbol.O)))
-            {
-                isNotSameGroup = false;
-            }
-            else if(((pieceSymbol1 == ePieceSymbol.X) && (pieceSymbol1 == ePieceSymbol.K)) || ((pieceSymbol1 == ePieceSymbol.K) && (pieceSymbol1 == ePieceSymbol.X)))
-            {
-                isNotSameGroup = false;
-            }
-            return isNotSameGroup;
+            return i_Piece1.Player == i_Piece2.Player;
         }
 
       
