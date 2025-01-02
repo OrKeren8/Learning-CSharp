@@ -26,6 +26,11 @@ namespace BackEnd
             DestinationPos = i_DestionationPos;
         }
 
+        public override string ToString()
+        {
+            return $"{(char)('A' + StartPos.Row)}{(char)('A' + StartPos.Col)}>{(char)('A' + DestinationPos.Row)}{(char)('A' + DestinationPos.Col)}";
+        }
+
         public static explicit operator Move(string input)
         {
             Move move;
