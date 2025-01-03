@@ -150,6 +150,7 @@ namespace UI
                 Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PlayerType}): {currAditionalString}");
                 if(StringValidator.IsQuitRequest(currentPlayerMove)){
                     isFinishGame = true;
+                    Ex02.ConsoleUtils.Screen.Clear();
                 }
                 else
                 {
@@ -194,7 +195,7 @@ namespace UI
             String currentPlayerMove;
             bool isValidInput = false;
             currentPlayerMove = Console.ReadLine(); 
-            if (currentPlayerMove == "Q" || currentPlayerMove == "q")
+            if (StringValidator.IsQuitRequest(currentPlayerMove))
             {
                 isValidInput = true;
             }
