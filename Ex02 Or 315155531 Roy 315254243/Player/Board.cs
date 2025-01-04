@@ -21,7 +21,7 @@ namespace BackEnd
             Size = i_Size;
             m_Board = new Piece?[i_Size, i_Size];
             //initBoard();
-            InitializeBoard();
+            initializeBoard();
         }
         public string GetRowSymbols(int i_Row)
         {
@@ -42,7 +42,7 @@ namespace BackEnd
         {
             ///this function will check all the moves all pieces can do
             ///and return them as a list
-            List<Piece> piecesList = getAllPieces(i_PlayerType); 
+            List<Piece> piecesList = GetAllPieces(i_PlayerType); 
 
             foreach (Piece piece in piecesList) 
             {
@@ -82,30 +82,30 @@ namespace BackEnd
                                         Position i_MoveDelta)
         {
             
-            Position newPos = new Position(i_Piece.position.Row + i_MoveDelta.Row, i_Piece.position.Col + i_MoveDelta.Col);
+            Position newPos = new Position(i_Piece.PiecePosition.Row + i_MoveDelta.Row, i_Piece.PiecePosition.Col + i_MoveDelta.Col);
             Position afterNewPosInSameDirection = new Position(newPos.Row + i_MoveDelta.Row, newPos.Col + i_MoveDelta.Col);
 
             //check if there is a valid move to the desired direction
             if (!checkIfPositionFree(newPos) &&
                 (GetPeiceFromBoard(newPos) != null) &&
-                !checkIfSameGroupMembers(GetPeiceFromBoard(newPos).Value, i_Piece) &&
+                !CheckIfSameGroupMembers(GetPeiceFromBoard(newPos).Value, i_Piece) &&
                 checkIfPositionFree(afterNewPosInSameDirection))
             {
-                o_EatMoves.Add(new Move(i_Piece.position, afterNewPosInSameDirection));
+                o_EatMoves.Add(new Move(i_Piece.PiecePosition, afterNewPosInSameDirection));
             }
             else if (checkIfPositionFree(newPos))
             {
-                o_RegularMoves.Add(new Move(i_Piece.position, newPos));
+                o_RegularMoves.Add(new Move(i_Piece.PiecePosition, newPos));
             }
         }
 
-        public bool checkIfSameGroupMembers(Piece i_Piece1, Piece i_Piece2)
+        public bool CheckIfSameGroupMembers(Piece i_Piece1, Piece i_Piece2)
         {
             return i_Piece1.Player == i_Piece2.Player;
         }
 
       
-        public List<Piece> getAllPieces(ePlayerType i_PlayerType)
+        public List<Piece> GetAllPieces(ePlayerType i_PlayerType)
         {
             List<Piece> allPieces = new List<Piece>();
 
@@ -153,7 +153,7 @@ namespace BackEnd
                 if (isValidMove)
                 {
                     Piece piece = (Piece)nullablePiece;
-                    piece.position = i_Move.DestinationPos;
+                    piece.PiecePosition = i_Move.DestinationPos;
                     isValidMove = insertPiece(piece);
                     if (isValidMove && (moveType == eMoveType.Eat))
                     {
@@ -177,7 +177,7 @@ namespace BackEnd
             bool res = false;
             Piece? toKingPiece;
 
-            extractPeiceFromBoard(piece.position, out toKingPiece);
+            extractPeiceFromBoard(piece.PiecePosition, out toKingPiece);
             if (toKingPiece.HasValue)
             {
                 Piece newPiece = (Piece)toKingPiece;
@@ -260,7 +260,7 @@ namespace BackEnd
             ///insert a piece in the board
             ///if could not do the action, a false will return
             bool canInsert = true;
-            Position pos = i_Piece.position;
+            Position pos = i_Piece.PiecePosition;
 
             canInsert = checkIfPositionInBoard(pos);
             //need to check if there is a pone in that location already
@@ -304,7 +304,7 @@ namespace BackEnd
         }
 
         
-        private void InitializeBoard()
+        private void initializeBoard()
         {
             for (int row = 0; row < Size; row++)
             {
@@ -325,7 +325,7 @@ namespace BackEnd
         private bool checkIfBecomeKingAfterMove(Piece i_Piece)
         {
             bool isKing = false;
-            if(i_Piece.position.Row == 0 || i_Piece.position.Row == Size-1)
+            if(i_Piece.PiecePosition.Row == 0 || i_Piece.PiecePosition.Row == Size-1)
             {
                 isKing = true;
             }
@@ -335,7 +335,7 @@ namespace BackEnd
         public int GetNumOfPointsByPlayer(ePlayerType i_Player)
         {
             int points = 0;
-            List<Piece> pieces = getAllPieces(i_Player);
+            List<Piece> pieces = GetAllPieces(i_Player);
 
             foreach( Piece piece in pieces )
             {

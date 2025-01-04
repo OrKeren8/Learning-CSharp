@@ -7,7 +7,7 @@ namespace BackEnd
     {
         private Player m_Player1;
         private Player m_Player2;
-        public Player CurrPlayer { get; private set;}
+        public Player CurrPlayer { get; private set; }
         public Player LastPlayer { get; private set; }
         public Move LastMove { get; private set; }
         public Board GameBoard { get; private set; }
@@ -152,25 +152,25 @@ namespace BackEnd
         }
 
         //function to check which one of the player lose
-        public Player whichPlayerWonAfterGameOverOneLose()
+        public Player WhichPlayerWonAfterGameOverOneLose()
         {
-            Player winningPlayer = (GameBoard.getAllPieces(Player1.PlayerType).Count == 0) ? Player2 : Player1;
+            Player winningPlayer = (GameBoard.GetAllPieces(Player1.PlayerType).Count == 0) ? Player2 : Player1;
             
             return winningPlayer;
         }
 
         // fuction to check if the game need to be over because one of them lose
-        public bool checkIfSomeoneLoseAllPieces()
+        public bool CheckIfSomeoneLoseAllPieces()
         {
             bool isSomeoneLose = false;
-            if((GameBoard.getAllPieces(Player1.PlayerType).Count == 0) || (GameBoard.getAllPieces(Player2.PlayerType).Count == 0))
+            if((GameBoard.GetAllPieces(Player1.PlayerType).Count == 0) || (GameBoard.GetAllPieces(Player2.PlayerType).Count == 0))
             {
                 isSomeoneLose = true;
             }
             return isSomeoneLose;
         }
 
-        public bool checkIfTheresNoOptionToMove()
+        public bool CheckIfTheresNoOptionToMove()
         {
             bool noOptionToMove = false;
             List<Move> eatingMovesPlayerCurr = new List<Move>();
