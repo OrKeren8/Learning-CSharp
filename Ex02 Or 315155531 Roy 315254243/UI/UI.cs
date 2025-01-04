@@ -14,6 +14,7 @@ namespace UI
             bool isContinueGame = true;
             while (isContinueGame == true)
             {
+                Ex02.ConsoleUtils.Screen.Clear();
                 printMenu();
                 Menu.eMenuSelect userSelection = getUserSelection();
                 Ex02.ConsoleUtils.Screen.Clear();
@@ -27,9 +28,7 @@ namespace UI
                         break;
 
                 }
-                   
             }
-
         }
 
         private void printMenu()
@@ -89,6 +88,8 @@ namespace UI
             //asking if he want another round with the same board and the same users
             while (checkIfOtherRound())
             {
+                Ex02.ConsoleUtils.Screen.Clear();
+                m_GameManager.StartNewRound(boardSize);
                 gameMaimLoop();
             }
         }
@@ -119,19 +120,20 @@ namespace UI
         }
         private bool isValidWantToContinue(string ifContinue)
         {
-            if(ifContinue != "yes" || ifContinue != "no")
+            if(ifContinue != "yes" && ifContinue != "no")
             {
-                return true;
+                return false ;
             }
             else
             {
-                return false;
+                return true;
             }
         }
 
         private void gameMaimLoop()
         { 
             bool isFinishGame = false;
+            Player winnerPlayer;
             String currentPlayerMove;
             String additionalPromptForPCMove = "Press Enter To See Move", currAditionalString = "";
 
@@ -140,7 +142,7 @@ namespace UI
             currentPlayerMove = movePieceByUserChoice();// first move by the first user //need to add to movePieceByUserChoice option of returning Q string 
             isFinishGame = StringValidator.IsQuitRequest(currentPlayerMove);
             Ex02.ConsoleUtils.Screen.Clear();
-            while (!isFinishGame)//the main loop of the game
+            while ((!isFinishGame) && (!m_GameManager.checkIfSomeoneLoseAllPieces()) && (!m_GameManager.checkIfTheresNoOptionToMove()))//the main loop of the game
             {
                 currAditionalString = m_GameManager.CurrPlayer.IsPc? additionalPromptForPCMove : "";
                 printBoard(m_GameManager.GameBoard);
@@ -148,6 +150,7 @@ namespace UI
                 Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PlayerType}): {currAditionalString}");
                 if(StringValidator.IsQuitRequest(currentPlayerMove)){
                     isFinishGame = true;
+                    Ex02.ConsoleUtils.Screen.Clear();
                 }
                 else
                 {
@@ -155,6 +158,34 @@ namespace UI
                     Ex02.ConsoleUtils.Screen.Clear();
                 }
             }
+            
+            m_GameManager.EndRound();
+            if (m_GameManager.checkIfSomeoneLoseAllPieces())
+            {
+                winningMessage();
+            }
+            else if (m_GameManager.checkIfTheresNoOptionToMove())
+            {
+                tieMessage();
+            }
+        }
+
+        private void winningMessage()
+        {
+            Player winnerPlayer;
+            winnerPlayer = m_GameManager.whichPlayerWonAfterGameOverOneLose();
+            Console.WriteLine($"The winner is {winnerPlayer.Name} ({winnerPlayer.PlayerType})!!");
+            Console.WriteLine($"The current points Status:");
+            Console.WriteLine($"{m_GameManager.CurrPlayer.Name} ({m_GameManager.CurrPlayer.PlayerType}) have {m_GameManager.CurrPlayer.Points}");
+            Console.WriteLine($"{m_GameManager.LastPlayer.Name} ({m_GameManager.LastPlayer.PlayerType}) have {m_GameManager.LastPlayer.Points}");
+        }
+        
+        private void tieMessage()
+        {
+            Console.WriteLine($"There is a tie (no one of the player have option to move)");
+            Console.WriteLine($"The current points Status:");
+            Console.WriteLine($"{m_GameManager.CurrPlayer.Name} ({m_GameManager.CurrPlayer.PlayerType}) have {m_GameManager.CurrPlayer.Points}");
+            Console.WriteLine($"{m_GameManager.LastPlayer.Name} ({m_GameManager.LastPlayer.PlayerType}) have {m_GameManager.LastPlayer.Points}");
         }
 
         private string movePieceByUserChoice()
@@ -163,28 +194,33 @@ namespace UI
             ///if valid to the gameManager to move the desired piece
             String currentPlayerMove;
             bool isValidInput = false;
-            
             currentPlayerMove = Console.ReadLine(); 
-            while (!isValidInput)
+            if (StringValidator.IsQuitRequest(currentPlayerMove))
             {
-                if (!m_GameManager.CurrPlayer.IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
+                isValidInput = true;
+            }
+            else
+            {
+                while (!isValidInput)
                 {
-                    Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
-                }
-                else if (!m_GameManager.MovePiece((Move)currentPlayerMove))
-                {
-                    Console.WriteLine("You are not allowed to go to this place, please try again");
-                }
-                else
-                {
-                    isValidInput = true;
-                }
-                if(!isValidInput)
-                {
-                    currentPlayerMove = Console.ReadLine();
+                    if (!m_GameManager.CurrPlayer.IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
+                    {
+                        Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
+                    }
+                    else if (!m_GameManager.MovePiece((Move)currentPlayerMove))
+                    {
+                        Console.WriteLine("You are not allowed to go to this place, please try again");
+                    }
+                    else
+                    {
+                        isValidInput = true;
+                    }
+                    if (!isValidInput)
+                    {
+                        currentPlayerMove = Console.ReadLine();
+                    }
                 }
             }
-            
             return currentPlayerMove;
         }
 
@@ -258,6 +294,5 @@ namespace UI
             }
             Console.WriteLine(seperator);
         }
-
     }
 }

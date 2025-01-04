@@ -151,6 +151,53 @@ namespace BackEnd
             }
         }
 
+
+
+        //function to check which one of the player lose
+        public Player whichPlayerWonAfterGameOverOneLose()
+        {
+            if(GameBoard.getAllPieces(CurrPlayer.PlayerType).Count == 0)
+            {
+                return LastPlayer;
+            }
+            else
+            {
+                return CurrPlayer;
+            }
+        }
+
+        
+
+
+        // fuction to check if the game need to be over because one of them lose
+        public bool checkIfSomeoneLoseAllPieces()
+        {
+            bool isSomeoneLose = false;
+            if((GameBoard.getAllPieces(CurrPlayer.PlayerType).Count == 0) || (GameBoard.getAllPieces(LastPlayer.PlayerType).Count == 0))
+            {
+                isSomeoneLose = true;
+            }
+            return isSomeoneLose;
+        }
+
+        public bool checkIfTheresNoOptionToMove()
+        {
+            bool noOptionToMove = false;
+            List<Move> eatingMovesPlayerCurr = new List<Move>();
+            List<Move> regularMovesPlayerCurr = new List<Move>();
+            List<Move> eatingMovesPlayerLast = new List<Move>();
+            List<Move> regularMovesPlayerLast = new List<Move>();
+            GameBoard.GetAllPonesMovements(CurrPlayer.PlayerType, eatingMovesPlayerCurr, regularMovesPlayerCurr);
+            GameBoard.GetAllPonesMovements(LastPlayer.PlayerType, eatingMovesPlayerLast, regularMovesPlayerLast);
+            if ((eatingMovesPlayerCurr.Count == 0) && (regularMovesPlayerCurr.Count == 0) && (eatingMovesPlayerLast.Count == 0) && (regularMovesPlayerLast.Count == 0))
+            {
+                noOptionToMove = true;
+            }
+            return noOptionToMove;
+
+        }
     }
+    
 
 }
+

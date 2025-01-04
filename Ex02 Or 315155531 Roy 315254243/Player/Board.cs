@@ -105,7 +105,7 @@ namespace BackEnd
         }
 
       
-        private List<Piece> getAllPieces(ePlayerType i_PlayerType)
+        public List<Piece> getAllPieces(ePlayerType i_PlayerType)
         {
             List<Piece> allPieces = new List<Piece>();
 
@@ -119,7 +119,7 @@ namespace BackEnd
 
             return allPieces;
         }
-
+        
         private ePieceSymbol eatPieceInsideMove(Move i_Move)
         {
             ///Extract a game piece which is between two places (move)
