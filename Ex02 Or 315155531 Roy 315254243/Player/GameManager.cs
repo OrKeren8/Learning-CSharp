@@ -65,6 +65,7 @@ namespace BackEnd
 
             if (CurrPlayer.r_IsPc)
             {
+
                 if (isAnotherMoveAfterEat())
                 {
                     getRandomMove(LastMove.DestinationPos, out i_Move);
