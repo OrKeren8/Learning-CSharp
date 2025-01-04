@@ -13,8 +13,8 @@ namespace BackEnd
     }
     public class Board
     {
-        private Piece?[,] m_Board;
-        public int Size { get; private set; }
+        private Piece?[,]   m_Board;
+        public int          Size { get; private set; }
 
         public Board(int i_Size)
         {

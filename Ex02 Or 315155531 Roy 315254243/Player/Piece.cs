@@ -16,20 +16,19 @@ namespace BackEnd
         X,
         U,
         K
-        //just if king need to check
     }
 
     public struct Piece
     {
 
-        private const int k_RegularPiecePoints = 1;
-        private const int k_KingPiecePoints = 4;
-        private Position m_Position;
-        private bool m_IsKing;
-        private ePieceSymbol m_Symbol;
-        private ePieceDirection m_PoneDirection;
-        private ePlayerType m_Player;
-        private int m_PointsValue;
+        private const int           k_RegularPiecePoints = 1;
+        private const int           k_KingPiecePoints = 4;
+        private Position            m_Position;
+        private bool                m_IsKing;
+        private ePieceSymbol        m_Symbol;
+        private ePieceDirection     m_PoneDirection;
+        private ePlayerType         m_Player;
+        private int                 m_PointsValue;
 
         public Piece(ePieceSymbol i_Symbol, Position i_Position, ePlayerType i_Player)
         {

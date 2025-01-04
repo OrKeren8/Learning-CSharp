@@ -5,12 +5,12 @@ namespace BackEnd
 {
     public class GameManager
     {
-        private Player m_Player1;
-        private Player m_Player2;
-        public Player CurrPlayer { get; private set; }
-        public Player LastPlayer { get; private set; }
-        public Move LastMove { get; private set; }
-        public Board GameBoard { get; private set; }
+        private Player  m_Player1;
+        private Player  m_Player2;
+        public Player   CurrPlayer { get; private set; }
+        public Player   LastPlayer { get; private set; }
+        public Move     LastMove { get; private set; }
+        public Board    GameBoard { get; private set; }
 
         public GameManager(Player i_Player1, Player i_Player2, int i_BoardSize)
         {
@@ -65,7 +65,6 @@ namespace BackEnd
 
             if (CurrPlayer.r_IsPc)
             {
-
                 if (isAnotherMoveAfterEat())
                 {
                     getRandomMove(LastMove.DestinationPos, out i_Move);

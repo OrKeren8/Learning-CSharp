@@ -6,7 +6,7 @@ namespace UI
 {
     public class UI
     {
-        private Menu m_Menu = new Menu();
+        private Menu        m_Menu = new Menu();
         private GameManager m_GameManager;
 
         public void MenuLoop()

@@ -61,8 +61,8 @@ namespace UI
             {
                 IsValidLetters = false;
             }
+
             return IsValidLetters;
-             
         }
 
         private static bool checkLowerChar(char i_LowerChar)

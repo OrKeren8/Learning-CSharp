@@ -10,10 +10,10 @@ namespace BackEnd
 
     public struct Player
     {
-        private string m_Name;
-        public readonly bool r_IsPc; //in order to match property naming style
-        private readonly ePlayerType r_PlayerType;
-        private int m_Points;
+        private string                  m_Name;
+        public readonly bool            r_IsPc; //in order to match property naming style
+        private readonly ePlayerType    r_PlayerType;
+        private int                     m_Points;
 
         public string Name
         {
