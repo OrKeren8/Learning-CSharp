@@ -63,7 +63,7 @@ namespace BackEnd
         {
             bool anotherMove, isValidMove;
 
-            if (CurrPlayer.IsPc)
+            if (CurrPlayer.r_IsPc)
             {
                 if (isAnotherMoveAfterEat())
                 {

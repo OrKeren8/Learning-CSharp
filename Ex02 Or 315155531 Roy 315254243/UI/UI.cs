@@ -144,7 +144,7 @@ namespace UI
             Ex02.ConsoleUtils.Screen.Clear();
             while ((!isFinishGame) && (!m_GameManager.CheckIfSomeoneLoseAllPieces()) && (!m_GameManager.CheckIfTheresNoOptionToMove()))//the main loop of the game
             {
-                currAditionalString = m_GameManager.CurrPlayer.IsPc? additionalPromptForPCMove : "";
+                currAditionalString = m_GameManager.CurrPlayer.r_IsPc? additionalPromptForPCMove : "";
                 printBoard(m_GameManager.GameBoard);
                 Console.WriteLine($"{m_GameManager.LastPlayer.Name}'s move ({m_GameManager.LastPlayer.PlayerType}) was: {m_GameManager.LastMove.ToString()}");
                 Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PlayerType}): {currAditionalString}");
@@ -203,7 +203,7 @@ namespace UI
             {
                 while (!isValidInput)
                 {
-                    if (!m_GameManager.CurrPlayer.IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
+                    if (!m_GameManager.CurrPlayer.r_IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
                     {
                         Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
                     }
