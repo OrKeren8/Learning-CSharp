@@ -151,29 +151,19 @@ namespace BackEnd
             }
         }
 
-
-
         //function to check which one of the player lose
         public Player whichPlayerWonAfterGameOverOneLose()
         {
-            if(GameBoard.getAllPieces(CurrPlayer.PlayerType).Count == 0)
-            {
-                return LastPlayer;
-            }
-            else
-            {
-                return CurrPlayer;
-            }
+            Player winningPlayer = (GameBoard.getAllPieces(Player1.PlayerType).Count == 0) ? Player2 : Player1;
+            
+            return winningPlayer;
         }
-
-        
-
 
         // fuction to check if the game need to be over because one of them lose
         public bool checkIfSomeoneLoseAllPieces()
         {
             bool isSomeoneLose = false;
-            if((GameBoard.getAllPieces(CurrPlayer.PlayerType).Count == 0) || (GameBoard.getAllPieces(LastPlayer.PlayerType).Count == 0))
+            if((GameBoard.getAllPieces(Player1.PlayerType).Count == 0) || (GameBoard.getAllPieces(Player2.PlayerType).Count == 0))
             {
                 isSomeoneLose = true;
             }
@@ -187,8 +177,8 @@ namespace BackEnd
             List<Move> regularMovesPlayerCurr = new List<Move>();
             List<Move> eatingMovesPlayerLast = new List<Move>();
             List<Move> regularMovesPlayerLast = new List<Move>();
-            GameBoard.GetAllPonesMovements(CurrPlayer.PlayerType, eatingMovesPlayerCurr, regularMovesPlayerCurr);
-            GameBoard.GetAllPonesMovements(LastPlayer.PlayerType, eatingMovesPlayerLast, regularMovesPlayerLast);
+            GameBoard.GetAllPonesMovements(Player1.PlayerType, eatingMovesPlayerCurr, regularMovesPlayerCurr);
+            GameBoard.GetAllPonesMovements(Player2.PlayerType, eatingMovesPlayerLast, regularMovesPlayerLast);
             if ((eatingMovesPlayerCurr.Count == 0) && (regularMovesPlayerCurr.Count == 0) && (eatingMovesPlayerLast.Count == 0) && (regularMovesPlayerLast.Count == 0))
             {
                 noOptionToMove = true;

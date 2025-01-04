@@ -23,7 +23,7 @@ namespace UI
         {
             bool isValid = true;
             
-            if (i_Name.Contains(" ") || i_Name.Length > 20)
+            if (i_Name.Contains(" ") || i_Name.Length > 20 || i_Name.Length < 1)
             {
                 isValid = false;
             }

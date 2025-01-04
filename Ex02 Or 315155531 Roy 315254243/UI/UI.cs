@@ -176,16 +176,16 @@ namespace UI
             winnerPlayer = m_GameManager.whichPlayerWonAfterGameOverOneLose();
             Console.WriteLine($"The winner is {winnerPlayer.Name} ({winnerPlayer.PlayerType})!!");
             Console.WriteLine($"The current points Status:");
-            Console.WriteLine($"{m_GameManager.CurrPlayer.Name} ({m_GameManager.CurrPlayer.PlayerType}) have {m_GameManager.CurrPlayer.Points}");
-            Console.WriteLine($"{m_GameManager.LastPlayer.Name} ({m_GameManager.LastPlayer.PlayerType}) have {m_GameManager.LastPlayer.Points}");
+            Console.WriteLine($"{m_GameManager.Player1.Name} ({m_GameManager.Player1.PlayerType}) have {m_GameManager.Player1.Points}");
+            Console.WriteLine($"{m_GameManager.Player2.Name} ({m_GameManager.Player2.PlayerType}) have {m_GameManager.Player2.Points}");
         }
         
         private void tieMessage()
         {
             Console.WriteLine($"There is a tie (no one of the player have option to move)");
             Console.WriteLine($"The current points Status:");
-            Console.WriteLine($"{m_GameManager.CurrPlayer.Name} ({m_GameManager.CurrPlayer.PlayerType}) have {m_GameManager.CurrPlayer.Points}");
-            Console.WriteLine($"{m_GameManager.LastPlayer.Name} ({m_GameManager.LastPlayer.PlayerType}) have {m_GameManager.LastPlayer.Points}");
+            Console.WriteLine($"{m_GameManager.Player1.Name} ({m_GameManager.Player1.PlayerType}) have {m_GameManager.Player1.Points}");
+            Console.WriteLine($"{m_GameManager.Player2.Name} ({m_GameManager.Player2.PlayerType}) have {m_GameManager.Player2.Points}");
         }
 
         private string movePieceByUserChoice()
