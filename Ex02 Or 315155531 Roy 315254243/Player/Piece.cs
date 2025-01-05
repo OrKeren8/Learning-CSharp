@@ -16,20 +16,19 @@ namespace BackEnd
         X,
         U,
         K
-        //just if king need to check
     }
 
     public struct Piece
     {
 
-        private const int m_RegularPiecePoints = 1;
-        private const int m_KingPiecePoints = 4;
-        private Position m_Position;
-        private bool m_IsKing;
-        private ePieceSymbol m_Symbol;
-        private ePieceDirection m_PoneDirection;
-        private ePlayerType m_Player;
-        private int m_PointsValue;
+        private const int           k_RegularPiecePoints = 1;
+        private const int           k_KingPiecePoints = 4;
+        private Position            m_Position;
+        private bool                m_IsKing;
+        private ePieceSymbol        m_Symbol;
+        private ePieceDirection     m_PoneDirection;
+        private ePlayerType         m_Player;
+        private int                 m_PointsValue;
 
         public Piece(ePieceSymbol i_Symbol, Position i_Position, ePlayerType i_Player)
         {
@@ -37,7 +36,7 @@ namespace BackEnd
             m_Position = i_Position;
             m_IsKing = false;
             m_Player = i_Player;
-            m_PointsValue = m_RegularPiecePoints;
+            m_PointsValue = k_RegularPiecePoints;
 
             switch (m_Symbol)
             {
@@ -68,7 +67,7 @@ namespace BackEnd
             get { return m_Player; }
         }
 
-        public Position position
+        public Position PiecePosition
         {
             get {return m_Position;}
             set { m_Position = value;}
@@ -87,7 +86,7 @@ namespace BackEnd
         public void PromoteToKing()
         {
             m_IsKing = true;
-            m_PointsValue = m_KingPiecePoints;
+            m_PointsValue = k_KingPiecePoints;
             if(m_Symbol == ePieceSymbol.O)
             {
                 m_Symbol = ePieceSymbol.U;

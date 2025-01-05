@@ -9,13 +9,11 @@ namespace UI
         {
             bool isValid = int.TryParse(i_UserSelection, out o_UserSelection);
 
-            if (isValid)
+            if (isValid && !((o_UserSelection >= i_MinVal) && (o_UserSelection <= i_MaxVal)))
             {
-                if (!((o_UserSelection >= i_MinVal) && (o_UserSelection <= i_MaxVal)))
-                {
-                    isValid = false;
-                }
+                isValid = false;
             }
+
             return isValid;
         }
 
@@ -63,8 +61,8 @@ namespace UI
             {
                 IsValidLetters = false;
             }
+
             return IsValidLetters;
-             
         }
 
         private static bool checkLowerChar(char i_LowerChar)

@@ -6,7 +6,7 @@ namespace UI
 {
     public class UI
     {
-        private Menu m_Menu = new Menu();
+        private Menu        m_Menu = new Menu();
         private GameManager m_GameManager;
 
         public void MenuLoop()
@@ -142,9 +142,9 @@ namespace UI
             currentPlayerMove = movePieceByUserChoice();// first move by the first user //need to add to movePieceByUserChoice option of returning Q string 
             isFinishGame = StringValidator.IsQuitRequest(currentPlayerMove);
             Ex02.ConsoleUtils.Screen.Clear();
-            while ((!isFinishGame) && (!m_GameManager.checkIfSomeoneLoseAllPieces()) && (!m_GameManager.checkIfTheresNoOptionToMove()))//the main loop of the game
+            while ((!isFinishGame) && (!m_GameManager.CheckIfSomeoneLoseAllPieces()) && (!m_GameManager.CheckIfTheresNoOptionToMove()))//the main loop of the game
             {
-                currAditionalString = m_GameManager.CurrPlayer.IsPc? additionalPromptForPCMove : "";
+                currAditionalString = m_GameManager.CurrPlayer.r_IsPc? additionalPromptForPCMove : "";
                 printBoard(m_GameManager.GameBoard);
                 Console.WriteLine($"{m_GameManager.LastPlayer.Name}'s move ({m_GameManager.LastPlayer.PlayerType}) was: {m_GameManager.LastMove.ToString()}");
                 Console.WriteLine($"{m_GameManager.CurrPlayer.Name}'s Turn ({m_GameManager.CurrPlayer.PlayerType}): {currAditionalString}");
@@ -160,11 +160,11 @@ namespace UI
             }
             
             m_GameManager.EndRound();
-            if (m_GameManager.checkIfSomeoneLoseAllPieces())
+            if (m_GameManager.CheckIfSomeoneLoseAllPieces())
             {
                 winningMessage();
             }
-            else if (m_GameManager.checkIfTheresNoOptionToMove())
+            else if (m_GameManager.CheckIfTheresNoOptionToMove())
             {
                 tieMessage();
             }
@@ -173,7 +173,7 @@ namespace UI
         private void winningMessage()
         {
             Player winnerPlayer;
-            winnerPlayer = m_GameManager.whichPlayerWonAfterGameOverOneLose();
+            winnerPlayer = m_GameManager.WhichPlayerWonAfterGameOverOneLose();
             Console.WriteLine($"The winner is {winnerPlayer.Name} ({winnerPlayer.PlayerType})!!");
             Console.WriteLine($"The current points Status:");
             Console.WriteLine($"{m_GameManager.Player1.Name} ({m_GameManager.Player1.PlayerType}) have {m_GameManager.Player1.Points}");
@@ -203,7 +203,7 @@ namespace UI
             {
                 while (!isValidInput)
                 {
-                    if (!m_GameManager.CurrPlayer.IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
+                    if (!m_GameManager.CurrPlayer.r_IsPc && !StringValidator.CheckValidMove(currentPlayerMove))
                     {
                         Console.WriteLine("Wrong selection, should be in format of ROWcol>ROWcol, please enter valid choice");
                     }
