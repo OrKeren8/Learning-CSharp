@@ -17,3 +17,4 @@ project.lock.json
 *.tmp
 *.bak
 *.swp
+test/
