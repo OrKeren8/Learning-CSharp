@@ -79,5 +79,14 @@ namespace Ex04.Menus.Interfaces
 
             return itemIndex;
         }
+
+        public virtual void DetachObserver(IObserver i_Observer)
+        {
+           foreach (Item item in this.Items)
+           {
+                item.DetachObserver(i_Observer);
+           }
+            
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace Ex04.Menus.Interfaces
             this.Observers.Add(i_Observer);
         }
 
-        public void DetachObserver(IObserver i_Observer)
+        public virtual void DetachObserver(IObserver i_Observer)
         {
             this.Observers.Remove(i_Observer);
         }
