@@ -5,7 +5,7 @@ namespace Ex04.Menus.Interfaces
 
     public interface IObserver
     {
-        void NotifySelectedItem(Item i_Item);
+        void OnUserSelect(Item i_Item);
     }
 
     public abstract class Item
@@ -13,6 +13,7 @@ namespace Ex04.Menus.Interfaces
         public string Header { get; private set; }
         internal readonly List<IObserver> Observers = new List<IObserver>();
         internal List<Item> Items { get; set; } = new List<Item> {};
+        internal int LevelInMenu = 0;
 
         public Item(string i_Header)
         {
@@ -22,6 +23,7 @@ namespace Ex04.Menus.Interfaces
         public void AddItem(Item i_Item)
         {
             this.Items.Add(i_Item);
+            i_Item.LevelInMenu++;
         }
 
         public void AttachObserver(IObserver i_Observer)

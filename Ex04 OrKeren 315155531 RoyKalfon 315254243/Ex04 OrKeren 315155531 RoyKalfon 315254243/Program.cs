@@ -8,6 +8,7 @@ namespace Ex04.Menus.Test
         static void Main()
         {
             List<Item> items = createMenu();
+            Test firstTest = new Test(items);
             items[0].Show();
         }
 
