@@ -4,13 +4,15 @@ using System.Linq.Expressions;
 
 namespace Ex04.Menus.Interfaces
 {
-    internal class Menu: Item
+    public class Menu: Item
     {
-        private List<Item> Items { get; set; } = new List<Item> { new Item("exitOrBack") };
+        
         private readonly List<string> ZeroString = new List<string> { "exit", "go back" };
         private int MenuLevel = 0;
-        private readonly List<IObserver> Observers = new List<IObserver>();
-        public void Show()
+
+        public Menu(string i_Header): base(i_Header) { }
+
+        public override void Show()
         {
             int index = 1;
             Console.WriteLine(this.Header);
