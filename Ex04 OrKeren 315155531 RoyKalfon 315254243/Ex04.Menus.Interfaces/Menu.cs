@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Reflection;
 
 namespace Ex04.Menus.Interfaces
 {
@@ -9,22 +10,33 @@ namespace Ex04.Menus.Interfaces
         
         private readonly List<string> ZeroString = new List<string> { "exit", "go back" };
 
-        public Menu(string i_Header): base(i_Header) { }
+        public Menu(string i_Header, Menu i_Prev): base(i_Header, i_Prev) 
+        {
+            if (this.Prev == null)
+            {
+                new Action(this.ZeroString[0], this, eActionTypes.Exit);
+            }
+            else
+            {
+                new Action(this.ZeroString[1], this, eActionTypes.Back);
+            }
+
+        }
 
         public override void Show()
         {
-            int index = 1;
             printHeader();
-            foreach (var item in Items)
+            for(int i=1; i<this.Items.Count; i++ )
             {
-                this.printItem(item, index);
-                index++;
+                this.printItem(this.Items[i], i);
+
             }
-            int zeroStringIndex = this.LevelInMenu > 0 ? 1: 0;
+            
+            int zeroStringIndex = (this.Prev != null) ? 1: 0;
             Console.WriteLine($"0. to {this.ZeroString[zeroStringIndex]}");
 
             int userChoice = this.getValidChoiceFromUser();
-            this.notifyObservers(Items[userChoice - 1]);
+            this.notifyObservers(Items[userChoice]);
         }
 
         private void notifyObservers(Item i_Item)
@@ -55,7 +67,8 @@ namespace Ex04.Menus.Interfaces
             
             while (!(isValid  && parseSuccess))
             {
-                Console.WriteLine($"Please enter your choice (1-{max} or 0 to {this.ZeroString[this.LevelInMenu]})");
+                int zeroStringIndex = (this.Prev != null) ? 1 : 0;
+                Console.WriteLine($"Please enter your choice (1-{max} or 0 to {this.ZeroString[zeroStringIndex]})");
                 userChoice = Console.ReadLine();
                 parseSuccess = int.TryParse(userChoice, out itemIndex);
                 if (parseSuccess && itemIndex<=max)

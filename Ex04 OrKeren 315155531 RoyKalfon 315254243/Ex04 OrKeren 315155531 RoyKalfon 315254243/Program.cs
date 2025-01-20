@@ -16,17 +16,16 @@ namespace Ex04.Menus.Test
         {
             List<Item> items = new List<Item>();
             
-            Menu mainMenu = new Menu("Delegates Main Menu");
+            Menu mainMenu = new Menu("Delegates Main Menu", null);
             items.Add(mainMenu);
             
-            Menu subMenu1 = new Menu("Letters and Versions");
+            Menu subMenu1 = new Menu("Letters and Versions", mainMenu);
             items.Add(subMenu1);
             
-            Menu subMenu2 = new Menu("Show Current Date/Time");
+            Menu subMenu2 = new Menu("Show Current Date/Time", mainMenu);
             items.Add(subMenu2);
             
-            mainMenu.AddItem(subMenu1);
-            mainMenu.AddItem(subMenu2);
+            
 
             return items;
         }

@@ -13,17 +13,18 @@ namespace Ex04.Menus.Interfaces
         public string Header { get; private set; }
         internal readonly List<IObserver> Observers = new List<IObserver>();
         internal List<Item> Items { get; set; } = new List<Item> {};
-        internal int LevelInMenu = 0;
+        public Menu Prev {  get; private set; } = null;
 
-        public Item(string i_Header)
+        public Item(string i_Header, Menu prev)
         {
             this.Header = i_Header;
+            Prev = prev;
+            prev?.AddItem(this);
         }
 
         public void AddItem(Item i_Item)
         {
             this.Items.Add(i_Item);
-            i_Item.LevelInMenu++;
         }
 
         public void AttachObserver(IObserver i_Observer)
