@@ -3,100 +3,99 @@ using System;
 using System.Collections.Generic;
 
 
-
 namespace Ex04.Menus.Test
 {
-    internal class Test: IObserver
-    {
-        private List<Item> Items { get; set; }
 
-        public Test(List<Item> i_Items)
+    internal class Test
+    {
+        public abstract class TestActionObserver: IActionObserver
         {
-            this.Items = i_Items;
-            foreach (Item item in i_Items)
+            public int GetObserverFamilyCode() { return 12;}
+            public abstract void OnAction(Ex04.Menus.Interfaces.Item i_Item);
+
+        }
+
+        public class Exit : TestActionObserver
+        {
+            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
             {
-                item.AttachObserver(this as IObserver);
+                i_Item.Prev.DetachObserver(this);
             }
         }
 
-        public void OnUserSelect(Item i_Item)
+        public class CountLowercaseLetters : TestActionObserver
         {
-            if(i_Item is Menu)
+            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
             {
-                Console.Clear();
-                i_Item.Show();
-            }
-            else
-            {
-                this.implementAction((i_Item as Interfaces.Action).ActionType, (i_Item as Interfaces.Action));
-                Console.WriteLine();
+                int countOfLowerCase = 0;
+                Console.WriteLine("Please enter your string: ");
+                string userStringInput = Console.ReadLine();
+                foreach (char currenChar in userStringInput)
+                {
+                    if (currenChar >= 'a' || currenChar <= 'z')
+                    {
+                        countOfLowerCase++;
+                    }
+                }
+                Console.WriteLine($"The Amount of letters are: {countOfLowerCase}");
                 i_Item.Prev.Show();
             }
         }
 
-        private void implementAction(eActionTypes i_ActionType, Interfaces.Action I_Action) 
+        public class ShowCurrentDate : TestActionObserver
         {
-            switch (i_ActionType)
+            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
             {
-                case eActionTypes.CountLowercaseLetters:
-                    this.countLowercaseLetters();
-                    break;
-                case eActionTypes.ShowCurrentDate:
-                    this.showCurrentDate();
-                    break;
-                case eActionTypes.ShowCurrentDateTime:
-                    this.showCurrentDateTime();
-                    break;
-                case eActionTypes.ShowVersion:
-                    this.showVersion();
-                    break;
-                case eActionTypes.Exit:
-                    this.exit(I_Action);
-                    break;
-                case eActionTypes.Back:
-                    this.back(I_Action);
-                    break;
+                DateTime currentDate = DateTime.Now;
+                Console.WriteLine($"Current Date is {currentDate.Day}/{currentDate.Month}/{currentDate.Year}");
+                i_Item.Prev.Show();
             }
         }
-        private int countLowercaseLetters()
+
+        public class ShowCurrentDateTime : TestActionObserver
         {
-            int countOfLowerCase = 0;
-            Console.WriteLine("Please enter your string: ");
-            string userStringInput = Console.ReadLine();
-            foreach(char currenChar in userStringInput)
+            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
             {
-                if (currenChar >= 'a' || currenChar <= 'z')
-                {
-                    countOfLowerCase++;
-                }
+                DateTime currentDate = DateTime.Now;
+                Console.WriteLine($"Current Time is {currentDate.Hour}:{currentDate.Second}:{currentDate.Millisecond}");
+                i_Item.Prev.Show();
             }
-            return countOfLowerCase;
-        }
-        private void showCurrentDate()
-        {
-            DateTime currentDate = DateTime.Today;
-            Console.WriteLine($"Current Date is {currentDate.Day}/{currentDate.Month}/{currentDate.Year}");
-        }
-        private void showCurrentDateTime()
-        {
-            DateTime currentDate = DateTime.Today;
-            Console.WriteLine($"Current Date is {currentDate.Hour}:{currentDate.Second}/{currentDate.Millisecond}");
-        }
-        private void showVersion()
-        {
-            Console.WriteLine("App Version: 25.1.4.5480");
         }
 
-        private void exit(Item i_Item)
+        public class ShowVersion : TestActionObserver
         {
-            i_Item.Prev.DetachObserver(this as IObserver);
+            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            {
+                Console.WriteLine("App Version: 25.1.4.5480");
+                i_Item.Prev.Show();
+            }
         }
 
-        private void back(Item i_Item)
+        public class Back : TestActionObserver
         {
-            Console.Clear();
-            i_Item.Prev.Prev.Show();
+            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            {
+                Console.Clear();
+                i_Item.Prev.Prev.Show();
+            }
         }
 
+        public class Show : TestActionObserver
+        {
+            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            {
+                Console.Clear();
+                i_Item.Show();
+
+            }
+        }
+
+        public Test(List<Menu> i_MainMenus)
+        {
+            foreach(Menu menu in i_MainMenus)
+            {
+                menu.Show();
+            }
+        }
     }
 }

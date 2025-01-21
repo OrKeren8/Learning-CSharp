@@ -10,10 +10,11 @@ namespace Ex04.Menus.Interfaces
         
         private readonly List<string> ZeroString = new List<string> { "exit", "go back" };
 
-        public Menu(string i_Header, Menu i_Prev): base(i_Header, i_Prev) 
+        public Menu(string i_Header, Menu i_Prev, IActionObserver i_ActionObserver, 
+                    (IActionObserver, IActionObserver) i_ExitOrBackObserver): base(i_Header, i_Prev, i_ActionObserver) 
         {
-            var (existOrBack, existOrBackStr) = this.Prev == null ? (eActionTypes.Exit, this.ZeroString[0]) : (eActionTypes.Back, this.ZeroString[1]);
-            new Action(existOrBackStr, this, existOrBack);
+            var (existOrBackStr, observer) = this.Prev == null ? (this.ZeroString[0], i_ExitOrBackObserver.Item1) : (this.ZeroString[1], i_ExitOrBackObserver.Item2);
+            new Action(existOrBackStr, this, observer);
 
         }
 
@@ -30,15 +31,8 @@ namespace Ex04.Menus.Interfaces
             Console.WriteLine($"0. to {this.ZeroString[zeroStringIndex]}");
 
             int userChoice = this.getValidChoiceFromUser();
-            this.notifyObservers(Items[userChoice]);
-        }
-
-        private void notifyObservers(Item i_Item)
-        {
-            foreach (IObserver observer in Observers)
-            {
-                observer.OnUserSelect(i_Item);
-            }
+            Items[userChoice].notifyObservers();
+            //this.notifyObservers();
         }
 
         private void printItem(Item i_Item, int i_Index)
@@ -74,13 +68,14 @@ namespace Ex04.Menus.Interfaces
             return itemIndex;
         }
 
-        public virtual void DetachObserver(IObserver i_Observer)
+        public override void DetachObserver(IActionObserver i_Observer)
         {
            foreach (Item item in this.Items)
            {
                 item.DetachObserver(i_Observer);
            }
-            
+
+           base.DetachObserver(i_Observer);
         }
     }
 }

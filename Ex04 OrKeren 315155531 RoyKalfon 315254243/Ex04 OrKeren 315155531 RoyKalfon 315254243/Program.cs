@@ -7,32 +7,23 @@ namespace Ex04.Menus.Test
     {
         static void Main()
         {
-            List<Item> items = createMenu();
-            Test firstTest = new Test(items);
-            items[0].Show();
+            Menu mainMenu =  createMenu();
+            Test firstTest = new Test(new List<Menu> { mainMenu });
         }
 
-        static List<Item> createMenu()
+        static Menu createMenu()
         {
-            List<Item> items = new List<Item>();
-            
-            Menu mainMenu = new Menu("Delegates Main Menu", null);
-            Menu subMenu1 = new Menu("Letters and Versions", mainMenu);
-            Menu subMenu2 = new Menu("Show Current Date/Time", mainMenu);
-            Action action1 = new Action("Show Version", subMenu1, eActionTypes.ShowVersion);
-            Action action2 = new Action("Count Lowercase Letters", subMenu1, eActionTypes.CountLowercaseLetters);
-            Action action3 = new Action("Show Current Time", subMenu2, eActionTypes.ShowCurrentDateTime);
-            Action action4 = new Action("Show Current Date", subMenu2, eActionTypes.ShowCurrentDate);
+            var backExistObserver = (new Test.Exit(), new Test.Back());
 
-            items.Add(mainMenu);
-            items.Add(subMenu1);
-            items.Add(subMenu2);
-            items.Add(action1);
-            items.Add(action2);
-            items.Add(action3);
-            items.Add(action4);
+            Menu mainMenu = new Menu("Delegates Main Menu", null, new Test.Show(), backExistObserver);
+            Menu subMenu1 = new Menu("Letters and Versions", mainMenu, new Test.Show(), backExistObserver);
+            Menu subMenu2 = new Menu("Show Current Date/Time", mainMenu, new Test.Show(), backExistObserver);
+            Action action1 = new Action("Show Version", subMenu1, new Test.ShowVersion());
+            Action action2 = new Action("Count Lowercase Letters", subMenu1, new Test.CountLowercaseLetters());
+            Action action3 = new Action("Show Current Time", subMenu2, new Test.ShowCurrentDateTime());
+            Action action4 = new Action("Show Current Date", subMenu2, new Test.ShowCurrentDate());
 
-            return items;
+            return mainMenu;
         }
     }
 }
