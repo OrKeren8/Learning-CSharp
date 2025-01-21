@@ -21,14 +21,16 @@ namespace Ex04.Menus.Test
 
         public void OnUserSelect(Item i_Item)
         {
-            Console.Clear();
             if(i_Item is Menu)
             {
+                Console.Clear();
                 i_Item.Show();
             }
             else
             {
                 this.implementAction((i_Item as Interfaces.Action).ActionType, (i_Item as Interfaces.Action));
+                Console.WriteLine();
+                i_Item.Prev.Show();
             }
         }
 
@@ -54,7 +56,6 @@ namespace Ex04.Menus.Test
                 case eActionTypes.Back:
                     this.back(I_Action);
                     break;
-
             }
         }
         private int countLowercaseLetters()
@@ -88,7 +89,7 @@ namespace Ex04.Menus.Test
 
         private void exit(Item i_Item)
         {
-            i_Item.DetachObserver(this as IObserver);
+            i_Item.Prev.DetachObserver(this as IObserver);
         }
 
         private void back(Item i_Item)

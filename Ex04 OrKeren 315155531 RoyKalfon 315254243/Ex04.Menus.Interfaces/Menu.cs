@@ -12,14 +12,8 @@ namespace Ex04.Menus.Interfaces
 
         public Menu(string i_Header, Menu i_Prev): base(i_Header, i_Prev) 
         {
-            if (this.Prev == null)
-            {
-                new Action(this.ZeroString[0], this, eActionTypes.Exit);
-            }
-            else
-            {
-                new Action(this.ZeroString[1], this, eActionTypes.Back);
-            }
+            var (existOrBack, existOrBackStr) = this.Prev == null ? (eActionTypes.Exit, this.ZeroString[0]) : (eActionTypes.Back, this.ZeroString[1]);
+            new Action(existOrBackStr, this, existOrBack);
 
         }
 
