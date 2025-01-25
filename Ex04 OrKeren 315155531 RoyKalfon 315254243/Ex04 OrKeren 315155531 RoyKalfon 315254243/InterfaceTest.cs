@@ -15,14 +15,6 @@ namespace Ex04.Menus.Test
 
         }
 
-        public class Exit : TestActionObserver
-        {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
-            {
-                i_Item.Prev.DetachObserver(this);
-            }
-        }
-
         public class CountLowercaseLetters : TestActionObserver
         {
             public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
@@ -38,7 +30,6 @@ namespace Ex04.Menus.Test
                     }
                 }
                 Console.WriteLine($"The Amount of letters are: {countOfLowerCase}");
-                i_Item.Prev.Show();
             }
         }
 
@@ -48,7 +39,6 @@ namespace Ex04.Menus.Test
             {
                 DateTime currentDate = DateTime.Now;
                 Console.WriteLine($"Current Date is {currentDate.Day}/{currentDate.Month}/{currentDate.Year}");
-                i_Item.Prev.Show();
             }
         }
 
@@ -58,7 +48,6 @@ namespace Ex04.Menus.Test
             {
                 DateTime currentDate = DateTime.Now;
                 Console.WriteLine($"Current Time is {currentDate.Hour}:{currentDate.Second}:{currentDate.Millisecond}");
-                i_Item.Prev.Show();
             }
         }
 
@@ -67,26 +56,6 @@ namespace Ex04.Menus.Test
             public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
             {
                 Console.WriteLine("App Version: 25.1.4.5480");
-                i_Item.Prev.Show();
-            }
-        }
-
-        public class Back : TestActionObserver
-        {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
-            {
-                Console.Clear();
-                i_Item.Prev.Prev.Show();
-            }
-        }
-
-        public class Show : TestActionObserver
-        {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
-            {
-                Console.Clear();
-                i_Item.Show();
-
             }
         }
 

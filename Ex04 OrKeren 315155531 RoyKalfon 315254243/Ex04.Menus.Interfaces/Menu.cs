@@ -10,29 +10,43 @@ namespace Ex04.Menus.Interfaces
         
         private readonly List<string> ZeroString = new List<string> { "exit", "go back" };
 
-        public Menu(string i_Header, Menu i_Prev, IActionObserver i_ActionObserver, 
-                    (IActionObserver, IActionObserver) i_ExitOrBackObserver): base(i_Header, i_Prev, i_ActionObserver) 
-        {
-            var (existOrBackStr, observer) = this.Prev == null ? (this.ZeroString[0], i_ExitOrBackObserver.Item1) : (this.ZeroString[1], i_ExitOrBackObserver.Item2);
-            new Action(existOrBackStr, this, observer);
-
-        }
+        public Menu(string i_Header, Menu i_Prev, IActionObserver i_Observer): base(i_Header, i_Prev, i_Observer) {}
 
         public override void Show()
         {
             printHeader();
-            for(int i=1; i<this.Items.Count; i++ )
+            for (int i = 0; i < this.Items.Count; i++)
             {
-                this.printItem(this.Items[i], i);
-
+                this.printItem(this.Items[i], i + 1);
             }
-            
-            int zeroStringIndex = (this.Prev != null) ? 1: 0;
+
+            int zeroStringIndex = (this.Prev != null) ? 1 : 0;
             Console.WriteLine($"0. to {this.ZeroString[zeroStringIndex]}");
 
             int userChoice = this.getValidChoiceFromUser();
-            Items[userChoice].notifyObservers();
-            //this.notifyObservers();
+            if (userChoice == 0)
+            {
+                if (this.Prev != null)
+                {
+                    this.goBack();
+                }
+            }
+            else
+            {
+                userChoice = userChoice - 1;
+                if (Items[userChoice] is Interfaces.Menu)
+                {
+                    Console.WriteLine();
+                    Items[userChoice].Show();
+                }
+                else
+                {
+                    Items[userChoice].notifyObservers(); //only when item is from action type
+                    Console.WriteLine();
+                    this.Show();
+                }
+            }
+            Console.WriteLine();
         }
 
         private void printItem(Item i_Item, int i_Index)
@@ -66,6 +80,12 @@ namespace Ex04.Menus.Interfaces
             }
 
             return itemIndex;
+        }
+
+        private void goBack()
+        {
+            Console.Clear();
+            this.Prev.Show();
         }
 
         public override void DetachObserver(IActionObserver i_Observer)

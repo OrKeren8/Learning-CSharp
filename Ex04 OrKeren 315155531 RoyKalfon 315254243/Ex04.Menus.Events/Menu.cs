@@ -34,13 +34,17 @@ namespace Ex04.Menus.Events
                 userChoice = userChoice - 1;
                 if(Items[userChoice] is Events.Menu)
                 {
+                    Console.WriteLine();
                     Items[userChoice].Show();
                 }
                 else
                 {
                     Items[userChoice].notifyObservers(); //only when item is from action type
+                    Console.WriteLine();
+                    this.Show();
                 }
             }
+            Console.WriteLine();
         }
 
         private void printItem(Item i_Item, int i_Index)
@@ -51,7 +55,7 @@ namespace Ex04.Menus.Events
         private void printHeader()
         {
             Console.WriteLine($"** {this.Header} **");
-            Console.WriteLine("------------------------");
+            Console.WriteLine("-----------------------------");
         }
 
         private int getValidChoiceFromUser()
