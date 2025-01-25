@@ -13,9 +13,9 @@ namespace Ex04.Menus.Events
         public override void Show()
         {
             printHeader();
-            for (int i = 1; i < this.Items.Count; i++)
+            for (int i = 0; i < this.Items.Count; i++)
             {
-                this.printItem(this.Items[i], i);
+                this.printItem(this.Items[i], i+1);
             }
 
             int zeroStringIndex = (this.Prev != null) ? 1 : 0;
@@ -31,7 +31,15 @@ namespace Ex04.Menus.Events
             }
             else
             {
-                Items[userChoice].notifyObservers();
+                userChoice = userChoice - 1;
+                if(Items[userChoice] is Events.Menu)
+                {
+                    Items[userChoice].Show();
+                }
+                else
+                {
+                    Items[userChoice].notifyObservers(); //only when item is from action type
+                }
             }
         }
 

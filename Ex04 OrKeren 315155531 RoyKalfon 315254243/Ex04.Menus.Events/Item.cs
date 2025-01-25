@@ -9,7 +9,7 @@ namespace Ex04.Menus.Events
         internal List<Item> Items { get; set; } = new List<Item> { };
         public Menu Prev { get; private set; } = null;
 
-        public event Action m_OnActionDelegates;
+        public event Action<Item> m_OnActionDelegates;
 
         public Item(string i_Header, Menu prev)
         {
@@ -27,7 +27,7 @@ namespace Ex04.Menus.Events
         {
             if (this.m_OnActionDelegates != null)
             {
-                this.m_OnActionDelegates.Invoke();
+                this.m_OnActionDelegates.Invoke(this);
             }
         }
 

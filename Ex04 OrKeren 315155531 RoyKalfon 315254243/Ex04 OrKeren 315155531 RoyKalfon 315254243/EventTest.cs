@@ -5,27 +5,29 @@ using System.Collections.Generic;
 
 namespace Ex04.Menus.Test
 {
-
-    internal class Test
+   /* interface TestActionObserver
     {
-        public abstract class TestActionObserver: IActionObserver
-        {
-            public int GetObserverFamilyCode() { return 12;}
-            public abstract void OnAction(Ex04.Menus.Interfaces.Item i_Item);
+        void OnAction(Events.Item i_Item);
+    }*/
 
-        }
-
-        public class Exit : TestActionObserver
+    public class EventTest
+    {
+        public class BaseAction
         {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            public BaseAction(Events.Item i_Action) 
             {
-                i_Item.Prev.DetachObserver(this);
+                i_Action.m_OnActionDelegates += new System.Action<Events.Item>(this.OnAction);
+                
             }
-        }
 
-        public class CountLowercaseLetters : TestActionObserver
+            public virtual void OnAction(Events.Item i_Item) { }
+        }
+            
+        public class CountLowercaseLetters : BaseAction
         {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            
+            public CountLowercaseLetters(Events.Item i_Action): base(i_Action) { }
+            public override void OnAction(Events.Item i_Item)
             {
                 int countOfLowerCase = 0;
                 Console.WriteLine("Please enter your string: ");
@@ -42,9 +44,11 @@ namespace Ex04.Menus.Test
             }
         }
 
-        public class ShowCurrentDate : TestActionObserver
+        public class ShowCurrentDate : BaseAction
         {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            public ShowCurrentDate(Events.Item i_Action): base(i_Action) { }
+
+            public override void OnAction(Events.Item i_Item)
             {
                 DateTime currentDate = DateTime.Now;
                 Console.WriteLine($"Current Date is {currentDate.Day}/{currentDate.Month}/{currentDate.Year}");
@@ -52,9 +56,10 @@ namespace Ex04.Menus.Test
             }
         }
 
-        public class ShowCurrentDateTime : TestActionObserver
+        public class ShowCurrentDateTime : BaseAction
         {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            public ShowCurrentDateTime(Events.Item i_Action) : base(i_Action) { }
+            public override void OnAction(Events.Item i_Item)
             {
                 DateTime currentDate = DateTime.Now;
                 Console.WriteLine($"Current Time is {currentDate.Hour}:{currentDate.Second}:{currentDate.Millisecond}");
@@ -62,27 +67,20 @@ namespace Ex04.Menus.Test
             }
         }
 
-        public class ShowVersion : TestActionObserver
+        public class ShowVersion : BaseAction
         {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            public ShowVersion(Events.Item i_Action) : base(i_Action) { }
+            public override void OnAction(Events.Item i_Item)
             {
                 Console.WriteLine("App Version: 25.1.4.5480");
                 i_Item.Prev.Show();
             }
         }
-
-        public class Back : TestActionObserver
+        public class Show : BaseAction
         {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
-            {
-                Console.Clear();
-                i_Item.Prev.Prev.Show();
-            }
-        }
+            public Show(Events.Item i_Action) : base(i_Action) { }
 
-        public class Show : TestActionObserver
-        {
-            public override void OnAction(Ex04.Menus.Interfaces.Item i_Item)
+            public override void OnAction(Events.Item i_Item)
             {
                 Console.Clear();
                 i_Item.Show();
@@ -90,12 +88,9 @@ namespace Ex04.Menus.Test
             }
         }
 
-        public Test(List<Menu> i_MainMenus)
+        public EventTest(Events.Menu i_MainMenus)
         {
-            foreach(Menu menu in i_MainMenus)
-            {
-                menu.Show();
-            }
+            i_MainMenus.Show();
         }
     }
 }
