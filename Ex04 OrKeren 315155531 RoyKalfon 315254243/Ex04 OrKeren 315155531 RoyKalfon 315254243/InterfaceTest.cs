@@ -12,7 +12,6 @@ namespace Ex04.Menus.Test
         {
             public int GetObserverFamilyCode() { return 12;}
             public abstract void OnAction(Ex04.Menus.Interfaces.Item i_Item);
-
         }
 
         public class CountLowercaseLetters : TestActionObserver
@@ -22,12 +21,13 @@ namespace Ex04.Menus.Test
                 int countOfLowerCase = 0;
                 Console.WriteLine("Please enter your string: ");
                 string userStringInput = Console.ReadLine();
-                foreach (char currenChar in userStringInput)
+                foreach (char currentChar in userStringInput)
                 {
-                    if (currenChar >= 'a' || currenChar <= 'z')
+                    if (currentChar >= 'a' || currentChar <= 'z')
                     {
                         countOfLowerCase++;
                     }
+
                 }
                 Console.WriteLine($"The Amount of letters are: {countOfLowerCase}");
             }

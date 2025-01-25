@@ -5,19 +5,13 @@ using System.Collections.Generic;
 
 namespace Ex04.Menus.Test
 {
-   /* interface TestActionObserver
-    {
-        void OnAction(Events.Item i_Item);
-    }*/
-
     public class EventTest
     {
         public class BaseAction
         {
             public BaseAction(Events.Item i_Action) 
             {
-                i_Action.m_OnActionDelegates += new System.Action<Events.Item>(this.OnAction);
-                
+                i_Action.OnActionDelegates += new System.Action<Events.Item>(this.OnAction);
             }
 
             public virtual void OnAction(Events.Item i_Item) { }
@@ -25,16 +19,16 @@ namespace Ex04.Menus.Test
             
         public class CountLowercaseLetters : BaseAction
         {
-            
             public CountLowercaseLetters(Events.Item i_Action): base(i_Action) { }
+   
             public override void OnAction(Events.Item i_Item)
             {
                 int countOfLowerCase = 0;
                 Console.WriteLine("Please enter your string: ");
                 string userStringInput = Console.ReadLine();
-                foreach (char currenChar in userStringInput)
+                foreach (char currentChar in userStringInput)
                 {
-                    if (currenChar >= 'a' || currenChar <= 'z')
+                    if (currentChar >= 'a' || currentChar <= 'z')
                     {
                         countOfLowerCase++;
                     }

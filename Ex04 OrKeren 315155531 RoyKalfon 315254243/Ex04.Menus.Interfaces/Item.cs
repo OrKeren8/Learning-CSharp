@@ -9,7 +9,7 @@ namespace Ex04.Menus.Interfaces
         void OnAction(Item i_Item);
     }
 
-    public abstract class Item
+    public class Item
     {
         public string Header { get; private set; }
         internal List<IActionObserver> Observers = new List<IActionObserver>();
@@ -44,15 +44,15 @@ namespace Ex04.Menus.Interfaces
                 {
                     observersToRemove.Add(observer);
                 }
-            }
 
+            }
             foreach (var observer in observersToRemove)
             {
                 this.Observers.Remove(observer);
             }
         }
 
-        internal void notifyObservers()
+        internal void NotifyObservers()
         {
             List<IActionObserver> observersCopy = new List<IActionObserver>(this.Observers);
 
@@ -62,7 +62,7 @@ namespace Ex04.Menus.Interfaces
             }
         }
 
-        public abstract void Show();
+        public virtual void Show() { }
 
     }
 }

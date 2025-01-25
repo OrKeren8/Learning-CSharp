@@ -22,10 +22,10 @@ namespace Ex04.Menus.Test
             Interfaces.Menu mainMenu = new Interfaces.Menu("Delegates Main Menu Interfaces Style", null, null);
             Interfaces.Menu subMenu1 = new Interfaces.Menu("Letters and Versions", mainMenu, null);
             Interfaces.Menu subMenu2 = new Interfaces.Menu("Show Current Date/Time", mainMenu, null);
-            Interfaces.Action action1 = new Interfaces.Action("Show Version", subMenu1, new InterfaceTest.ShowVersion());
-            Interfaces.Action action2 = new Interfaces.Action("Count Lowercase Letters", subMenu1, new InterfaceTest.CountLowercaseLetters());
-            Interfaces.Action action3 = new Interfaces.Action("Show Current Time", subMenu2, new InterfaceTest.ShowCurrentDateTime());
-            Interfaces.Action action4 = new Interfaces.Action("Show Current Date", subMenu2, new InterfaceTest.ShowCurrentDate());
+            Interfaces.Item action1 = new Interfaces.Item("Show Version", subMenu1, new InterfaceTest.ShowVersion());
+            Interfaces.Item action2 = new Interfaces.Item("Count Lowercase Letters", subMenu1, new InterfaceTest.CountLowercaseLetters());
+            Interfaces.Item action3 = new Interfaces.Item("Show Current Time", subMenu2, new InterfaceTest.ShowCurrentDateTime());
+            Interfaces.Item action4 = new Interfaces.Item("Show Current Date", subMenu2, new InterfaceTest.ShowCurrentDate());
 
             return mainMenu;
         }

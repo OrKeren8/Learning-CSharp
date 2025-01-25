@@ -8,8 +8,7 @@ namespace Ex04.Menus.Events
         public string Header { get; private set; }
         internal List<Item> Items { get; set; } = new List<Item> { };
         public Menu Prev { get; private set; } = null;
-
-        public event Action<Item> m_OnActionDelegates;
+        public event Action<Item> OnActionDelegates;
 
         public Item(string i_Header, Menu prev)
         {
@@ -23,12 +22,9 @@ namespace Ex04.Menus.Events
             this.Items.Add(i_Item);
         }
 
-        internal void notifyObservers()
+        internal void NotifyObservers()
         {
-            if (this.m_OnActionDelegates != null)
-            {
-                this.m_OnActionDelegates.Invoke(this);
-            }
+            this.OnActionDelegates?.Invoke(this);
         }
 
         public virtual void Show() { }

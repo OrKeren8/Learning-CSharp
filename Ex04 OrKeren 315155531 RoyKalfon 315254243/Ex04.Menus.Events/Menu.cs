@@ -5,9 +5,7 @@ namespace Ex04.Menus.Events
 {
     public class Menu : Item
     {
-
-        private readonly List<string> ZeroString = new List<string> { "exit", "go back" };
-
+        private readonly List<string> r_ZeroString = new List<string> { "exit", "go back" };
         public Menu(string i_Header, Menu i_Prev) : base(i_Header, i_Prev){}
 
         public override void Show()
@@ -17,10 +15,8 @@ namespace Ex04.Menus.Events
             {
                 this.printItem(this.Items[i], i+1);
             }
-
             int zeroStringIndex = (this.Prev != null) ? 1 : 0;
-            Console.WriteLine($"0. to {this.ZeroString[zeroStringIndex]}");
-
+            Console.WriteLine($"0. to {this.r_ZeroString[zeroStringIndex]}");
             int userChoice = this.getValidChoiceFromUser();
             if(userChoice == 0)
             {
@@ -37,13 +33,15 @@ namespace Ex04.Menus.Events
                     Console.WriteLine();
                     Items[userChoice].Show();
                 }
+
                 else
                 {
-                    Items[userChoice].notifyObservers(); //only when item is from action type
+                    Items[userChoice].NotifyObservers(); //only when item is from action type
                     Console.WriteLine();
                     this.Show();
                 }
             }
+
             Console.WriteLine();
         }
 
@@ -60,7 +58,6 @@ namespace Ex04.Menus.Events
 
         private int getValidChoiceFromUser()
         {
-            string userChoice;
             int itemIndex = 0;
             int max = this.Items.Count;
             bool isValid = false, parseSuccess = false;
@@ -68,8 +65,8 @@ namespace Ex04.Menus.Events
             while (!(isValid && parseSuccess))
             {
                 int zeroStringIndex = (this.Prev != null) ? 1 : 0;
-                Console.WriteLine($"Please enter your choice (1-{max} or 0 to {this.ZeroString[zeroStringIndex]})");
-                userChoice = Console.ReadLine();
+                Console.WriteLine($"Please enter your choice (1-{max} or 0 to {this.r_ZeroString[zeroStringIndex]})");
+                string userChoice = Console.ReadLine();
                 parseSuccess = int.TryParse(userChoice, out itemIndex);
                 if (parseSuccess && itemIndex <= max)
                 {
