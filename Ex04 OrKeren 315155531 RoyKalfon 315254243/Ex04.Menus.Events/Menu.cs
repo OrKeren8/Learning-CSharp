@@ -36,7 +36,7 @@ namespace Ex04.Menus.Events
 
                 else
                 {
-                    Items[userChoice].NotifyObservers(); //only when item is from action type
+                    Items[userChoice].OnAction(); //only when item is from action type
                     Console.WriteLine();
                     this.Show();
                 }

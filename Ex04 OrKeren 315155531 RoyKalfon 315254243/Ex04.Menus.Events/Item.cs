@@ -22,7 +22,7 @@ namespace Ex04.Menus.Events
             this.Items.Add(i_Item);
         }
 
-        internal void NotifyObservers()
+        internal virtual void OnAction()
         {
             this.OnActionDelegates?.Invoke(this);
         }

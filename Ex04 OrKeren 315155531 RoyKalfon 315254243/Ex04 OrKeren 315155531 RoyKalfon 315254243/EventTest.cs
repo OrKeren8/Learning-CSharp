@@ -11,17 +11,17 @@ namespace Ex04.Menus.Test
         {
             public BaseAction(Events.Item i_Action) 
             {
-                i_Action.OnActionDelegates += new System.Action<Events.Item>(this.OnAction);
+                i_Action.OnActionDelegates += new System.Action<Events.Item>(this.Item_Selected);
             }
 
-            public virtual void OnAction(Events.Item i_Item) { }
+            public virtual void Item_Selected(Events.Item i_Item) { }
         }
             
         public class CountLowercaseLetters : BaseAction
         {
             public CountLowercaseLetters(Events.Item i_Action): base(i_Action) { }
    
-            public override void OnAction(Events.Item i_Item)
+            public override void Item_Selected(Events.Item i_Item)
             {
                 int countOfLowerCase = 0;
                 Console.WriteLine("Please enter your string: ");
@@ -41,7 +41,7 @@ namespace Ex04.Menus.Test
         {
             public ShowCurrentDate(Events.Item i_Action): base(i_Action) { }
 
-            public override void OnAction(Events.Item i_Item)
+            public override void Item_Selected(Events.Item i_Item)
             {
                 DateTime currentDate = DateTime.Now;
                 Console.WriteLine($"Current Date is {currentDate.Day}/{currentDate.Month}/{currentDate.Year}");
@@ -51,7 +51,7 @@ namespace Ex04.Menus.Test
         public class ShowCurrentDateTime : BaseAction
         {
             public ShowCurrentDateTime(Events.Item i_Action) : base(i_Action) { }
-            public override void OnAction(Events.Item i_Item)
+            public override void Item_Selected(Events.Item i_Item)
             {
                 DateTime currentDate = DateTime.Now;
                 Console.WriteLine($"Current Time is {currentDate.Hour}:{currentDate.Second}:{currentDate.Millisecond}");
@@ -61,7 +61,7 @@ namespace Ex04.Menus.Test
         public class ShowVersion : BaseAction
         {
             public ShowVersion(Events.Item i_Action) : base(i_Action) { }
-            public override void OnAction(Events.Item i_Item)
+            public override void Item_Selected(Events.Item i_Item)
             {
                 Console.WriteLine("App Version: 25.1.4.5480");
             }
